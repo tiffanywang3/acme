@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        required: true
     },
     password: {
         type: String
@@ -23,6 +24,21 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+    },
+    shipping_address: {
+        type: String
+    },
+    billing_address: {
+        type: String
+    },
+    first_name: {
+        type: String
+    },
+    last_name: {
+        type: String
+    },
+    phone_number: {
+        type: String
     }
 });
 
