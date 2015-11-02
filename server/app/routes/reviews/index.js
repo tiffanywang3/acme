@@ -29,7 +29,7 @@ router.get('/user/:userId', function(req, res, next){
 router.post('/', function(req, res, next){
     Review.create(req.body)
         .then(function(review){
-            res.send(review);
+            res.status(201).send(review);
         })
 })
 
@@ -43,6 +43,6 @@ router.put('/:id', function(req, res, next){
 router.delete('/:id', function(req, res, next){
     Review.findByIdAndRemove(req.params.id)
         .then(function(review){
-            res.send(review);
+            res.status(204).send(review);
         })
 })
