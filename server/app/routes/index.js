@@ -4,6 +4,8 @@ module.exports = router;
 
 router.use('/members', require('./members'));
 router.use('/users', require('./users'));
+router.use('/carts', require('./carts'));
+router.use('/reviews', require('./reviews'));
 
 // Make sure this is after all of
 // the registered routes!
