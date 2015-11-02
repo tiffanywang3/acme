@@ -3,9 +3,10 @@ var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
 
+var Product = require ("../../db/models/products.js");
 
 router.get("/", function (req, res, next){
-	Products.find()
+	Product.find()
 	.then (function (allProducts){
 		res.send(allProducts)
 	})
@@ -13,7 +14,7 @@ router.get("/", function (req, res, next){
 })
 
 router.get("/:productId", function (req, res, next){
-	Products.findById(req.params.productId)
+	Product.findById(req.params.productId)
 	.then (function (allProducts){
 		res.send(allProducts)
 	}, function(err){
@@ -24,7 +25,7 @@ router.get("/:productId", function (req, res, next){
 
 
 router.get("/types/:type", function (req, res, next){
-	Products.find({type: req.params.type})
+	Product.find({type: req.params.type})
 	.then (function (foundProducts){
 		res.send(foundProducts)
 	}})
@@ -32,7 +33,7 @@ router.get("/types/:type", function (req, res, next){
 })
 
 router.get("/shows/:show_name", function (req, res, next){
-	Products.find({show_name: req.params.show_name})
+	Product.find({show_name: req.params.show_name})
 	.then (function (foundProducts){
 		res.send(foundProducts)
 	})
