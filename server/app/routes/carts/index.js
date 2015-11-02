@@ -40,7 +40,7 @@ router.put('/:id', function(req, res, next){
 router.delete('/:id', function(req, res, next){
     Cart.findByIdAndRemove(req.params.id)
         .then(function(cart){
-            res.send(cart);
+            res.status(204).send(cart);
         })
         .then(null, next);
 })
