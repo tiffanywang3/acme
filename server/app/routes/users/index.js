@@ -2,6 +2,7 @@
 var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
+var User = require('../../db/models/user.js')
 
 
 router.get('/:user_id', function(req, res, next){
