@@ -8,7 +8,10 @@ var schema = new mongoose.Schema({
         quantity: { type: Number },
         unit_price: { type: Number }
         }],
-    status: { type: String }
+    status: { type: String, enum: {
+         values: ["active", "ordered", "shipped", "delivered"],
+         message: "Invalid value for status."
+    } }
 });
 
 module.exports = mongoose.model('Cart', schema);
