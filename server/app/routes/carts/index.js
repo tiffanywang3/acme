@@ -24,7 +24,7 @@ router.get('/:id', function(req, res, next){
 router.post('/', function(req, res, next){
     Cart.create(req.body)
         .then(function(cart){
-            res.send(cart);
+            res.status(201).send(cart);
         })
         .then(null, next);
 })
