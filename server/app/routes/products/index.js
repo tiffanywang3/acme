@@ -3,7 +3,7 @@ var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
 
-var Product = require ("../../../db/models/products.js");
+var Product = require ("../../../db/models/product.js");
 
 router.get("/", function (req, res, next){
 	Product.find()
