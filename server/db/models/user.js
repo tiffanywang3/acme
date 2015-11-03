@@ -74,6 +74,7 @@ schema.pre('save', function (next) {
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
 
+//need to decide format that carts will come back in. Array?
 schema.method('retrieveHistory', function(){
     return Cart.getCartHistory(this);
 
