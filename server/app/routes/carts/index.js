@@ -18,6 +18,7 @@ router.get('/', function(req, res, next){
 // Get one cart by ID
 router.get('/:id', function(req, res, next){
     Cart.findById(req.params.id)
+        .populate('items.product').exec()
         .then(function(cart){
             res.send(cart);
         })
@@ -53,7 +54,7 @@ router.delete('/:id', function(req, res, next){
 
 // From product page
 // Add item to items list
-// req.body { product: "23XSF43VREG", quantity: 2, unit_price: 5}
+// req.body { product: "23XSF43VREG", quantity: 2}
 router.post('/:id', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
@@ -73,6 +74,7 @@ router.post('/:id', function(req, res, next){
 
 // From shopping cart
 // Update quantity of existing item
+// req.body { product: "23XSF43VREG", quantity: 2}
 router.put('/:id/item', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
@@ -110,10 +112,15 @@ router.delete('/:id/:productId', function(req, res, next){
 router.put('/checkout/:id', function(req, res, next){
     var new_cart;
     Cart.findById(req.params.id)
+        .populate('items.product').exec()
         .then(function(cart){
             cart.status = "ordered";
             cart.shipping_address = req.body.shipping_address;
             cart.checkout_date = Date.now();
+            // for product in cart.items, populate, and store product.unitPrice in unit_price_paid
+            cart.items.forEach(function(item){
+                item.unit_price_paid = item.product.unitPrice;
+            })
             return cart.save();
         })
         .then(function(cart){
