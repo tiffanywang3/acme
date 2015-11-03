@@ -39,7 +39,11 @@ var schema = new mongoose.Schema({
     },
     phone_number: {
         type: String
+    },
+    active_cart: {
+        type: mongoose.Schema.Types.ObjectId, ref:'Cart'
     }
+
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
