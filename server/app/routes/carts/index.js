@@ -18,6 +18,7 @@ router.get('/', function(req, res, next){
 // Get one cart by ID
 router.get('/:id', function(req, res, next){
     Cart.findById(req.params.id)
+        .populate('items.product').exec()
         .then(function(cart){
             res.send(cart);
         })
@@ -110,10 +111,15 @@ router.delete('/:id/:productId', function(req, res, next){
 router.put('/checkout/:id', function(req, res, next){
     var new_cart;
     Cart.findById(req.params.id)
+        .populate('items.product').exec()
         .then(function(cart){
             cart.status = "ordered";
             cart.shipping_address = req.body.shipping_address;
             cart.checkout_date = Date.now();
+            // for product in cart.items, populate, and store product.unitPrice in unit_price_paid
+            cart.items.forEach(function(item){
+                item.unit_price_paid = item.product.unitPrice;
+            })
             return cart.save();
         })
         .then(function(cart){
