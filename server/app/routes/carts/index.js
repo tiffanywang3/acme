@@ -52,6 +52,7 @@ router.delete('/:id', function(req, res, next){
 
 
 // Add item to items list
+// req.body { product: "23XSF43VREG", quantity: 2, unit_price: 5}
 router.post('/:id', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
