@@ -12,9 +12,13 @@ var schema = new mongoose.Schema({
          values: ["active", "ordered", "shipped", "delivered"],
          message: "Invalid value for status."
     } },
-    shipping_address: {
-        type: String
-    }
+    shipping_address: { type: String },
+    checkout_date: { type: Date }
 });
+
+
+schema.statics.getCartHistory = function(user) {
+    return this.find({ user_id: user._id, status: {$ne: "active"} });
+}
 
 module.exports = mongoose.model('Cart', schema);
