@@ -24,8 +24,8 @@ router.get("/:productId", function (req, res, next){
 })
 
 
-router.get("/types/:type", function (req, res, next){
-	Product.find({type: req.params.type})
+router.get("/categories/:category", function (req, res, next){
+	Product.find({category: req.params.category})
 	.then (function (foundProducts){
 		res.send(foundProducts)
 	}})
@@ -39,6 +39,39 @@ router.get("/shows/:show_name", function (req, res, next){
 	})
 	.then (null, next)
 })
+
+router.get("/search/", function (req, res, next){
+	// NEED TO TEST THAT THE REGEX WORKS
+	
+	var query = {};
+	if (req.query == "name") {
+		// ideally the object will look like {name: "/homer/"}
+		query.name = "/" + req.query.name + "/"; 
+	} 
+	else if (req.query == "show_name"){
+		query.show_name = "/" + req.query.show_name + "/";
+	}
+	else if (req.query == "category"){ // a product can have more than on category, use $in
+		query.category = "{$in: [/" + req.query.category + "/]}";
+	}
+	else if (req.query == "productId"){
+		query.productId = "/" + req.query.productId + "/";
+	}
+	// else {
+	// 	// not sure what to do here
+	// 	query = req.query;
+	// }
+ 
+ // Product.find({show_name: /Bob/})
+
+	Product.find(query)
+	.then (function (foundProducts){
+		res.send(foundProducts)
+	})
+	.then (null, next)
+})
+
+
 
 /*
 - Get ones under x price
