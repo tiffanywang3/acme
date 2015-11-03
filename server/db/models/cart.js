@@ -12,6 +12,7 @@ var schema = new mongoose.Schema({
          values: ["active", "ordered", "shipped", "delivered"],
          message: "Invalid value for status."
     } },
+    shipping_address: { type: String },
     checkout_date: { type: Date }
 });
 
