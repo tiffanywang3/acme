@@ -28,7 +28,7 @@ router.get("/categories/:category", function (req, res, next){
 	Product.find({category: req.params.category})
 	.then (function (foundProducts){
 		res.send(foundProducts)
-	}})
+	})
 	.then (null, next)
 })
 
