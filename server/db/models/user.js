@@ -2,11 +2,14 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Cart = require('./cart');
+var validate = require('mongoose-validate')
 
 var schema = new mongoose.Schema({
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+        validate: [validate.email, 'invalid email address']
     },
     password: {
         type: String
