@@ -11,7 +11,10 @@ var schema = new mongoose.Schema({
     status: { type: String, enum: {
          values: ["active", "ordered", "shipped", "delivered"],
          message: "Invalid value for status."
-    } }
+    } },
+    shipping_address: {
+        type: String
+    }
 });
 
 module.exports = mongoose.model('Cart', schema);
