@@ -51,6 +51,7 @@
     "mocha-mongoose": "^1.0.3",
     "mongodb": "^1.4.33",
     "mongoose": "^4.0.7",
+    "mongoose-validate": "git://github.com/RGBboy/mongoose-validate.git",
     "nodemon": "^1.3.7",
     "passport": "^0.2.1",
     "passport-facebook": "^1.0.3",
