@@ -50,7 +50,7 @@ router.delete('/:id', function(req, res, next){
         .then(null, next);
 })
 
-
+// From product page
 // Add item to items list
 // req.body { product: "23XSF43VREG", quantity: 2, unit_price: 5}
 router.post('/:id', function(req, res, next){
@@ -70,6 +70,7 @@ router.post('/:id', function(req, res, next){
         .then(null, next);
 })
 
+// From shopping cart
 // Update quantity of existing item
 router.put('/:id/item', function(req, res, next){
     Cart.findById(req.params.id)
