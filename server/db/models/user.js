@@ -1,6 +1,7 @@
 'use strict';
 var crypto = require('crypto');
 var mongoose = require('mongoose');
+var Cart = require('./cart');
 
 var schema = new mongoose.Schema({
     email: {
@@ -39,7 +40,11 @@ var schema = new mongoose.Schema({
     },
     phone_number: {
         type: String
+    },
+    active_cart: {
+        type: mongoose.Schema.Types.ObjectId, ref:'Cart'
     }
+
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
@@ -69,8 +74,36 @@ schema.pre('save', function (next) {
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
 
+//need to decide format that carts will come back in. Array?
+schema.method('retrieveHistory', function(){
+    return Cart.getCartHistory(this);
+
+})
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
 mongoose.model('User', schema);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
