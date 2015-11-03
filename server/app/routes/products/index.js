@@ -55,14 +55,14 @@ router.get("/search/", function (req, res, next){
 		query.category = "{$in: [/" + req.query.category + "/]}";
 	}
 	else if (req.query == "productId"){
-		query.productId = "/" + req.query.productId + "/";
+		query._id = "/" + req.query.productId + "/";
 	}
-	// else {
-	// 	// not sure what to do here
-	// 	query = req.query;
-	// }
+	else {
+		query = "{$or [{name: /" + req.query + "/}, {show_name: /" + req.query +" /}, {category: /" + req.query + "/}, {_id: /" + req.query + "/}, {description: /" + req.query + "/}]}";
+	}
  
  // Product.find({show_name: /Bob/})
+// .exec because I'm using strings?
 
 	Product.find(query)
 	.then (function (foundProducts){
