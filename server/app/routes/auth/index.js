@@ -2,7 +2,7 @@
 var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
-var User = require('../../db/models/user.js')
+var User = require('../../../db/models/user.js')
 
 router.post('/login', function(req, res, next){
 	User.findOne(req.body)
