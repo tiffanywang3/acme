@@ -24,18 +24,20 @@ router.get('/', function(req, res, next){
 
 
 //create user (post)
+// @OB/NE no need for '/newUser' just do '/', more succinct and RESTful
 router.post('/newUser', function(req,res,next){
 	User.create(req.body)
 	.then(function(user){
 		res.status(201).send(user)
 	})
 	.then(null, function(err){
-		err.status = 404;
+		err.status = 404; // @OB/NE why 404?
 		next(err);
 	})
 })
 
 
+// @OB/NE consider router.param
 
 router.get('/:user_id', function(req, res, next){
 	User.findById(req.params.user_id)
@@ -50,7 +52,7 @@ router.get('/:user_id', function(req, res, next){
 })
 
 router.put('/:user_id', function(req, res, next){
-	User.findByIdAndUpdate(req.params.user_id, req.body, {new:true})
+	User.findByIdAndUpdate(req.params.user_id, req.body, {new:true}) // @OB/NE pre save hooks will not fire
 	.then(function(user){
 		res.send(user);
 	})
