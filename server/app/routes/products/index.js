@@ -5,6 +5,39 @@ var _ = require('lodash');
 
 var Product = require ("../../../db/models/product.js");
 
+
+router.get("/search/", function (req, res, next){
+    // NEED TO TEST THAT THE REGEX WORKS
+
+    var query = {};
+    if (req.query.name) {
+        var name_reg = new RegExp(".*" + req.query.name + ".*", "i")
+        query.name = name_reg;
+    }
+    else if (req.query.show_name){
+        var show_name_reg = new RegExp(".*" + req.query.show_name + ".*", "i")
+        query.show_name = show_name_reg;
+    }
+    else if (req.query.category){ // a product can have more than on category, use $in
+        var category_reg = new RegExp(".*" + req.query.category + ".*", "i")
+        query.category = {$in: [ category_reg ]}
+    }
+    //else if (req.query.productId){
+    //    var productId_reg = new RegExp(".*" + req.query.productId + ".*", "i")
+    //    query._id = productId_reg;
+    //}
+    else {
+        var any_reg = new RegExp(".*" + req.query.any + ".*", "i")
+        query = {$or: [{name: any_reg}, {show_name: any_reg}, {category: any_reg}, {description: any_reg}]};
+    }
+
+    Product.find(query)
+        .then (function (foundProducts){
+        res.send(foundProducts)
+    })
+        .then (null, next)
+})
+
 router.get("/", function (req, res, next){
 	Product.find()
 	.then (function (allProducts){
@@ -34,37 +67,6 @@ router.get("/categories/:category", function (req, res, next){
 
 router.get("/shows/:show_name", function (req, res, next){
 	Product.find({show_name: req.params.show_name})
-	.then (function (foundProducts){
-		res.send(foundProducts)
-	})
-	.then (null, next)
-})
-
-router.get("/search/", function (req, res, next){
-	// NEED TO TEST THAT THE REGEX WORKS
-	
-	var query = {};
-	if (req.query == "name") {
-		// ideally the object will look like {name: "/homer/"}
-		query.name = "/" + req.query.name + "/"; 
-	} 
-	else if (req.query == "show_name"){
-		query.show_name = "/" + req.query.show_name + "/";
-	}
-	else if (req.query == "category"){ // a product can have more than on category, use $in
-		query.category = "{$in: [/" + req.query.category + "/]}";
-	}
-	else if (req.query == "productId"){
-		query._id = "/" + req.query.productId + "/";
-	}
-	else {
-		query = "{$or [{name: /" + req.query + "/}, {show_name: /" + req.query +" /}, {category: /" + req.query + "/}, {_id: /" + req.query + "/}, {description: /" + req.query + "/}]}";
-	}
- 
- // Product.find({show_name: /Bob/})
-// .exec because I'm using strings?
-
-	Product.find(query)
 	.then (function (foundProducts){
 		res.send(foundProducts)
 	})
