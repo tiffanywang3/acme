@@ -10,7 +10,7 @@ var schema = new mongoose.Schema({
         quantity: { type: Number, required: true},
         unit_price_paid: { type: Number} // @OB/NE not required?
         }],
-    status: { type: String, enum: {
+    status: { type: String, required: true, enum: {
          values: ["active", "ordered", "shipped", "delivered"],
          message: "Invalid value for status."
     } },
@@ -20,7 +20,7 @@ var schema = new mongoose.Schema({
 
 // @OB/NE change to .getHistory
 schema.statics.getCartHistory = function(user) {
-    return this.find({ user_id: user._id, status: {$ne: "active"} });
+    return this.find({ user_id: user._id, status:{$ne:'active'}});
 }
 
 schema.pre('validate', function(next){
