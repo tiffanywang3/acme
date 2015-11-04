@@ -76,6 +76,18 @@ describe('Product route', function() {
                 })
         });
 
+
+        it('GET BY SHOW_NAME', function (done) {
+            agent.get('/api/products/shows/The%20Simpsons')
+                .expect(200)
+                .end(function(err, response){
+                    if(err) return done(err);
+                    expect(response.body).to.be.instanceof(Array);
+                    expect(response.body).to.have.length(3);
+                    done();
+                })
+        });
+
         it('search for show_name', function (done) {
             agent.get('/api/products/search/')
                 .query({ show_name: "Simpsons" })
@@ -83,6 +95,20 @@ describe('Product route', function() {
                 .end(function(err, response){
                    // console.log("respnonse,", response);
                    // console.log("ERR in test", err);
+                    if(err) return done(err);
+                    expect(response.body).to.be.instanceof(Array);
+                    expect(response.body).to.have.length(3);
+                    done();
+                })
+        });
+
+        it('search for show_name with space', function (done) {
+            agent.get('/api/products/search/')
+                .query({ show_name: "The Simpsons" })
+                .expect(200)
+                .end(function(err, response){
+                    // console.log("respnonse,", response);
+                    // console.log("ERR in test", err);
                     if(err) return done(err);
                     expect(response.body).to.be.instanceof(Array);
                     expect(response.body).to.have.length(3);
