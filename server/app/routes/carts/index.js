@@ -6,6 +6,7 @@ var mongoose = require('mongoose')
 
 var Cart = require('../../../db/models/cart');
 var User = require('../../../db/models/user');
+var Product = require('../../../db/models/product');
 
 // Get all carts
 router.get('/', function(req, res, next){
@@ -143,7 +144,7 @@ router.put('/checkout/:id', function(req, res, next){
                     inv_not_enough.push(item.product)
                 }
             })
-
+            //If parts of order doesn't have enough inventory, then cancel entire checkout process
             if(valid === false) res.status(404).send(inv_not_enough)
 
             cart.items.forEach(function(item){
@@ -151,11 +152,8 @@ router.put('/checkout/:id', function(req, res, next){
                 item.unit_price_paid = item.product.unitPrice;
 
                 //Subtract quantity from inventory
-                console.log("BEFORE", item.product.inventory)
-                Product.updateInventory(product._id,)
-                item.product.inventory -= item.quantity;
-                console.log("AFTER", item.product.inventory)
-
+                Product.updateInventory(item.product._id,(item.product.inventory-item.quantity));
+                
             })
 
             cart.status = "ordered";
