@@ -5,10 +5,10 @@ var _ = require('lodash');
 
 var Product = require ("../../../db/models/product.js");
 
-
+// @OB/NE use case?
 router.get("/search/", function (req, res, next){
     // NEED TO TEST THAT THE REGEX WORKS
-
+    // @OB/NE maybe this should be a model static? also look into $regex operator
     var query = {};
     if (req.query.name) {
         var name_reg = new RegExp(".*" + req.query.name + ".*", "i")

@@ -54,9 +54,13 @@ router.delete('/:id', function(req, res, next){
         .then(null, next);
 })
 
+// @OB/NE how are you going to use the two following POST & PUT
+// what happens when out of stock?
+
 // From product page
 // Add item to items list
 // req.body { product: "23XSF43VREG", quantity: 2}
+// @OB/NE /:id/items always add one?
 router.post('/:id', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
@@ -84,9 +88,11 @@ router.post('/:id', function(req, res, next){
 // From shopping cart
 // Update quantity of existing item
 // req.body { product: "23XSF43VREG", quantity: 2}
+// @OB/NE maybe /:id/items/:productId, more RESTful
 router.put('/:id/item', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
+            // @OB/NE could use .find here instead
             var index =  _.findIndex(cart.items, function(item) {
                 return item.product.equals(req.body.product);
             });
@@ -112,6 +118,7 @@ router.put('/:id/item', function(req, res, next){
 router.delete('/:id/:productId', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
+            // @OB/NE try _.remove _.pull?
             var index =  _.findIndex(cart.items, function(item) {
                 return item.product.equals(req.params.productId);
             });
@@ -130,7 +137,9 @@ router.delete('/:id/:productId', function(req, res, next){
 
 // checkout
 // Expect req.body = {shipping_address: "123 main st"}
+// @OB/NE /:id/checkout instead?
 router.put('/checkout/:id', function(req, res, next){
+    // @OB/NE model logic all over the place here
     var new_cart;
     var inv_not_enough = [];
     var valid = true;

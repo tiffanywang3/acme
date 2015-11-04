@@ -26,6 +26,7 @@ describe('Product model', function() {
     });
 
     it('can be created with all fields', function(done){
+        // @OB/NE what is this testing?
             Product.create({
                 product_name: "The Name",
                 category: ["food"],
@@ -44,6 +45,7 @@ describe('Product model', function() {
     })
 
     it('cannot be created (throws error) when a field is missing', function(done){
+        // @OB/NE beforeEach?
         var prod = new Product({
             product_name: "The Name",
             category: [null],
@@ -101,6 +103,7 @@ describe('Product model', function() {
     })
 
     it('can have multiple categories', function(done){
+        // @OB/NE what is this testing?
         var prod = new Product({
             product_name: "The Name",
             category: ["food", "clothes"],
