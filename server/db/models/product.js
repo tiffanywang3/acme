@@ -10,4 +10,12 @@ var schema = new mongoose.Schema({
     unitPrice: {type: Number, required: true}
 });
 
+
+
+schema.statics.updateInventory = function(productId, newInventory) {
+    this.findByIdAndUpdate(productId,{inventory: newInventory},{ new: true })
+    .then(function(updatedProduct){
+    	return;
+    })
+}
 module.exports = mongoose.model('Product', schema);

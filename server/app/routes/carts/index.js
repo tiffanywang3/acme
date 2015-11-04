@@ -2,9 +2,11 @@
 var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
+var mongoose = require('mongoose')
 
 var Cart = require('../../../db/models/cart');
 var User = require('../../../db/models/user');
+var Product = require('../../../db/models/product');
 
 // Get all carts
 router.get('/', function(req, res, next){
@@ -58,15 +60,22 @@ router.delete('/:id', function(req, res, next){
 router.post('/:id', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
-            var index =  _.find(cart.items, { 'product': req.body.product });
+            // console.log("CART BEFORE LOGIC",cart)
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.body.product);
+            });
+            // console.log("INDEX", index)
             if (index != -1) {
                 cart.items[index].quantity += req.body.quantity;
                 return cart.save()
             } else {
-                return cart.update({ $push: { "items": req.body} }, {new: true})
+                cart.items.push(req.body);
+                return cart.save();
             }
+            
         })
         .then(function(cart){
+            // console.log("CART AFTER LOGIC", cart)
             res.status(201).send(cart);
         })
         .then(null, next);
@@ -78,49 +87,80 @@ router.post('/:id', function(req, res, next){
 router.put('/:id/item', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
-            var index =  _.find(cart.items, { 'product': req.body.product });
-            if (index != -1) {
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.body.product);
+            });
+            // console.log("INDEX", index)
+            if (index === -1) {
                 throw new Error("Item does not exist.");
                 next();
             } else {
-                cart.items[index] = req.body;
+                // console.log("GOT IN HERE AND HERES CART", cart.items)
+                cart.items[index].quantity = req.body.quantity;
                 return cart.save();
             }
         })
         .then(function(cart){
+            // console.log("RESPONSE CART", cart)
             res.send(cart);
         })
         .then(null, next);
 })
 
 // Delete specific item from cart items
+// This might need to turn into a PUT request, because you want to send back an updated view of the cart
 router.delete('/:id/:productId', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
-            var index =  _.find(cart.items, { 'product': req.params.productId });
-            cart.items.slice(index, 1);
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.params.productId);
+            });
+            // console.log("BEFORE SLICE", cart.items)
+            cart.items.splice(index, 1);
+            // console.log("AFTER SLICE", cart.items)
             return cart.save({new: true})
         })
         .then(function(cart){
-            res.status(204).send(cart)
+            // console.log("RESPONSE CART ITEMS", cart)
+            res.status(204).send("Successfully deleted")
         })
         .then(null, next);
 })
 
 
 // checkout
+// Expect req.body = {shipping_address: "123 main st"}
 router.put('/checkout/:id', function(req, res, next){
     var new_cart;
+    var inv_not_enough = [];
+    var valid = true;
     Cart.findById(req.params.id)
         .populate('items.product').exec()
         .then(function(cart){
+            cart.items.forEach(function(item){
+                //Check if product quantity is less than inventory
+                if(item.quantity>item.product.inventory){
+                    valid = false;
+                    inv_not_enough.push(item.product)
+                }
+            })
+            //If parts of order doesn't have enough inventory, then cancel entire checkout process
+            if(valid === false) res.status(404).send(inv_not_enough)
+
+            cart.items.forEach(function(item){
+                //Copy price from product model to shopping cart
+                item.unit_price_paid = item.product.unitPrice;
+
+                //Subtract quantity from inventory
+                Product.updateInventory(item.product._id,(item.product.inventory-item.quantity));
+                
+            })
+
             cart.status = "ordered";
             cart.shipping_address = req.body.shipping_address;
             cart.checkout_date = Date.now();
             // for product in cart.items, populate, and store product.unitPrice in unit_price_paid
-            cart.items.forEach(function(item){
-                item.unit_price_paid = item.product.unitPrice;
-            })
+            
             return cart.save();
         })
         .then(function(cart){
@@ -135,7 +175,7 @@ router.put('/checkout/:id', function(req, res, next){
             return user.save();
         })
         .then(function(user){
-            res.send("Successfully checked out.");
+            res.send("Successfully checked out");
         })
         .then(null, next);
 })
