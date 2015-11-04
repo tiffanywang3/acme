@@ -66,6 +66,7 @@ router.get("/categories/:category", function (req, res, next){
 })
 
 router.get("/shows/:show_name", function (req, res, next){
+    req.params.show_name.replace("%20", " ");
 	Product.find({show_name: req.params.show_name})
 	.then (function (foundProducts){
 		res.send(foundProducts)
