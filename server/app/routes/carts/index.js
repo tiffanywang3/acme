@@ -131,16 +131,38 @@ router.delete('/:id/:productId', function(req, res, next){
 // Expect req.body = {shipping_address: "123 main st"}
 router.put('/checkout/:id', function(req, res, next){
     var new_cart;
+    var inv_not_enough = [];
+    var valid = true;
     Cart.findById(req.params.id)
         .populate('items.product').exec()
         .then(function(cart){
+            cart.items.forEach(function(item){
+                //Check if product quantity is less than inventory
+                if(item.quantity>item.product.inventory){
+                    valid = false;
+                    inv_not_enough.push(item.product)
+                }
+            })
+
+            if(valid === false) res.status(404).send(inv_not_enough)
+
+            cart.items.forEach(function(item){
+                //Copy price from product model to shopping cart
+                item.unit_price_paid = item.product.unitPrice;
+
+                //Subtract quantity from inventory
+                console.log("BEFORE", item.product.inventory)
+                Product.updateInventory(product._id,)
+                item.product.inventory -= item.quantity;
+                console.log("AFTER", item.product.inventory)
+
+            })
+
             cart.status = "ordered";
             cart.shipping_address = req.body.shipping_address;
             cart.checkout_date = Date.now();
             // for product in cart.items, populate, and store product.unitPrice in unit_price_paid
-            cart.items.forEach(function(item){
-                item.unit_price_paid = item.product.unitPrice;
-            })
+            
             return cart.save();
         })
         .then(function(cart){
