@@ -5,10 +5,10 @@ var _ = require('lodash');
 
 var Product = require ("../../../db/models/product.js");
 
-
+// @OB/NE use case?
 router.get("/search/", function (req, res, next){
     // NEED TO TEST THAT THE REGEX WORKS
-
+    // @OB/NE maybe this should be a model static? also look into $regex operator
     var query = {};
     if (req.query.name) {
         var name_reg = new RegExp(".*" + req.query.name + ".*", "i")
@@ -48,7 +48,7 @@ router.get("/", function (req, res, next){
 
 router.get("/:productId", function (req, res, next){
 	Product.findById(req.params.productId)
-	.then (function (allProducts){
+	.then (function (allProducts){ // @OB/NE this is one product
 		res.send(allProducts)
 	}, function(err){
 		res.status(404).send("Product doesn't exist");
@@ -56,7 +56,7 @@ router.get("/:productId", function (req, res, next){
 	.then (null, next)
 })
 
-
+// @OB/NE maybe use req.query instead, and merge this logic into the GET / above
 router.get("/categories/:category", function (req, res, next){
 	Product.find({category: req.params.category})
 	.then (function (foundProducts){
@@ -65,6 +65,7 @@ router.get("/categories/:category", function (req, res, next){
 	.then (null, next)
 })
 
+// @OB/NE what's this about? could be bundled into GET / using req.query instead
 router.get("/shows/:show_name", function (req, res, next){
     req.params.show_name.replace("%20", " ");
 	Product.find({show_name: req.params.show_name})
@@ -74,6 +75,8 @@ router.get("/shows/:show_name", function (req, res, next){
 	.then (null, next)
 })
 
+
+// @OB/NE no delete/put/posts? haven't gotten there yet?
 
 
 /*

@@ -30,8 +30,9 @@ var schema = new mongoose.Schema({
         id: String
     },
     shipping_address: {
-        type: String
+        type: String // @OB/NE maybe more here? addressSchema?
     },
+    // @OB/NE what's with the _s?
     billing_address: {
         type: String
     },

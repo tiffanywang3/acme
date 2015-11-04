@@ -60,24 +60,23 @@ describe('User model', function () {
 
             
 
-            it('should error with duplicate email address', function (done) {
+            it('should error with duplicate email address', function () {
                 var createUser1 = function () {
 	                return User.create({ email: 'obama@gmail.com', password: 'potus' });
 	            };
 	            var createUser2 = function () {
 	                return User.create({ email: 'obama@gmail.com', password: 'potus' });
 	            };
-            	createUser1().then(function (user) {
+                // @OB/NE also feel free to check out chai-as-promised
+            	return createUser1().then(function (user) {
                     expect(user).to.be.ok;
                     return createUser2()
                 })
                 .then(function(user){
                 	expect(user).to.be.null;
-                    done();
                 })
                 .then(null, function(err){
                 	expect(err).to.be.ok;
-                	done();
                 })
 
 
