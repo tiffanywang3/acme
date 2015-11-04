@@ -2,6 +2,7 @@
 var router = require('express').Router();
 module.exports = router;
 var _ = require('lodash');
+var mongoose = require('mongoose')
 
 var Cart = require('../../../db/models/cart');
 var User = require('../../../db/models/user');
@@ -58,15 +59,22 @@ router.delete('/:id', function(req, res, next){
 router.post('/:id', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
-            var index =  _.find(cart.items, { 'product': req.body.product });
+            // console.log("CART BEFORE LOGIC",cart)
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.body.product);
+            });
+            // console.log("INDEX", index)
             if (index != -1) {
                 cart.items[index].quantity += req.body.quantity;
                 return cart.save()
             } else {
-                return cart.update({ $push: { "items": req.body} }, {new: true})
+                cart.items.push(req.body);
+                return cart.save();
             }
+            
         })
         .then(function(cart){
+            // console.log("CART AFTER LOGIC", cart)
             res.status(201).send(cart);
         })
         .then(null, next);
@@ -78,37 +86,49 @@ router.post('/:id', function(req, res, next){
 router.put('/:id/item', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
-            var index =  _.find(cart.items, { 'product': req.body.product });
-            if (index != -1) {
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.body.product);
+            });
+            // console.log("INDEX", index)
+            if (index === -1) {
                 throw new Error("Item does not exist.");
                 next();
             } else {
-                cart.items[index] = req.body;
+                // console.log("GOT IN HERE AND HERES CART", cart.items)
+                cart.items[index].quantity = req.body.quantity;
                 return cart.save();
             }
         })
         .then(function(cart){
+            // console.log("RESPONSE CART", cart)
             res.send(cart);
         })
         .then(null, next);
 })
 
 // Delete specific item from cart items
+// This might need to turn into a PUT request, because you want to send back an updated view of the cart
 router.delete('/:id/:productId', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
-            var index =  _.find(cart.items, { 'product': req.params.productId });
-            cart.items.slice(index, 1);
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.params.productId);
+            });
+            // console.log("BEFORE SLICE", cart.items)
+            cart.items.splice(index, 1);
+            // console.log("AFTER SLICE", cart.items)
             return cart.save({new: true})
         })
         .then(function(cart){
-            res.status(204).send(cart)
+            // console.log("RESPONSE CART ITEMS", cart)
+            res.status(204).send("Successfully deleted")
         })
         .then(null, next);
 })
 
 
 // checkout
+// Expect req.body = {shipping_address: "123 main st"}
 router.put('/checkout/:id', function(req, res, next){
     var new_cart;
     Cart.findById(req.params.id)
@@ -135,7 +155,7 @@ router.put('/checkout/:id', function(req, res, next){
             return user.save();
         })
         .then(function(user){
-            res.send("Successfully checked out.");
+            res.send("Successfully checked out");
         })
         .then(null, next);
 })
