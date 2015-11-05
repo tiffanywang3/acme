@@ -84,11 +84,11 @@ router.post('/:id', function(req, res, next){
 // From shopping cart
 // Update quantity of existing item
 // req.body { product: "23XSF43VREG", quantity: 2}
-router.put('/:id/item', function(req, res, next){
+router.put('/:id/item/:productId', function(req, res, next){
     Cart.findById(req.params.id)
         .then(function(cart){
             var index =  _.findIndex(cart.items, function(item) {
-                return item.product.equals(req.body.product);
+                return item.product.equals(req.params.productId);
             });
             // console.log("INDEX", index)
             if (index === -1) {
@@ -130,13 +130,14 @@ router.delete('/:id/:productId', function(req, res, next){
 
 // checkout
 // Expect req.body = {shipping_address: "123 main st"}
-router.put('/checkout/:id', function(req, res, next){
+router.put('/:id/checkout/', function(req, res, next){
     var new_cart;
     var inv_not_enough = [];
     var valid = true;
     Cart.findById(req.params.id)
         .populate('items.product').exec()
         .then(function(cart){
+            if (cart.status!=="active") res.status(400).send("Cart already checked-out!")
             cart.items.forEach(function(item){
                 //Check if product quantity is less than inventory
                 if(item.quantity>item.product.inventory){
@@ -145,7 +146,7 @@ router.put('/checkout/:id', function(req, res, next){
                 }
             })
             //If parts of order doesn't have enough inventory, then cancel entire checkout process
-            if(valid === false) res.status(404).send(inv_not_enough)
+            if(valid === false) res.status(400).send(inv_not_enough)
 
             cart.items.forEach(function(item){
                 //Copy price from product model to shopping cart

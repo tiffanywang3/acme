@@ -126,7 +126,7 @@ describe('Users Route', function () {
 		});
 
 		it('should create a user', function (done) {
-			guestAgent.post('/api/users/newUser')
+			guestAgent.post('/api/users/')
 				.send({ email: 'obama@gmail.com', password: 'potus' })
 				.expect(201)
 				.end(done);

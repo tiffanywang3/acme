@@ -4,6 +4,7 @@ require('../../../server/db/models');
 var User = mongoose.model('User');
 var Product = mongoose.model('Product');
 var Cart = mongoose.model('Cart');
+var Address = mongoose.model('Address')
 
 var expect = require('chai').expect;
 
@@ -20,7 +21,7 @@ describe('Carts Route', function () {
     var createdUser;
     var cartId;
 
-	beforeEach('Establish DB connection', function (done) {
+	beforeEach('Establish DB connection ', function (done) {
 		if (mongoose.connection.db) return done();
 		mongoose.connect(dbURI, done);
 	});
@@ -131,7 +132,7 @@ describe('Carts Route', function () {
 		});
 
 		it('modify existing item from shopping cart', function (done) {
-			guestAgent.put('/api/carts/'+cartId+'/item')
+			guestAgent.put('/api/carts/'+cartId+'/item/'+productId)
 				.send({product: productId, quantity: 7})
 				.expect(200)
 				.end(function(err,response) {
@@ -148,13 +149,30 @@ describe('Carts Route', function () {
 		});
 
 		it('checking out a shopping cart successfully', function (done) {
-			guestAgent.put('/api/carts/checkout/'+cartId)
-				.send({shipping_address: "123 main st"})
+			 var createAddress = function (){
+                return Address.create({
+                    number: 5,
+                    street: "Hanover Square",
+                    city: "New York",
+                    state: "NY",
+                    country: "US",
+                    zipcode: "11234"
+                })
+           }
+
+
+           createAddress().then(function(address){
+           	guestAgent.put('/api/carts/'+cartId+'/checkout')
+				.send({shipping_address: address._id})
 				.expect(200)
 				.end(function(err,response) {
 					expect(response.text).to.equal("Successfully checked out");
 					done();
 				})
+           }, function (error){
+           	console.log("address couldn't be created")
+           })
+			
 
 		});
 

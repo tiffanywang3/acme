@@ -2,6 +2,7 @@
 var crypto = require('crypto');
 var mongoose = require('mongoose');
 var Cart = require('./cart');
+var Address = require('./address')
 var validate = require('mongoose-validate')
 
 var schema = new mongoose.Schema({
@@ -29,12 +30,8 @@ var schema = new mongoose.Schema({
     google: {
         id: String
     },
-    shipping_address: {
-        type: String
-    },
-    billing_address: {
-        type: String
-    },
+    shipping_address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address'},
+    billing_address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address' },
     first_name: {
         type: String
     },
@@ -79,7 +76,7 @@ schema.statics.encryptPassword = encryptPassword;
 
 //need to decide format that carts will come back in. Array?
 schema.method('retrieveHistory', function(){
-    return Cart.getCartHistory(this);
+    return Cart.getHistory(this);
 
 })
 schema.method('correctPassword', function (candidatePassword) {
