@@ -12,7 +12,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProductsCtrl', function (allProducts, $scope, AuthService, $state) {
-
+    
     $scope.login = {};
     $scope.error = null;
     $scope.allProducts = allProducts;
