@@ -65,7 +65,7 @@ router.put("/:productId", function (req, res, next){
     .then (null, next)
 })
 
-router.post("/:productId", function (req, res, next){
+router.post("/", function (req, res, next){
     Product.create(req.body)
     .then (function (product){
         res.send(product)

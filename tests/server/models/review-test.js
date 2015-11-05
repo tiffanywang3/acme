@@ -39,7 +39,7 @@ describe('Review model', function() {
                 description: "It's great",
                 imageUrl: "/images/whatever.jpg",
                 inventory: 5,
-                unitPrice: 99.99
+                unit_price: 99.99
 				})
 				.then (function (_product_){
 						productId = _product_._id;

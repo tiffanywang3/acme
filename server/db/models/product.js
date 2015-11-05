@@ -7,7 +7,7 @@ var schema = new mongoose.Schema({
     description: {type: String, required: true},
     imageUrl: {type: String, default: '/images/placeholder.png' },
     inventory: {type: Number, required: true},
-    unitPrice: {type: Number, required: true} // store prices in cents
+    unit_price: {type: Number, required: true} // store prices in cents
 });
 
 

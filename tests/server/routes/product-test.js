@@ -33,7 +33,7 @@ describe('Product route', function() {
                     description: "It's good",
                     imageUrl: "/images/whatever.jpg",
                     inventory: 5,
-                    unitPrice: 99.99
+                    unit_price: 99.99
                 },
                 {product_name: "Another One",
                     category: ["clothes"],
@@ -41,7 +41,7 @@ describe('Product route', function() {
                     description: "It's great",
                     imageUrl: "/images/whatever.jpg",
                     inventory: 5,
-                    unitPrice: 5.60
+                    unit_price: 5.60
                 },
                 {product_name: "Third Thing",
                     category: ["clothes", "food"],
@@ -49,7 +49,7 @@ describe('Product route', function() {
                     description: "It's great",
                     imageUrl: "/images/whatever.jpg",
                     inventory: 5,
-                    unitPrice: 5.60
+                    unit_price: 5.60
                 },
                 done)
         });

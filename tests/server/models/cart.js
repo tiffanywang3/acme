@@ -25,7 +25,7 @@ describe('Cart model', function () {
         .then(function(user){
             createdUser = user;
             userId = user._id;
-            return Product.create({product_name: "acmeTestProduct", category: "food", show_name: "Adventure Time", description: "Hi Phil", inventory: 5, unitPrice: 50})
+            return Product.create({product_name: "acmeTestProduct", category: "food", show_name: "Adventure Time", description: "Hi Phil", inventory: 5, unit_price: 50})
         })
         .then(function(product){
             productId = product._id;
