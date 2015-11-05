@@ -5,10 +5,11 @@ app.config(function ($stateProvider) {
         controller: 'ProductsCtrl',
         resolve: {
         	allProducts: function(ProductFactory) {
-        		return ProductFactory.fetchAll();
+        		  return ProductFactory.fetchAll();                    
         	}
         }
-    });
+    })
+    
 });
 
 app.controller('ProductsCtrl', function (allProducts, $scope, AuthService, $state) {
