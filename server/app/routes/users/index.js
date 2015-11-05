@@ -14,23 +14,20 @@ router.get('/', function(req, res, next){
 		res.send(users)
 	})
 	.then(null, function(err){
-		err.status = 404;
+		err.status = 400;
 		next(err);
 	})
 })
 
 
-
-
-
 //create user (post)
-router.post('/newUser', function(req,res,next){
+router.post('/', function(req,res,next){
 	User.create(req.body)
 	.then(function(user){
 		res.status(201).send(user)
 	})
 	.then(null, function(err){
-		err.status = 404;
+		err.status = 400;
 		next(err);
 	})
 })

@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 
 var User = mongoose.model('User');
+var Address = mongoose.model('Address');
 
 describe('User model', function () {
 
@@ -25,17 +26,34 @@ describe('User model', function () {
         expect(User).to.be.a('function');
     });
 
-        describe('create user with valid email', function () {
+        describe('create user with valid email and address', function () {
 
-            var createUser = function () {
-                return User.create({ email: 'obama@gmail.com', password: 'potus' });
+            var createUser = function (_address) {
+                return User.create({ email: 'obama@gmail.com', password: 'potus', shipping_address: _address  });
             };
 
+           var createAddress = function (){
+                return Address.create({
+                    number: 5,
+                    street: "Hanover Square",
+                    city: "New York",
+                    state: "NY",
+                    country: "US",
+                    zipcode: "11234"
+                })
+           }
+
             it('should create a valid user', function (done) {
-                createUser().then(function (user) {
+                createAddress().then(function (address) {
+                    createUser(address._id).then(function (user) {
                     expect(user.email).to.be.ok;
                     done();
                 });
+                })
+
+
+
+                
             });
 
         });

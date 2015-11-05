@@ -7,7 +7,6 @@ var Product = require ("../../../db/models/product.js");
 
 
 router.get("/search/", function (req, res, next){
-    // NEED TO TEST THAT THE REGEX WORKS
 
     var query = {};
     if (req.query.name) {
@@ -48,13 +47,44 @@ router.get("/", function (req, res, next){
 
 router.get("/:productId", function (req, res, next){
 	Product.findById(req.params.productId)
-	.then (function (allProducts){
-		res.send(allProducts)
+	.then (function (product){
+		res.send(product)
 	}, function(err){
 		res.status(404).send("Product doesn't exist");
 	})
 	.then (null, next)
 })
+
+router.put("/:productId", function (req, res, next){
+    Product.findByIdAndUpdate(req.params.productId, req.body, {new: true})
+    .then (function (product){
+        res.send(product)
+    }, function(err){
+        res.status(404).send("Product doesn't exist");
+    })
+    .then (null, next)
+})
+
+router.post("/:productId", function (req, res, next){
+    Product.create(req.body)
+    .then (function (product){
+        res.send(product)
+    }, function(err){
+        res.status(400);
+    })
+    .then (null, next)
+})
+
+router.delete("/:productId", function (req, res, next){
+    Product.findByIdAndRemove(req.params.productId)
+    .then (function (){
+        res.send("Successfully deleted")
+    }, function(err){
+        res.status(404).send("Product doesn't exist");
+    })
+    .then (null, next)
+})
+
 
 
 router.get("/categories/:category", function (req, res, next){
@@ -73,6 +103,8 @@ router.get("/shows/:show_name", function (req, res, next){
 	})
 	.then (null, next)
 })
+
+
 
 
 

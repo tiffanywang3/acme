@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require("mongoose");
+var Address = require ("./address");
 
 var schema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -13,12 +14,12 @@ var schema = new mongoose.Schema({
          values: ["active", "ordered", "shipped", "delivered"],
          message: "Invalid value for status."
     } },
-    shipping_address: { type: String },
+    shipping_address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address', required: false },
     checkout_date: { type: Date }
 });
 
 
-schema.statics.getCartHistory = function(user) {
+schema.statics.getHistory = function(user) {
     return this.find({ user_id: user._id, status:{$ne:'active'}});
 }
 

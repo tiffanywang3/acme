@@ -46,9 +46,7 @@ describe('Product model', function() {
     it('cannot be created (throws error) when a field is missing', function(done){
         var prod = new Product({
             product_name: "The Name",
-            category: [null],
             show_name: "The Simpsons",
-            description: "It's great",
             imageUrl: "/images/whatever.jpg",
             inventory: 5,
             unitPrice: 99.99
