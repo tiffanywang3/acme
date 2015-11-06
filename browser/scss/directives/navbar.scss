@@ -2,13 +2,14 @@ navbar {
 
   display: block;
   background: white;
-  border-bottom: 1px solid black;
+  //border-bottom: 1px solid black;
   box-shadow: 1px 1px 14px -3px black;
 
   .container {
     width: 91%;
     max-width: 1340px;
-    padding-top: 20px;
+    padding-top: 5px;
+    background-color: #fdfdfd;
   }
 
   fullstack-logo {
@@ -41,6 +42,13 @@ navbar {
     float: right;
     border: 1px solid black;
     margin-top: 10px;
+    background: none;
+    outline: none !important;
+  }
+  .shopping-button {
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-right: 10px;
     background: none;
     outline: none !important;
   }
