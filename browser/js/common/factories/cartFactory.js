@@ -9,7 +9,7 @@ app.factory('CartFactory', function($rootScope, $http){
 		})
 	}
 
-
+	//uma do you see this
 	CartFactory.updateCartItem = function(cartId, productId){
 		return $http.put('/api/carts/' + cartId + '/item/' + productId)
 		.then(function(){
