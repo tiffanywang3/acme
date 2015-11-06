@@ -1,0 +1,32 @@
+<section id="productDetail">
+	<div class="row">
+		<h1>acme inc.</h1>
+	</div>
+    <div class="row container">
+
+        <div class="col-xs-4"><img ng-src= {{ product.imageUrl }} ></div>
+        <div class="col-xs-4">
+            <h5>
+                <span>{{ product.product_name }}</span>
+            </h5>
+            <div> {{ product.category }} | {{ product.show_name }} </div>
+            <small>${{ product.unit_price/100}} | {{ product.inventory }}</small>
+        </div>
+        <div class="col-xs-4"> <i class="fa fa-glyphicon glyphicon-shopping-cart"></i></div>
+    </div>
+
+    <div class="row container">
+        <div class="col-xs-12">
+            <h5>About this product</h5>
+            <div class="detailText">{{ product.description }}</div>
+            <h5>Reviews</h5>
+            <!-- Replace below with the directive -->
+            <div class="detailText">{{ reviews }}</div>
+        </div>
+    </div>
+
+    	<!-- We should use an ng repeat here across arrays of categories and show names -->
+    
+     
+</section>
+
