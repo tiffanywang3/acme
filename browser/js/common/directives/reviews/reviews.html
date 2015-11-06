@@ -3,10 +3,9 @@
     <tr ng-repeat="review in reviews">
         <td>
             <div>
-                <h3> {{ review.title}} </h3>
                 <p>{{ review.text }}</p>
                 <span ng-repeat="i in getNumber(review.rating) track by $index" class="glyphicon glyphicon-star" aria-hidden="true"></span>
-                <p>Reviewed by {{ review.firstName + " " + review.lastName }} on {{ review.timestamp  | date: 'MMM-d-yyyy' }}</p>
+                <p>Reviewed by {{ review.user_id.first_name + " " + review.user_id.last_name }} on {{ review.date  | date: 'MMM-d-yyyy' }}</p>
             </div>
         </td>
     </tr>
