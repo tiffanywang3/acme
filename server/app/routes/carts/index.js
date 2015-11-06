@@ -38,6 +38,7 @@ router.post('/', function(req, res, next){
 
 // Modify cart
 router.put('/:id', function(req, res, next){
+    console.log("CURRENT SESSION USER", req.session.user);
     Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(function(cart){
             res.send(cart);

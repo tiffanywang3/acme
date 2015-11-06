@@ -9,13 +9,16 @@ app.config(function ($stateProvider) {
             },                   
             reviews: function(ReviewFactory, $stateParams){
                 return ReviewFactory.fetchByProductId($stateParams.productId);
+            },
+            user: function (AuthService){
+               return AuthService.getLoggedInUser();
             }
         }
     })
     
 });
 
-app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, $state) {
+app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, $state, CartFactory, user) {
     
     // $scope.login = {};
     // $scope.error = null;
@@ -25,14 +28,20 @@ app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, 
     console.log("product details - the product", $scope.product)
      //console.log("product reviews - the reviews", $scope.reviews)
 
-
-
+     $scope.user = user;
 
   $scope.getInventoryNum = function(inventory) {
        if (inventory<20)
         return new Array(inventory);
        else
         return new Array(20);
+   }
+
+   $scope.addToCart = function (item){
+        return CartFactory.addItem(user.active_cart, $scope.product)
+        .then (function (addedItem){
+            return addedItem;
+        })
    }
 
 

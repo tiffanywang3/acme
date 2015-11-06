@@ -29,6 +29,17 @@ app.factory('CartFactory', function($rootScope, $http){
 	}
 
 
+	CartFactory.addItem = function(cartId, product){
+		console.log("product to add ", product);
+		console.log("cartId ", cartId);
+		return $http.post(cartId, product)
+		.then (function(response){
+			return response.data;
+		}, function (err){
+			return err;
+		})
+		
+	}
 
 	return CartFactory;
 })
