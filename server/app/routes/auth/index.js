@@ -21,8 +21,17 @@ router.post('/signup', function(req, res, next){
 	.then(function(user){
 		req.login(user, function(err){
 			if(err) next(err);
-			else res.status(201).json(user);
+			else{
+				Cart.create({user_id: user._id})
+				.then(function(cart){
+					res.status(201).json(user);
+				})
+			}
 		})
+		
+	})
+	.then(function(cart){
+			
 	})
 	.then(null, next);
 })

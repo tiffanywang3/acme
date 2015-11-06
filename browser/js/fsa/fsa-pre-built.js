@@ -94,6 +94,15 @@
                 });
         };
 
+        this.signup = function (credentials) {
+            return $http.post('/signup', credentials)
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Invalid login credentials.' });
+                });
+        };
+
+
         this.logout = function () {
             return $http.get('/logout').then(function () {
                 Session.destroy();
