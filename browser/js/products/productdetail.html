@@ -14,7 +14,9 @@
               <div class="form-group">
                 <label for="quantity">Quantity</label>
                 <select class="form-control" name="quantity" ng-model="productToAdd.quantity" required>
-                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option>                     
+                    <!-- <option ng-repeat="i in getInventoryNum(product.inventory) track by $index" selected="1">{{$index+1}}</option> -->
+
+                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option>               
                 </select>
 
               </div>
