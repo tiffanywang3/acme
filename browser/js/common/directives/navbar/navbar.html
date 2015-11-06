@@ -1,17 +1,55 @@
-<nav class="navbar navbar-static-top">
+<nav class="navbar navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <fullstack-logo></fullstack-logo>
         </div>
         <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-                <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+
+            <li>
+                <a ui-sref="products">All Products</a>
             </li>
+            <li class="dropdown" dropdown>
+                <a href="#" class="dropdown-toggle" dropdown-toggle >By Category</a>
+                <ul class="dropdown-menu" >
+                    <li ng-repeat="category in categories">
+                        <a ui-sref="filteredProducts({filterType: 'category', filter: category.name})">{{category.text}}</a>
+                    </li>
+               
+                </ul>
+            </li>
+            <li class="dropdown" dropdown>
+                <a href="#" class="dropdown-toggle" dropdown-toggle >By Show</a>
+                <ul class="dropdown-menu" >
+                    <li ng-repeat="show in shows">
+                        <a ui-sref="filteredProducts({filterType: 'show_name', filter: show.name})">{{show.name}}</a>
+                    </li>
+               
+                </ul>
+            </li>
+
+            <li ng-show="user">
+                <a ui-sref="profile">My Profile</a>
+            </li>
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                  <input ng-model="search" type="text" class="form-control" placeholder="Search">
+                </div>
+            </form>
+
         </ul>
-        <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
-        <div ng-show="user" class="welcome">
-            <span>Welcome, {{ user.email }}!</span>
-            <a ng-click="logout()">Logout</a>
-        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <button type="button" ui-sref="cart" class="btn shopping-button">
+                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
+            </button>
+            <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+            <div ng-show="user" class="welcome">
+                <span>Welcome, {{ user.email }}!</span>
+                <a ng-click="logout()">Logout</a>
+            </div>
+        </ul>
+
     </div>
+
 </nav>
