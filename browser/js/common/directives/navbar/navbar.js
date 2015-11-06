@@ -13,6 +13,31 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                 { label: 'Members Only', state: 'membersOnly', auth: true }
             ];
 
+            scope.categories= [
+                { name: 'accessories', text:'Accessories'},
+                { name: 'clothes', text:'Clothes'},
+                { name: 'creatures', text:'Creatures'},
+                { name: 'food', text:'Food'},
+                { name: 'home', text:'Home'},
+                { name: 'weapons', text:'Weapons'},
+                { name: 'vehicles', text:'Vehicles'},
+            ];
+
+            scope.shows= [
+                { name: "Adventure Time"},
+                { name: "Avatar"},
+                { name: "Bob's Burgers"},
+                { name: "Care Bears"},
+                { name: "Ghostbusters"},
+                { name: "Looney Tunes"},
+                { name: "Pokemon"},
+                { name: "Popeye"},
+                { name: "The Simpsons"},
+                { name: "Scooby Doo"},
+                { name: "South Park"},
+                { name: "Spongebob Squarepants"},
+            ];
+
             scope.user = null;
 
             scope.isLoggedIn = function () {
@@ -21,7 +46,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
 
             scope.logout = function () {
                 AuthService.logout().then(function () {
-                   $state.go('home');
+                   $state.go('products');
                 });
             };
 

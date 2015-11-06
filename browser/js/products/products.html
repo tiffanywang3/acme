@@ -4,14 +4,16 @@
 	</div>
     <div class="row container">
     	<!-- We should use an ng repeat here across arrays of categories and show names -->
-    	 <div class="col-xs-12"> 
+<!--     	 <div class="col-xs-12"> 
             <a ui-sref="products">All</a> | <a ui-sref="filteredProducts({filterType: 'category', filter: 'accessories'})">Accessories</a> | <a ui-sref="filteredProducts({filterType: 'category', filter: 'clothes'})">Clothes</a> | <a ui-sref="filteredProducts({filterType: 'category', filter:  'creatures'})">Creatures</a> | <a ui-sref="filteredProducts({filterType: 'category', filter: 'food'})">Food</a> | <a ui-sref="filteredProducts({filterType: 'category', filter: 'home'})">Home</a> | <a ui-sref="filteredProducts({filterType: 'category', filter:  'weapons'})">Weapons</a> | <a ui-sref="filteredProducts({filterType: 'category', filter:  'vehicles'})">Vehicles</a> 
         </div>
         <div class="col-xs-12">
-        	<a ui-sref="products">All</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Adventure Time'})">Adventure Time</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Avatar'})">Avatar</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Bob\'s Burgers'})">Bob's Burgers</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Care Bears'})">Care Bears</a> |   <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Ghostbusters'})">Ghostbusters</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Pokemon'})">Pokemon</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Popeye'})">Popeye</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Looney Tunes'})">Looney Tunes</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'The Simpsons'})">The Simpsons</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Scooby Doo'})">Scooby Doo</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'South Park'})">South Park</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Spongebob Squarepants'})">Spongebob Squarepants</a>
+        	<a ui-sref="products">All</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Adventure Time'})">Adventure Time</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Avatar'})">Avatar</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Bob\'s Burgers'})">Bob's Burgers</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Care Bears'})">Care Bears</a> |   <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Ghostbusters'})">Ghostbusters</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Pokemon'})">Pokemon</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Popeye'})">Popeye</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Looney Tunes'})">Looney Tunes</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'The Simpsons'})">The Simpsons</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Scooby Doo'})">Scooby Doo</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'South Park'})">South Park</a> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: 'Spongebob Squarepants'})">Spongebob Squarepants</a> -->
+        <div class="col-xs-12">
+            <input ng-model="search" type="text"placeholder="Search"></input>
         </div>
-        <input ng-model="search"></input>
-    	<div ng-repeat="product in allProducts | filter:search" class="col-xs-3">
+        </div>
+            <div ng-repeat="product in allProducts | filter:search" class="col-xs-3">
     		<product-tile product="product"></product-tile>
     	</div>
     </div>
