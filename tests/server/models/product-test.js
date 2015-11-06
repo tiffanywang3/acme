@@ -33,12 +33,12 @@ describe('Product model', function() {
                 description: "It's great",
                 imageUrl: "/images/whatever.jpg",
                 inventory: 5,
-                unitPrice: 99.99
+                unit_price: 99.99
             })
                 .then(function(product){
                     expect(product.product_name).to.be.equal("The Name");
                     expect(product.imageUrl).to.be.equal("/images/whatever.jpg");
-                    expect(product.unitPrice).to.be.equal(99.99);
+                    expect(product.unit_price).to.be.equal(99.99);
                     done();
                 })
     })
@@ -49,7 +49,7 @@ describe('Product model', function() {
             show_name: "The Simpsons",
             imageUrl: "/images/whatever.jpg",
             inventory: 5,
-            unitPrice: 99.99
+            unit_price: 99.99
         })
             prod.save(function(err, product){
                 expect(err.message).to.equal("Product validation failed");
@@ -65,7 +65,7 @@ describe('Product model', function() {
             description: "It's great",
             imageUrl: "/images/whatever.jpg",
             inventory: 5,
-            unitPrice: 99.99
+            unit_price: 99.99
         },
             {product_name: "The Name",
                 category: ["food"],
@@ -73,7 +73,7 @@ describe('Product model', function() {
                 description: "It's great",
                 imageUrl: "/images/whatever.jpg",
                 inventory: 5,
-                unitPrice: 99.99
+                unit_price: 99.99
             })
             .then(function(products){
             }, function(err){
@@ -89,7 +89,7 @@ describe('Product model', function() {
             show_name: "The Simpsons",
             description: "It's great",
             inventory: 5,
-            unitPrice: 99.99
+            unit_price: 99.99
         })
         prod.save(function(err, product){
             console.log("product", product);
@@ -106,7 +106,7 @@ describe('Product model', function() {
             description: "It's great",
             imageUrl: null,
             inventory: 5,
-            unitPrice: 99.99
+            unit_price: 99.99
         })
         prod.save(function(err, product){
             console.log("product", product);

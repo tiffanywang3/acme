@@ -31,7 +31,7 @@ describe('Carts Route', function () {
         .then(function(user){
             createdUser = user;
             userId = user._id;
-            return Product.create({product_name: "acmeTestProduct", category: "food", show_name: "Adventure Time", description: "Hi Phil", inventory: 5, unitPrice: 50})
+            return Product.create({product_name: "acmeTestProduct", category: "food", show_name: "Adventure Time", description: "Hi Phil", inventory: 5, unit_price: 50})
         })
         .then(function(product){
             productId = product._id;
@@ -116,7 +116,7 @@ describe('Carts Route', function () {
 		});
 
 		it('adds item to cart that doesnt exist in cart', function (done) {
-			Product.create({product_name: "another product", category: "food", show_name: "Adventure Time", description: "Hi Tiffany", inventory: 10, unitPrice: 99})
+			Product.create({product_name: "another product", category: "food", show_name: "Adventure Time", description: "Hi Tiffany", inventory: 10, unit_price: 99})
 			.then(function(product) {
 					guestAgent.post('/api/carts/'+cartId)
 					.send({product: product._id, quantity: 1})

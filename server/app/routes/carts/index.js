@@ -150,7 +150,7 @@ router.put('/:id/checkout/', function(req, res, next){
 
             cart.items.forEach(function(item){
                 //Copy price from product model to shopping cart
-                item.unit_price_paid = item.product.unitPrice;
+                item.unit_price_paid = item.product.unit_price;
 
                 //Subtract quantity from inventory
                 Product.updateInventory(item.product._id,(item.product.inventory-item.quantity));
@@ -160,7 +160,7 @@ router.put('/:id/checkout/', function(req, res, next){
             cart.status = "ordered";
             cart.shipping_address = req.body.shipping_address;
             cart.checkout_date = Date.now();
-            // for product in cart.items, populate, and store product.unitPrice in unit_price_paid
+            // for product in cart.items, populate, and store product.unit_price in unit_price_paid
             
             return cart.save();
         })
