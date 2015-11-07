@@ -45,7 +45,7 @@ var seedProducts = function() {
     var products = [
   {
     "show_name": "Pokemon",
-    "category": ["accesories"],
+    "category": ["Accesories"],
     "product_name": "Great Ball",
     "unit_price": 30000,
     "imageUrl": "/images/pokemon_greatball.jpg",
@@ -54,7 +54,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Pokemon",
-    "category": ["accesories"],
+    "category": ["Accesories"],
     "product_name": "Poke Ball",
     "unit_price": 10000,
     "imageUrl": "/images/pokemon_pokeball.png",
@@ -63,7 +63,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Pokemon",
-    "category": ["accesories"],
+    "category": ["Accesories"],
     "product_name": "Ash's Hat",
     "unit_price": 249900,
     "imageUrl": "/images/pokemon_hat.jpg",
@@ -72,7 +72,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Pokemon",
-    "category": ["creatures"],
+    "category": ["Creatures"],
     "product_name": "Vulpix",
     "unit_price": 300000,
     "imageUrl": "/images/pokemon_vulpix.png",
@@ -81,7 +81,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Pokemon",
-    "category": ["creatures"],
+    "category": ["Creatures"],
     "product_name": "Oddish",
     "unit_price": 252700,
     "imageUrl": "/images/pokemon_oddish.png",
@@ -90,7 +90,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Pokemon",
-    "category": ["creatures"],
+    "category": ["Creatures"],
     "product_name": "Bulbasaur",
     "unit_price": 30000,
     "imageUrl": "/images/pokemon_bulbasaur.png",
@@ -99,7 +99,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Popeye",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Spinach",
     "unit_price": 800,
     "imageUrl": "/images/popeyes-spinach.png",
@@ -108,16 +108,16 @@ var seedProducts = function() {
   },
   {
     "show_name": "The Simpsons",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Donuts",
-    "unit_price": 1500,
+    "unit_price": 150,
     "imageUrl": "/images/simpsons-donut.jpeg",
     "description": "Mmm, d'oh-nuts.",
     "inventory": 2000
   },
   {
     "show_name": "The Simpsons",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Duff Beer",
     "unit_price": 1200,
     "imageUrl": "/images/simpsons-duff.png",
@@ -126,16 +126,16 @@ var seedProducts = function() {
   },
   {
     "show_name": "The Simpsons",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Krusty Burger",
-    "unit_price": 7500,
+    "unit_price": 750,
     "imageUrl": "/images/simpsons-krustyburger.jpg",
     "description": "Made from 7 different animal fats.",
     "inventory": 500
   },
   {
     "show_name": "Looney Tunes",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Anvil",
     "unit_price": 59900,
     "imageUrl": "/images/loonytunes_anvil.jpg",
@@ -144,16 +144,16 @@ var seedProducts = function() {
   },
   {
     "show_name": "Spongebob Squarepants",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Krabby Patty",
-    "unit_price": 7500,
+    "unit_price": 750,
     "imageUrl": "/images/spongebob-krabbypatty.gif",
     "description": "The best burger under the sea.",
     "inventory": 50000
   },
   {
     "show_name": "Spongebob Squarepants",
-    "category": ["home"],
+    "category": ["Home"],
     "product_name": "Pineapple House",
     "unit_price": 8000,
     "imageUrl": "/images/spongebob_pineapple.jpg",
@@ -162,34 +162,34 @@ var seedProducts = function() {
   },
   {
     "show_name": "Scooby Doo",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Scooby Snack",
-    "unit_price": 59900,
+    "unit_price": 599,
     "imageUrl": "/images/scoobydoo_scoobysnack.jpg",
     "description": "Tasty treat, best when solving mysteries.",
     "inventory": 1000
   },
   {
     "show_name": "Bob's Burgers",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Gourdon Hamsey Burger",
-    "unit_price": 7500,
+    "unit_price": 750,
     "imageUrl": "/images/bobsburgers-gourdonhamseyburger.jpg",
     "description": "Comes with squash & ham",
     "inventory": 200
   },
   {
     "show_name": "The Simpsons",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Lisa's saxophone",
-    "unit_price": 20000,
+    "unit_price": 2000,
     "imageUrl": "/images/simpsons-lisassaxophone.png",
     "description": "Dear Lisa, May Your New Saxophone Bring You Many Years Of D'oh!",
     "inventory": 50
   },
   {
     "show_name": "The Simpsons",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Old, old spice",
     "unit_price": 500,
     "imageUrl": "/images/simpsons-oldoldspice.png",
@@ -198,7 +198,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "The Simpsons",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Vac-u-bot",
     "unit_price": 2500,
     "imageUrl": "/images/simpsons-vacubot.png",
@@ -207,25 +207,25 @@ var seedProducts = function() {
   },
   {
     "show_name": "The Simpsons",
-    "category": ["vehicles"],
+    "category": ["Vehicles"],
     "product_name": "The Homer",
-    "unit_price": 82000000,
+    "unit_price": 8200000,
     "imageUrl": "/images/simsons-thehomer.png",
     "description": "Designed for the average American. Comes with three horns, as you can never find a horn when you're mad.",
     "inventory": 5
   },
   {
     "show_name": "The Simpsons",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Frosted Krusty-Os",
-    "unit_price": 2500,
+    "unit_price": 250,
     "imageUrl": "/images/simpsons-frostedkrustyos.jpg",
     "description": "It is made with 10% real food",
     "inventory": 1000
   },
   {
     "show_name": "The Simpsons",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Kwik-E-Mart Squishee",
     "unit_price": 500,
     "imageUrl": "/images/simpsons_squishee.jpg",
@@ -234,7 +234,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "South Park",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Kenny's Orange Parka",
     "unit_price": 14900,
     "imageUrl": "/images/southpark_kenny_parka.jpg",
@@ -243,7 +243,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "South Park",
-    "category": ["food"],
+    "category": ["Food"],
     "product_name": "Cheesy Poofs",
     "unit_price": 200,
     "imageUrl": "/images/southpark_cheesypoofs.png",
@@ -252,7 +252,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "South Park",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Mr. Hankey Costume",
     "unit_price": 3500,
     "imageUrl": "/images/southpark_mrhankeycostume.jpg",
@@ -261,7 +261,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "South Park",
-    "category": ["home"],
+    "category": ["Home"],
     "product_name": "Christmas Critters Family Portrait",
     "unit_price": 2000,
     "imageUrl": "/images/southpark_christmascritters.jpg",
@@ -270,25 +270,25 @@ var seedProducts = function() {
   },
   {
     "show_name": "Looney Tunes",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Do-it-yourself Tornado Kit",
-    "unit_price": 20000,
+    "unit_price": 2000,
     "imageUrl": "/images/looneytunes-tornadokit.jpg",
     "description": "Cause some distruction with a tornado kit",
     "inventory": 150
   },
   {
     "show_name": "Looney Tunes",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Jet-propelled Tennis Shoes",
-    "unit_price": 15000,
+    "unit_price": 1500,
     "imageUrl": "/images/looneytunes-jetpropelledtennisshoes.jpg",
     "description": "Shoot for the stars with Jet Propelled Tennis Shoes",
     "inventory": 200
   },
   {
     "show_name": "Looney Tunes",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Giant Kite Kit",
     "unit_price": 3500,
     "imageUrl": "/images/looneytunes-giantkitekit.jpg",
@@ -297,7 +297,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Looney Tunes",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Super Outfit",
     "unit_price": 2500,
     "imageUrl": "/images/looneytunes-superoutfit.jpg",
@@ -306,7 +306,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Looney Tunes",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Earthquake Pills",
     "unit_price": 2000,
     "imageUrl": "/images/looneytunes-earthquakepills.jpg",
@@ -315,16 +315,16 @@ var seedProducts = function() {
   },
   {
     "show_name": "The Simpsons",
-    "category": ["home"],
+    "category": ["Home"],
     "product_name": "Burns portrait",
     "unit_price": 35000,
     "imageUrl": "/images/simpsons-burnsportrait.png",
     "description": "Only the best of the best can have this EXCELLENT portrait",
-    "inventory": 200
+    "inventory": 20
   },
   {
     "show_name": "The Simpsons",
-    "category": ["home"],
+    "category": ["Home"],
     "product_name": "Clown Bed",
     "unit_price": 15000,
     "imageUrl": "/images/simpsons-clownbed.png",
@@ -333,7 +333,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Aang Costume",
     "unit_price": 100000,
     "imageUrl": "/images/avatar_aang.jpg",
@@ -342,7 +342,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Katara Costume",
     "unit_price": 100000,
     "imageUrl": "/images/avatar_katara.jpg",
@@ -351,7 +351,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Sokka Costume",
     "unit_price": 100000,
     "imageUrl": "/images/avatar_sokka.png",
@@ -360,7 +360,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Toph Costume",
     "unit_price": 100000,
     "imageUrl": "/images/avatar_toph.jpg",
@@ -369,7 +369,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Zuko Costume",
     "unit_price": 100000,
     "imageUrl": "/images/avatar_zuko.jpg",
@@ -378,7 +378,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["clothes"],
+    "category": ["Clothes"],
     "product_name": "Iroh Costume",
     "unit_price": 1000000,
     "imageUrl": "/images/avatar_iroh.jpg",
@@ -387,7 +387,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Air Staff",
     "unit_price": 1000000,
     "imageUrl": "/images/avatar_airstaff.jpg",
@@ -396,7 +396,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Boomerang",
     "unit_price": 50000,
     "imageUrl": "/images/avatar_sokkaboomerang.jpg",
@@ -405,7 +405,7 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["creatures"],
+    "category": ["Creatures"],
     "product_name": "Flying Bison",
     "unit_price": 100000000,
     "imageUrl": "/images/avatar_flyingbison.jpg",
@@ -414,120 +414,120 @@ var seedProducts = function() {
   },
   {
     "show_name": "Avatar",
-    "category": ["creatures"],
+    "category": ["Creatures"],
     "product_name": "Flying Lemur",
     "unit_price": 6000000,
     "imageUrl": "/images/avatar_flyinglemur.jpg",
     "description": "Will eat all your lychee berries, loyal friend.",
-    "inventory": 1000
+    "inventory": 100
   },
   {
     "show_name": "Adventure Time",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Finn's Hat",
     "unit_price": 50000,
     "imageUrl": "/images/adventuretime_finnhat.jpg",
     "description": "Finn's hat is a piece of headgear that Finn wears throughout the Adventure Time series",
-    "inventory": 100000
+    "inventory": 100
   },
   {
     "show_name": "Adventure Time",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Jake Hat",
     "unit_price": 50000,
     "imageUrl": "/images/adventuretime_jakehat.jpg",
     "description": "Jake's hat",
-    "inventory": 100000
+    "inventory": 100
   },
   {
     "show_name": "Adventure Time",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Princess Bubblegum Crown",
     "unit_price": 5000000,
     "imageUrl": "/images/adventuretime_pbcrown.jpg",
     "description": "Princess Bubblegum's crown is a golden circlet with an inlaid turquoise jewel at the pinnacle and worn by Princess Bubblegum to signify her monarchy to the Candy Kingdom",
-    "inventory": 80000
+    "inventory": 800
   },
   {
     "show_name": "Adventure Time",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Marceline's Bass",
     "unit_price": 100000,
     "imageUrl": "/images/adventuretime_marcelinebass.jpg",
     "description": "Be like the true Vampire Queen",
-    "inventory": 90000
+    "inventory": 900
   },
   {
     "show_name": "Adventure Time",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Gumball Guardian",
     "unit_price": 1000000,
     "imageUrl": "/images/adventuretime_gumbball.jpg",
     "description": "Best protection in the land",
-    "inventory": 5000
+    "inventory": 50
   },
   {
     "show_name": "Adventure Time",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Finn's Sword",
     "unit_price": 5000000,
     "imageUrl": "/images/adventuretime_finnsword.jpg",
     "description": "The weapon of a true hero",
-    "inventory": 2500
+    "inventory": 25
   },
   {
     "show_name": "Adventure Time",
-    "category": ["weapons"],
+    "category": ["Weapons"],
     "product_name": "Enchiridion",
     "unit_price": 1000000,
     "imageUrl": "/images/adventuretime_enchiridion.png",
     "description": "Are you a hero? Get the Enchiridion",
-    "inventory": 2000
+    "inventory": 20
   },
   {
     "show_name": "Adventure Time",
-    "category": ["accessories"],
+    "category": ["Accessories"],
     "product_name": "Ice King's Crown",
     "unit_price": 500000,
     "imageUrl": "/images/adventuretime_icekingcrown.jpg",
     "description": "Be an Ice King",
-    "inventory": 10000
+    "inventory": 100
   },
   {
     "show_name": "Scooby Doo",
-    "category": ["vehicles"],
+    "category": ["Vehicles"],
     "product_name": "Mystery Machine",
     "unit_price": 6000000,
     "imageUrl": "/images/scoobydoo_mysterymachine.jpg",
     "description": "The Classic Mystery Machine",
-    "inventory": 300
+    "inventory": 30
   },
   {
     "show_name": "Care Bears",
-    "category": ["vehicles"],
+    "category": ["Vehicles"],
     "product_name": "Care-A-Lot Cloudmobile",
-    "unit_price": 65000000,
+    "unit_price": 6500000,
     "imageUrl": "/images/carebears-carealotcloudmobile.jpg",
     "description": "Zoom through the clouds with the Care-A-Lot Cloudmobile",
-    "inventory": 500
+    "inventory": 50
   },
   {
     "show_name": "Ghostbusters",
-    "category": ["vehicles"],
+    "category": ["Vehicles"],
     "product_name": "ECTO-1",
-    "unit_price": 70000000,
+    "unit_price": 7000000,
     "imageUrl": "/images/ghostbusters-ecto1.gif",
     "description": "When someone calls, get there fast with the ECTO-1",
-    "inventory": 200
+    "inventory": 20
   },
   {
     "show_name": "Spongebob Squarepants",
-    "category": ["vehicles"],
+    "category": ["Vehicles"],
     "product_name": "Invisible Boat Mobile",
-    "unit_price": 90000000,
+    "unit_price": 9000000,
     "imageUrl": "/images/spongebob-invisibleboatmobile.jpg",
     "description": "Own the original Invisible Boatmobile previously owned by Mermaid Man and Barnacle Boy",
-    "inventory": 100
+    "inventory": 10
   }
 ]
 

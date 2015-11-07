@@ -15,8 +15,8 @@ app.factory('ReviewFactory', function ($rootScope, $http) {
 		return $http.get('/api/reviews/product/'+ id)
 		.then(function (response) {
 			return response.data;
-		}, function (error){
-			return error;
+		}, function (error){ // add status code
+			return response.send("no reviews for this product");
 		});
 	}
 
