@@ -24,8 +24,9 @@ app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, 
     // $scope.error = null;
     $scope.product = theProduct;
    // $scope.reviews = reviews;
-    // $scope.productCategories = theProduct.categories;
-    console.log("product details - the product", $scope.product)
+    //$scope.productCategories = theProduct.category;
+
+   // console.log("product details - the product", $scope.product)
      //console.log("product reviews - the reviews", $scope.reviews)
 
      $scope.user = user;
@@ -37,8 +38,8 @@ app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, 
         return new Array(20);
    }
 
-   $scope.addToCart = function (item){
-        return CartFactory.addItem(user.active_cart, $scope.product)
+   $scope.addToCart = function (){
+        return CartFactory.addItem(user.active_cart, $scope.product, $scope.productToAdd.quantity)
         .then (function (addedItem){
             return addedItem;
         })
