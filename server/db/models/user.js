@@ -79,9 +79,7 @@ schema.method('retrieveHistory', function(){
     return Cart.getHistory(this);
 
 })
-schema.method('createCart', function(){
-    return Cart.makeCart(this);
-})
+
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });

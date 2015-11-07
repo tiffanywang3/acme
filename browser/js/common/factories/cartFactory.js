@@ -1,4 +1,5 @@
 app.factory('CartFactory', function($rootScope, $http){
+
 	var CartFactory = {};
 	CartFactory.getCart = function(cartId){
 		return $http.get('/api/carts/' + cartId)
@@ -79,7 +80,4 @@ app.factory('CartFactory', function($rootScope, $http){
 
 
 
-
-
-
-
+>>>>>>> master
