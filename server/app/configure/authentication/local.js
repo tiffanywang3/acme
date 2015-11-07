@@ -4,6 +4,7 @@ var _ = require('lodash');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
+var Cart = mongoose.model('Cart');
 
 module.exports = function (app) {
 
@@ -53,5 +54,71 @@ module.exports = function (app) {
         passport.authenticate('local', authCb)(req, res, next);
 
     });
+    app.post('/signup', function (req, res, next) {
+
+        var authCb = function (err, user) {
+
+            if (err) return next(err);
+            // if (!user) {
+            //     User.create(req.body)
+            //     .then(function(user){
+            //         console.log("USER CREATED UPON SIGNUP", user)
+            //         res.status(201).send(user);
+            //     })
+            // }
+            if (!user) {
+                User.create(req.body)
+                .then(function(user){
+                    req.logIn(user, function (loginErr) {
+                        if (loginErr) return next(loginErr);
+                        // We respond with a response object that has user with _id and email.
+                        Cart.create({user_id: user._id, status: "active"})
+                        .then(function(cart){
+                            User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
+                            .then(function(user){
+                                res.status(200).send({
+                                    user: _.omit(user.toJSON(), ['password', 'salt'])
+                                });
+                            })
+                            
+                        }, function(err){
+                            console.log("Cart not created")
+                        })
+
+                        
+                    });
+                    
+                })
+            }
+
+
+
+
+            
+
+        };
+
+        passport.authenticate('local', authCb)(req, res, next);
+
+    });
 
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

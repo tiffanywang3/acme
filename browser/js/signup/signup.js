@@ -17,7 +17,7 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state) {
 
         $scope.error = null;
 
-        AuthService.signup(loginInfo)
+        AuthService.signup(userInfo)
         .then(function () {
             $state.go('products');
         }).catch(function () {
