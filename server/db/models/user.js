@@ -43,6 +43,9 @@ var schema = new mongoose.Schema({
     },
     active_cart: {
         type: mongoose.Schema.Types.ObjectId, ref:'Cart'
+    },
+    type: { type: String, required: true, enum: {
+         values: ["customer", "admin"]}, default: "customer" 
     }
 
 });
