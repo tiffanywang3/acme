@@ -59,13 +59,6 @@ module.exports = function (app) {
         var authCb = function (err, user) {
 
             if (err) return next(err);
-            // if (!user) {
-            //     User.create(req.body)
-            //     .then(function(user){
-            //         console.log("USER CREATED UPON SIGNUP", user)
-            //         res.status(201).send(user);
-            //     })
-            // }
             if (!user) {
                 User.create(req.body)
                 .then(function(user){
