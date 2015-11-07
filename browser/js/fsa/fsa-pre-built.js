@@ -101,7 +101,7 @@
             return $http.post('/signup', credentials)
                 .then(onSuccessfulLogin)
                 .catch(function () {
-                    return $q.reject({ message: 'Invalid login credentials.' });
+                    return $q.reject({ message: 'Please enter a unique and valid email.' });
                 });
         };
 

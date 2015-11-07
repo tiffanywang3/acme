@@ -21,7 +21,7 @@ app.controller('SignupCtrl', function ($scope, AuthService, $state) {
         .then(function () {
             $state.go('products');
         }).catch(function () {
-            $scope.error = 'Invalid login credentials.';
+            $scope.error = 'Please enter a unique and valid email';
         });
 
     };

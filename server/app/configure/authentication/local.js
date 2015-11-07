@@ -81,6 +81,8 @@ module.exports = function (app) {
                         
                     });
                     
+                }, function(err){
+                    res.status(404).send("Please enter a unique and valid email!")
                 })
             }
 
