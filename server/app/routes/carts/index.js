@@ -31,41 +31,60 @@ router.get('/:id', function(req, res, next){
 // From product page
 // Add item to items list
 // req.body { product: "23XSF43VREG", quantity: 2}
-router.post('/:id', function(req, res, next){
-    console.log("IN ROUTER: ", req.params.id, req.body);
-    Cart.findById(req.params.id)
-        .then(function(cart){
-            // console.log("CART BEFORE LOGIC",cart)
-            var index =  _.findIndex(cart.items, function(item) {
-                return item.product.equals(req.body.product);
-            });
-            // console.log("INDEX", index)
-            if (index != -1) {
-                cart.items[index].quantity += req.body.quantity;
-                return cart.save()
-            } else {
-                cart.items.push(req.body);
-                return cart.save();
-            }
-            
-        }, function (error){
-            res.send("Unable to find cart"); // May want to change this to create a cart instead? 
-        })
-        .then(function(cart){
-            // console.log("CART AFTER LOGIC", cart)
-            res.status(201).send(cart);
-        })
-        .then(null, next);
+router.post('/', function(req, res, next){
+    console.log("IN ROUTER: ", req.body);
+    if(req.user) {
+        console.log("FOUND  USER")
+        Cart.findById(req.user.active_cart)
+            .then(function(cart){
+                // console.log("CART BEFORE LOGIC",cart)
+                var index =  _.findIndex(cart.items, function(item) {
+                    return item.product.equals(req.body.product);
+                });
+                // console.log("INDEX", index)
+                if (index != -1) {
+                    cart.items[index].quantity += req.body.quantity;
+                    return cart.save()
+                } else {
+                    cart.items.push(req.body);
+                    return cart.save();
+                }
+                
+            }, function (error){
+                res.send("Unable to find cart"); // May want to change this to create a cart instead? 
+            })
+            .then(function(cart){
+                // console.log("CART AFTER LOGIC", cart)
+                res.status(201).send(cart);
+            })
+            .then(null, next);
+        }
+    else {
+        //If req.session.items doesn't exist, create an empty array
+        console.log("THIS IS GUEST")
+        if(!("items" in req.session)) {
+            console.log("CREATING NEW ITEMS ARRAY")
+            req.session.items=[];
+
+        } 
+        var index = _.findIndex(req.session.items,{product: req.body.product})
+        console.log("index", index)
+
+        if(index != -1) req.session.items[index].quantity += Number(req.body.quantity);
+        else req.session.items.push({product: req.body.product, quantity: Number(req.body.quantity)});
+        res.json(req.session.items);
+    }
+
 })
 
 // Create cart
-router.post('/', function(req, res, next){
-    Cart.create(req.body)
-        .then(function(cart){
-            res.status(201).send(cart);
-        })
-        .then(null, next);
-})
+// router.post('/', function(req, res, next){
+//     Cart.create(req.body)
+//         .then(function(cart){
+//             res.status(201).send(cart);
+//         })
+//         .then(null, next);
+// })
 
 // Modify cart
 router.put('/:id', function(req, res, next){
@@ -92,6 +111,7 @@ router.delete('/:id', function(req, res, next){
 // Update quantity of existing item
 // req.body { product: "23XSF43VREG", quantity: 2}
 router.put('/:id/item/:productId', function(req, res, next){
+    
     Cart.findById(req.params.id)
         .then(function(cart){
             var index =  _.findIndex(cart.items, function(item) {
