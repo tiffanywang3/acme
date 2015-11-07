@@ -1,9 +1,13 @@
 <form id="login-form" name="signupForm" ng-submit="signupForm.$valid && createUser(userInfo)">
     <h1>Signup</h1>
-    
+
     <alert type="danger" ng-show="error">
         {{ error }}
     </alert>
+    <div class="form-group">
+        <label for="email">Email address*</label>
+        <input type="text" ng-model="userInfo.email" required class="form-control" id="email" placeholder="Enter email">
+    </div>
     <div class="form-group">
         <label for="signup-first_name">First Name</label>
         <input type="text" ng-model="userInfo.first_name" class="form-control" id="signup-first_name" placeholder="First Name">
@@ -12,17 +16,14 @@
         <label for="signup-last_name">Last Name</label>
         <input type="text" ng-model="userInfo.last_name" class="form-control" id="signup-last_name" placeholder="Last Name">
     </div>
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="userInfo.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
+    
     <div class="form-group">
         <label for="signup-phone">Phone Number</label>
         <input type="number" ng-model="userInfo.phone_number" class="form-control" id="signup-phone" placeholder="Phone Number">
     </div>
     <div class="form-group">
-        <label for="signup-password">Password</label>
-        <input type="password" ng-model="userInfo.password" class="form-control" id="signup-password" placeholder="Password">
+        <label for="signup-password">Password*</label>
+        <input type="password" ng-model="userInfo.password" required class="form-control" id="signup-password" placeholder="Password">
     </div>
     <div>
         <p><oauth-button provider-name="Google"></oauth-button></p>
