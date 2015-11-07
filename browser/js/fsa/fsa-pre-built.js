@@ -52,6 +52,7 @@
 
         function onSuccessfulLogin(response) {
             var data = response.data;
+            //console.log("Checking if I get here", data)
             Session.create(data.id, data.user);
             $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
             return data.user;
@@ -87,12 +88,23 @@
         };
 
         this.login = function (credentials) {
+            //console.log("Auth Service login")
             return $http.post('/login', credentials)
                 .then(onSuccessfulLogin)
                 .catch(function () {
                     return $q.reject({ message: 'Invalid login credentials.' });
                 });
         };
+
+        this.signup = function (credentials) {
+            //console.log("Auth Service signup", credentials)
+            return $http.post('/signup', credentials)
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Please enter a unique and valid email.' });
+                });
+        };
+
 
         this.logout = function () {
             return $http.get('/logout').then(function () {

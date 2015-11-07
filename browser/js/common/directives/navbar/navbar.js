@@ -14,13 +14,13 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             ];
 
             scope.categories= [
-                { name: 'accessories', text:'Accessories'},
-                { name: 'clothes', text:'Clothes'},
-                { name: 'creatures', text:'Creatures'},
-                { name: 'food', text:'Food'},
-                { name: 'home', text:'Home'},
-                { name: 'weapons', text:'Weapons'},
-                { name: 'vehicles', text:'Vehicles'},
+                { name: 'Accessories', text:'Accessories'},
+                { name: 'Clothes', text:'Clothes'},
+                { name: 'Creatures', text:'Creatures'},
+                { name: 'Food', text:'Food'},
+                { name: 'Home', text:'Home'},
+                { name: 'Weapons', text:'Weapons'},
+                { name: 'Vehicles', text:'Vehicles'},
             ];
 
             scope.shows= [
