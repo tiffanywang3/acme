@@ -19,4 +19,17 @@ reviews {
     padding: 10px;
   }
 
+  #star-slider input[type="number"] {
+    text-align: center;
+    padding-left: 10px;
+  }
+
+  #submit {
+      vertical-align: center;
+  }
+
+  .help-block {
+    padding-bottom: 0;
+  }
+
 }
