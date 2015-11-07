@@ -77,7 +77,3 @@ app.factory('CartFactory', function($rootScope, $http){
 
 
 
-
-
-
->>>>>>> master
