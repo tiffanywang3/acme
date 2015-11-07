@@ -1,0 +1,49 @@
+<form id="login-form" name="profileForm" ng-submit="updateUser(user)">
+    <h1>{{user.first_name || user.email}} Profile</h1>
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" ng-model="user.email" class="form-control" id="email" placeholder="Update email">
+    </div>
+    <div class="form-group">
+        <label for="signup-first_name">First Name</label>
+        <input type="text" ng-model="user.first_name" class="form-control" id="signup-first_name" placeholder="Update First Name">
+    </div>
+    <div class="form-group">
+        <label for="signup-last_name">Last Name</label>
+        <input type="text" ng-model="user.last_name" class="form-control" id="signup-last_name" placeholder="Update Last Name">
+    </div>
+    
+    <div class="form-group">
+        <label for="signup-phone">Phone Number</label>
+        <input type="text" ng-model="user.phone_number" class="form-control" id="signup-phone" placeholder="Update Phone Number">
+    </div>
+    <div class="form-group">
+        <label for="signup-password">Password*</label>
+        <input type="password" ng-model="user.password" class="form-control" id="signup-password" placeholder="Update Password">
+    </div>
+    <div>
+        <p><oauth-button provider-name="Google"></oauth-button></p>
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+
+<div>
+    <button ng-click="orderHistory()" class="btn btn-default">See Order history</button>
+</div>
+
+<div>{{carts.data}}</div>
+
+
+
+
+
+
+
+
+
+

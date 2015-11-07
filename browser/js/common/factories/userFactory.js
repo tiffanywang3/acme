@@ -1,14 +1,65 @@
 app.factory('UserFactory', function($rootScope, $http){
     var UserFactory = {};
     UserFactory.createUser = function(userInfo){
-        return $http.post('/signup', userInfo)
-        .then(function(cart){
-            return cart
+        return $http.post('/api/users', userInfo)
+        .then(function(user){
+            return user
         }, function(err){
             return err;
         })
     }
 
+    UserFactory.fetchAll = function(userInfo){
+        return $http.get('/api/users/')
+        .then(function(user){
+            return user
+        }, function(err){
+            return err;
+        })
+    }
+
+    UserFactory.getOne = function(userInfo){
+        //console.log("THIS IS THE USER ID TO LOOK UP", userInfo._id)
+        return $http.get('/api/users/'+ userInfo._id)
+        .then(function(user){
+            //console.log("HERE IS THE USER FROM THE ROUTE", user)
+            return user.data
+        }, function(err){
+            return err;
+        })
+    }
+    UserFactory.updateUser = function(userInfo){
+        return $http.put('/api/users/' + userInfo._id, userInfo)
+        .then(function(user){
+            return user
+        }, function(err){
+            return err;
+        })
+    }
+
+    UserFactory.retrieveHistory = function(user){
+        return $http.get('/api/users/' + user._id + "/carts")
+        .then(function(carts){
+            console.log("HERE ARE THE CARTS", carts)
+            return carts;
+        }, function(err){
+            return err;
+        })
+    }
+
+    UserFactory.passwordReset = function(){
+
+    }
+    //passwordReset?
+
+    UserFactory.remove = function(){
+        return $http.delete('/api/users/' + userInfo._id)
+        .then(function(user){
+
+        }, function(err){
+            return err;
+        })
+    }
 
     return UserFactory;
 })
