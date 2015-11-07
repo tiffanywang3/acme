@@ -1,0 +1,19 @@
+<section>
+	<div class="row">
+		<h1>Manage Users</h1>
+	</div>
+    <div class="row container">
+        <div class="col-xs-12">
+          <table class="table">
+          <tr><th>Email</th><th>First</th><th>Last</th><th>Type</th><th>Action</th></tr>
+          <tr ng-repeat="user in allUsers">
+            <td>{{ user.email }}</td>
+            <td>{{ user.first_name }}</td>
+            <td>{{ user.last_name }}</td>
+            <td>{{ user.type }}</td>
+            <td>Edit | Delete | Password Reset</td>
+          </tr>
+          </table>
+        </div>
+    </div>
+</section>

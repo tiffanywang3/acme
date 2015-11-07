@@ -42,6 +42,7 @@ app.factory('ProductFactory', function ($rootScope, $http) {
 	ProductFactory.updateProduct = function (id, productUpdates){
 		return $http.put('/api/products/'+ id, productUpdates)
 		.then(function (response) {
+			console.log("back in product factory", response);
 			return response.data;
 		}, function (error){
 			return error;

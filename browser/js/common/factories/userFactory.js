@@ -9,6 +9,15 @@ app.factory('UserFactory', function($rootScope, $http){
         })
     }
 
+    UserFactory.fetchAll = function(){
+        return $http.get('/api/users')
+        .then(function(response){
+            return response.data;
+        }, function(err){
+            return err;
+        })
+    }
+
 
     return UserFactory;
 })

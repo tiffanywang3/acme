@@ -40,16 +40,21 @@
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
+            <button ng-show="admin" ui-sref="admin" class="btn shopping-button">Admin</button>
+
             <button type="button" ui-sref="cart" class="btn shopping-button">
                 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             </button>
+
 
             <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
 
             <button ng-show="!user" ui-sref="signup" class="btn login-button">Signup</button>
 
+
             <div ng-show="user" class="welcome">
-                <span>Welcome, {{ user.email }}!</span>
+                <span>Welcome, {{ user.first_name!==null ? user.first_name : user.email }}!</span>
+                
                 <a ng-click="logout()">Logout</a>
             </div>
         </ul>
