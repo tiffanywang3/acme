@@ -5,8 +5,8 @@ app.config(function ($stateProvider) {
         controller: 'ProductDetailsCtrl',
         resolve: {
         	theProduct: function(ProductFactory, $stateParams) {
-        		  return ProductFactory.fetchById($stateParams.productId); 
-            },                   
+        		  return ProductFactory.fetchById($stateParams.productId);
+            },
             reviews: function(ReviewFactory, $stateParams){
                 return ReviewFactory.fetchByProductId($stateParams.productId);
             },
@@ -15,19 +15,19 @@ app.config(function ($stateProvider) {
             }
         }
     })
-    
+
 });
 
-app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, $state, CartFactory, user) {
-    
+app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, $state, CartFactory, user, reviews) {
+
     // $scope.login = {};
     // $scope.error = null;
     $scope.product = theProduct;
-   // $scope.reviews = reviews;
+    $scope.reviews = reviews;
     //$scope.productCategories = theProduct.category;
 
    // console.log("product details - the product", $scope.product)
-     //console.log("product reviews - the reviews", $scope.reviews)
+   //  console.log("product reviews - the reviews", $scope.reviews)
 
      $scope.user = user;
 

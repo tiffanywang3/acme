@@ -1,8 +1,8 @@
 <table>
-    <th> Reviews </th>
+    <th> Reviews of {{ product.product_name }} - Average Rating: {{ averageRating() | number: 2 }} </th>
     <tr>
         <td>
-            <form name="newReviewForm" ng-submit="submit()" novalidate>
+            <form name="newReviewForm" ng-submit="submit(review)" novalidate>
                 <div ng-show="!alreadySubmitted && isLoggedIn()" class="row">
                     <div class="col-lg-8">
                         <label> Share your thoughts on {{ product.product_name }} here: <br></label>
@@ -22,7 +22,7 @@
                     </div>
                 </div>
                 <div ng-show="!isLoggedIn()">
-                    <p>Log in to leave a review.</p>
+                    <p><a ui-sref="login">Log in</a> to leave a review.</p>
                 </div>
                 <div ng-show="alreadySubmitted">
                     {{ submittedMessage }}
