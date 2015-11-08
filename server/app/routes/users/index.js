@@ -5,13 +5,37 @@ var _ = require('lodash');
 var User = require('../../../db/models/user.js')
 
 
+router.get('/:user_id', function(req, res, next){
 
+	User.findById(req.params.user_id)
+	.then(function(user){
+		console.log("THIS IS FROM THE USER ROUTE", req.params.user_id)
+		//req.requestedUser = user ????
+		res.send(user);
+	})
+	.then(null, function(err){
+		err.status = 404;
+		next(err);
+	});
+})
 
 //get all users (for debugging)
 router.get('/', function(req, res, next){
 	User.find()
 	.then(function(users){
 		res.send(users)
+	})
+	.then(null, function(err){
+		err.status = 400;
+		next(err);
+	})
+})
+
+//get all carts for one user
+router.get('/:user_id/carts', function(req, res, next){
+	User.retrieveHistory(req.params.user_id)
+	.then(function(carts){
+		res.send(carts)
 	})
 	.then(null, function(err){
 		err.status = 400;
@@ -34,17 +58,7 @@ router.post('/', function(req,res,next){
 
 
 
-router.get('/:user_id', function(req, res, next){
-	User.findById(req.params.user_id)
-	.then(function(user){
-		//req.requestedUser = user ????
-		res.send(user);
-	})
-	.then(null, function(err){
-		err.status = 404;
-		next(err);
-	});
-})
+
 
 router.put('/:user_id', function(req, res, next){
 	User.findByIdAndUpdate(req.params.user_id, req.body, {new:true})
