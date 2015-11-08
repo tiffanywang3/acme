@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Cart = mongoose.model('Cart');
+var Address = mongoose.model('Address');
 
 module.exports = function (app) {
 
@@ -69,9 +70,19 @@ module.exports = function (app) {
                         .then(function(cart){
                             User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
                             .then(function(user){
-                                res.status(200).send({
-                                    user: _.omit(user.toJSON(), ['password', 'salt'])
-                                });
+                                console.log("HERES the user to add address to", user)
+                                Address.create({user_id: user._id})
+                                .then(function(address){
+                                    console.log("address", address)
+                                    User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
+                                    .then(function(user){
+                                        res.status(200).send({
+                                            user: _.omit(user.toJSON(), ['password', 'salt'])
+                                        });
+                                    })
+                                    
+                                })
+                                
                             })
                             
                         }, function(err){
