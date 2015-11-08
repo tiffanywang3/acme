@@ -6,17 +6,17 @@
                 <div ng-show="!alreadySubmitted && isLoggedIn()" class="row">
                     <div class="col-lg-8">
                         <label> Share your thoughts on {{ product.product_name }} here: <br></label>
-                        <uib-rating name="stars" ng-model="review.rating" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"
+                        <uib-rating name="stars" ng-model="review.rating" min="1" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"
                                     on-leave="overStar = null" titles="['one','two','three', 'four', 'five']"
                                     state-on="'glyphicon-star'" state-off="'glyphicon-star-empty'"
-                                    aria-labelledby="default-rating" ng-required="true">
+                                    aria-labelledby="default-rating" ng-required="true" required>
                         </uib-rating>
                         <textarea name="reviewText" type="text" ng-model="review.text" ng-minlength="10" ng-maxlength="250" cols="90" rows="2"></textarea>
-                        <input class="pull-right inline btn btn-default" type="submit" ng-disabled="newReviewForm.$invalid" id="submit" value="Submit" />
+                        <input class="pull-right inline btn btn-default" type="submit" ng-disabled="newReviewForm.$invalid || checkRating(review.rating)" id="submit" value="Submit" />
                     </div>
                     <div class="col-lg-1"></div>
                     <div class="col-lg-3">
-                        <p ng-show="newReviewForm.stars.$invalid && newReviewForm.reviewText.$dirty" class="help-block">Include star rating.</p>
+                        <p ng-show="checkRating(review.rating) && newReviewForm.reviewText.$dirty" class="help-block">Include star rating.</p>
                         <p ng-show="newReviewForm.reviewText.$error.minlength" class="help-block">Text is too short.</p>
                         <p ng-show="newReviewForm.reviewText.$error.maxlength" class="help-block">Text is too long.</p>
                     </div>

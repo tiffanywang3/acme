@@ -1,4 +1,4 @@
-app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, $state, ReviewFactory, ProductFactory) {
+app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewFactory, ProductFactory) {
 
     return {
         restrict: 'E',
@@ -30,20 +30,13 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, $state,
                         })
                 } else {
                     alert("You must be logged in to create reviews.");
-                    //ReviewFactory.createReview({
-                    //    user_id: "123",
-                    //    product_id: attrs.product,
-                    //    text: scope.review.text,
-                    //    rating: scope.review.rating
-                    //})
                 }
-                scope.newReviewForm.$setPristine;
+                scope.newReviewForm.$setPristine = true;
             }
 
             // get Product from product id that was passed into directive
             ProductFactory.fetchById(attrs.product)
                 .then(function(product){
-                    console.log("product", product);
                     scope.product = product;
                 })
 
@@ -56,6 +49,13 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, $state,
             // used to get range for stars
             scope.getNumber = function(num) {
                 return new Array(num);
+            }
+
+            //check review rating
+            scope.checkRating = function(num){
+                if (num < 1) {
+                    return true;
+                }
             }
         }
     };

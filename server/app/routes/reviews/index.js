@@ -23,6 +23,7 @@ router.get('/product/:productId', function(req, res, next){
 
 router.get('/user/:userId', function(req, res, next){
     Review.find({ user_id: req.params.userId })
+        .populate("product_id")
         .then(function(reviews){
             res.send(reviews);
         })

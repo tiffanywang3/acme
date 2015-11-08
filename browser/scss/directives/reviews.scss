@@ -1,4 +1,4 @@
-reviews {
+reviews, user-reviews {
 
   table {
     width: 100%;
@@ -25,11 +25,7 @@ reviews {
   }
 
   #submit {
-      vertical-align: center;
-  }
-
-  .help-block {
-    padding-bottom: 0;
+      vertical-align: middle;
   }
 
 }
