@@ -104,6 +104,8 @@
                     return $q.reject({ message: 'Please enter a unique and valid email.' });
                 });
         };
+        
+        
 
 
         this.logout = function () {
