@@ -3,8 +3,7 @@
     <tr ng-repeat="review in reviews">
         <td>
             <div ng-show="!review.deleted">
-                <!--TODO Link product name to product page-->
-                <a ui-sref='stateName({param: value, param: value})><h4>{{ review.product_id.product_name }}</h4></a>
+                <a ui-sref='productDetails({productId: review.product_id._id})><h4>{{ review.product_id.product_name }}</h4></a>
                 <image src="{{review.product_id.imageUrl}}" width="250"></image>
 
                  <!--View Mode //-->

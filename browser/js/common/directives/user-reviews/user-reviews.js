@@ -1,4 +1,4 @@
-app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewFactory, ProductFactory) {
+app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewFactory) {
 
     return {
         restrict: 'E',
@@ -6,10 +6,7 @@ app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, Rev
         templateUrl: 'js/common/directives/user-reviews/user-reviews.html',
         link: function (scope, elem, attrs) {
 
-            // TODO Product names should link to product detail pages
-
             // This assumes users can only see their own reviews (no one elses) & only when that user is logged in.
-            // TODO User Factory to get user by ID - to see reviews of other users???
             AuthService.getLoggedInUser()
                 .then(function(user){
                     scope.user = user;
