@@ -9,7 +9,7 @@ var User = require('../../../db/models/user');
 var Product = require('../../../db/models/product');
 
 // Get all carts
-router.get('/', function(req, res, next){
+router.get('/all', function(req, res, next){
     Cart.find()
         .then(function(carts){
             res.send(carts);
@@ -17,36 +17,43 @@ router.get('/', function(req, res, next){
         .then(null, next);
 })
 
-// Get one cart by ID
-router.get('/:id', function(req, res, next){
-    Cart.findById(req.params.id)
+// Get one cart based on guest/user session
+router.get('/', function(req, res, next){
+    if(req.user) {
+        Cart.findById(req.user.active_cart)
         .populate('items.product').exec()
         .then(function(cart){
             res.send(cart);
         })
         .then(null, next);
+    }
+    else {
+        var guestCart = new Cart({guest_id: req.session.id, items: req.session.items, status:"active"}).populate('items.product')
+        .execPopulate()
+        .then(function(cart) {
+            res.send(cart);
+        })
+    }
 })
-
 
 // From product page
 // Add item to items list
-// req.body { product: "23XSF43VREG", quantity: 2}
-router.post('/', function(req, res, next){
-    console.log("IN ROUTER: ", req.body);
+// req.body 
+
+//[{product: "23XSF43VREG", quantity: 2, price:}, {product: "SDSDA"}, ]
+
+router.post('/item/:productId', function(req, res, next){
     if(req.user) {
-        console.log("FOUND  USER")
         Cart.findById(req.user.active_cart)
             .then(function(cart){
-                // console.log("CART BEFORE LOGIC",cart)
                 var index =  _.findIndex(cart.items, function(item) {
                     return item.product.equals(req.body.product);
                 });
-                // console.log("INDEX", index)
                 if (index != -1) {
-                    cart.items[index].quantity += req.body.quantity;
+                    cart.items[index].quantity += Number(req.body.quantity);
                     return cart.save()
                 } else {
-                    cart.items.push(req.body);
+                    cart.items.push({product: req.body.product, quantity: Number(req.body.quantity)});
                     return cart.save();
                 }
                 
@@ -54,21 +61,16 @@ router.post('/', function(req, res, next){
                 res.send("Unable to find cart"); // May want to change this to create a cart instead? 
             })
             .then(function(cart){
-                // console.log("CART AFTER LOGIC", cart)
                 res.status(201).send(cart);
             })
             .then(null, next);
         }
     else {
         //If req.session.items doesn't exist, create an empty array
-        console.log("THIS IS GUEST")
         if(!("items" in req.session)) {
-            console.log("CREATING NEW ITEMS ARRAY")
             req.session.items=[];
-
         } 
         var index = _.findIndex(req.session.items,{product: req.body.product})
-        console.log("index", index)
 
         if(index != -1) req.session.items[index].quantity += Number(req.body.quantity);
         else req.session.items.push({product: req.body.product, quantity: Number(req.body.quantity)});
@@ -87,71 +89,91 @@ router.post('/', function(req, res, next){
 // })
 
 // Modify cart
-router.put('/:id', function(req, res, next){
-    console.log("CURRENT SESSION USER", req.session.user);
-    Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then(function(cart){
-            res.send(cart);
-        })
-        .then(null, next);
-})
+//*** NOT REQUIRED ***
+// router.put('/:id', function(req, res, next){
+//     Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
+//         .then(function(cart){
+//             res.send(cart);
+//         })
+//         .then(null, next);
+// })
 
-// Delete cart
-router.delete('/:id', function(req, res, next){
-    Cart.findByIdAndRemove(req.params.id)
-        .then(function(cart){
-            res.status(204).send(cart);
-        })
-        .then(null, next);
-})
+// Delete cart 
+//*** NOT REQUIRED ***
+// router.delete('/:id', function(req, res, next){
+//     Cart.findByIdAndRemove(req.params.id)
+//         .then(function(cart){
+//             res.status(204).send(cart);
+//         })
+//         .then(null, next);
+// })
 
 
 
 // From shopping cart
 // Update quantity of existing item
 // req.body { product: "23XSF43VREG", quantity: 2}
-router.put('/:id/item/:productId', function(req, res, next){
-    
-    Cart.findById(req.params.id)
-        .then(function(cart){
-            var index =  _.findIndex(cart.items, function(item) {
-                return item.product.equals(req.params.productId);
-            });
-            // console.log("INDEX", index)
-            if (index === -1) {
-                throw new Error("Item does not exist.");
-                next();
-            } else {
-                // console.log("GOT IN HERE AND HERES CART", cart.items)
-                cart.items[index].quantity = req.body.quantity;
-                return cart.save();
-            }
-        })
-        .then(function(cart){
-            // console.log("RESPONSE CART", cart)
-            res.send(cart);
-        })
-        .then(null, next);
+router.put('/item/:productId', function(req, res, next){
+    if(req.user) {
+        Cart.findById(req.user.active_cart)
+            .then(function(cart){
+                var index =  _.findIndex(cart.items, function(item) {
+                    return item.product.equals(req.params.productId);
+                });
+                if (index === -1) {
+                    throw new Error("Item does not exist.");
+                    next();
+                } else {
+                    cart.items[index].quantity = Number(req.body.quantity);
+                    return cart.save();
+                }
+            })
+            .then(function(cart){
+                res.send(cart);
+            })
+            .then(null, next);
+    }
+    else {
+        var index = _.findIndex(req.session.items,{product: req.body.product})
+        if(index == -1) {
+            throw new Error("Item does not exist.");
+            next();
+        }
+        else {
+            req.session.items[index].quantity = Number(req.body.quantity);
+            res.json(req.session.items)
+        }
+    }
 })
 
 // Delete specific item from cart items
 // This might need to turn into a PUT request, because you want to send back an updated view of the cart
-router.delete('/:id/:productId', function(req, res, next){
-    Cart.findById(req.params.id)
+router.delete('/item/:productId', function(req, res, next){
+    if(req.user) {
+    Cart.findById(req.user.active_cart)
         .then(function(cart){
             var index =  _.findIndex(cart.items, function(item) {
                 return item.product.equals(req.params.productId);
             });
-            // console.log("BEFORE SLICE", cart.items)
             cart.items.splice(index, 1);
-            // console.log("AFTER SLICE", cart.items)
             return cart.save({new: true})
         })
         .then(function(cart){
-            // console.log("RESPONSE CART ITEMS", cart)
             res.status(204).send("Successfully deleted")
         })
         .then(null, next);
+    }
+    else {
+        var index = _.findIndex(req.session.items,{product: req.params.productId})
+        if(index == -1) {
+            throw new Error("Item does not exist.");
+            next();
+        }
+        else {
+            req.session.items.splice(index,1);
+            res.json(req.session.items)
+        }
+    }
 })
 
 

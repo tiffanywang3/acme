@@ -39,9 +39,9 @@ app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, 
    }
 
    $scope.addToCart = function (){
-        return CartFactory.addItem($scope.product, $scope.productToAdd.quantity)
+        CartFactory.addItem($scope.product, $scope.productToAdd.quantity)
         .then (function (addedItem){
-            return addedItem;
+            $state.go('cart');
         })
    }
 
