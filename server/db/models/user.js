@@ -78,10 +78,9 @@ schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
 
 //need to decide format that carts will come back in. Array?
-schema.method('retrieveHistory', function(){
-    return Cart.getHistory(this);
-
-})
+schema.statics.retrieveHistory = function(userId){
+    return Cart.getHistory(userId);
+}
 
 schema.method('correctPassword', function (candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;

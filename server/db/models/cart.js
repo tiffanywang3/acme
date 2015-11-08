@@ -19,8 +19,8 @@ var schema = new mongoose.Schema({
 });
 
 
-schema.statics.getHistory = function(user) {
-    return this.find({ user_id: user._id, status:{$ne:'active'}});
+schema.statics.getHistory = function(userId) {
+    return this.find({ user_id: userId, status:{$ne:'active'}});
 }
 
 schema.statics.makeCart = function(user){
