@@ -8,7 +8,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileCtrl', function ($scope, AuthService, UserFactory, $state) {
+app.controller('ProfileCtrl', function ($scope, AuthService, UserFactory, AddressFactory, $state) {
     $scope.error = null;
     AuthService.getLoggedInUser().then(function(user){
         $scope.user = user;
@@ -22,6 +22,7 @@ app.controller('ProfileCtrl', function ($scope, AuthService, UserFactory, $state
         .then(function(){
             //$scope.$digest;
             //$state.go($state.current, {}, {reload: true});
+            AddressFactory.updateAddress(updatedInfo.shipping_address._id, updatedInfo.shipping_address)
             location.reload();
             //$state.go('profile'); 
         })
@@ -34,13 +35,6 @@ app.controller('ProfileCtrl', function ($scope, AuthService, UserFactory, $state
     //console.log(user)
     $scope.orderHistory = function(){
         console.log("THIS IS THE SCOPE.USER", $scope.user)
-        // UserFactory.getOne($scope.user)
-        // .then(function(user){
-        //     console.log("HERES THE USER", user);
-        //     return user.retrieveHistory()
-        //     //console.log("THIS IS THE USER", user);
-            
-        // })
         UserFactory.retrieveHistory($scope.user)
         .then(function(carts){
             console.log(carts)
