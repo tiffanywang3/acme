@@ -43,7 +43,11 @@
             <button type="button" ui-sref="cart" class="btn shopping-button">
                 <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span>
             </button>
+
             <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
+
+            <button ng-show="!user" ui-sref="signup" class="btn login-button">Signup</button>
+
             <div ng-show="user" class="welcome">
                 <span>Welcome, {{ user.email }}!</span>
                 <a ng-click="logout()">Logout</a>
@@ -53,3 +57,11 @@
     </div>
 
 </nav>
+
+
+
+
+
+
+
+

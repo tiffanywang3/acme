@@ -1,0 +1,44 @@
+<section id="productDetails">
+    <div class="row container">
+
+        <div class="col-xs-4"><img ng-src="{{ product.imageUrl }}"></div>
+        <div class="col-xs-6">
+            <h1>{{ product.product_name }}</h1>
+            <div> <span ng-repeat="category in product.category"><a ui-sref="filteredProducts({filterType: 'category', filter: category })">{{ category }}</a></span> | <a ui-sref="filteredProducts({filterType: 'show_name', filter: product.show_name })">{{ product.show_name }}</a> </div>
+            <div class="priceStock">Price: {{ product.unit_price/100 | currency}} | Stock: {{ product.inventory }}</div>
+            <h3>About this product</h3>
+            <div class="detailText">{{ product.description }}</div>
+            
+            <p></p>
+            <form class="form-inline" name="addProductFrm" ng-submit="addToCart()">
+              <div class="form-group">
+                <label for="quantity">Quantity</label>
+
+                <!-- <select class="form-control" ng-options="{{$index+1}} for i in getInventoryNum(product.inventory) track by $index" name="quantity" ng-model="productToAdd.quantity" required></select> -->
+
+                <select class="form-control" name="quantity" ng-model="productToAdd.quantity" required>
+                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option>               
+                </select>
+
+              </div>
+              <div class="form-group">
+                <label>{{ product.unit_price/100 | currency}}</label>
+              </div>
+              <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Add to Cart</button>
+            </form>
+        </div>
+        
+    </div>
+
+    <div class="row container">
+        <div class="col-xs-12">
+            
+            <h5>Reviews</h5>
+            <!-- Replace below with the directive -->
+            <!-- <div class="detailText">{{ reviews }}</div> -->
+        </div>
+    </div>
+    
+     
+</section>
+

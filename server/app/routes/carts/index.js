@@ -27,6 +27,37 @@ router.get('/:id', function(req, res, next){
         .then(null, next);
 })
 
+
+// From product page
+// Add item to items list
+// req.body { product: "23XSF43VREG", quantity: 2}
+router.post('/:id', function(req, res, next){
+    console.log("IN ROUTER: ", req.params.id, req.body);
+    Cart.findById(req.params.id)
+        .then(function(cart){
+            // console.log("CART BEFORE LOGIC",cart)
+            var index =  _.findIndex(cart.items, function(item) {
+                return item.product.equals(req.body.product);
+            });
+            // console.log("INDEX", index)
+            if (index != -1) {
+                cart.items[index].quantity += req.body.quantity;
+                return cart.save()
+            } else {
+                cart.items.push(req.body);
+                return cart.save();
+            }
+            
+        }, function (error){
+            res.send("Unable to find cart"); // May want to change this to create a cart instead? 
+        })
+        .then(function(cart){
+            // console.log("CART AFTER LOGIC", cart)
+            res.status(201).send(cart);
+        })
+        .then(null, next);
+})
+
 // Create cart
 router.post('/', function(req, res, next){
     Cart.create(req.body)
@@ -38,6 +69,7 @@ router.post('/', function(req, res, next){
 
 // Modify cart
 router.put('/:id', function(req, res, next){
+    console.log("CURRENT SESSION USER", req.session.user);
     Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
         .then(function(cart){
             res.send(cart);
@@ -54,32 +86,7 @@ router.delete('/:id', function(req, res, next){
         .then(null, next);
 })
 
-// From product page
-// Add item to items list
-// req.body { product: "23XSF43VREG", quantity: 2}
-router.post('/:id', function(req, res, next){
-    Cart.findById(req.params.id)
-        .then(function(cart){
-            // console.log("CART BEFORE LOGIC",cart)
-            var index =  _.findIndex(cart.items, function(item) {
-                return item.product.equals(req.body.product);
-            });
-            // console.log("INDEX", index)
-            if (index != -1) {
-                cart.items[index].quantity += req.body.quantity;
-                return cart.save()
-            } else {
-                cart.items.push(req.body);
-                return cart.save();
-            }
-            
-        })
-        .then(function(cart){
-            // console.log("CART AFTER LOGIC", cart)
-            res.status(201).send(cart);
-        })
-        .then(null, next);
-})
+
 
 // From shopping cart
 // Update quantity of existing item

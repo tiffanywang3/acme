@@ -12,3 +12,21 @@
   	width: 100%;
   }
 }
+
+#productDetails {
+  .priceStock {
+    font-size: 20px;
+  }
+
+  .detailText {
+    font-size: 15px;
+  }
+
+  .glyphicon-shopping-cart{
+    font-size: 18px;
+  }
+
+  img {
+    max-width: 300px;
+  }
+}
