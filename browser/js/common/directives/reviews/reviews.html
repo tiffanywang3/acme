@@ -30,7 +30,7 @@
             </form>
         </td>
     </tr>
-    <tr ng-repeat="review in reviews">
+    <tr ng-repeat="review in reviews | orderBy: 'review.date':true ">
         <td>
             <div>
                 <p>{{ review.text }}</p>

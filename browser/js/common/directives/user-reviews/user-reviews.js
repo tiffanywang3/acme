@@ -6,7 +6,7 @@ app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, Rev
         templateUrl: 'js/common/directives/user-reviews/user-reviews.html',
         link: function (scope, elem, attrs) {
 
-            // This assumes users can only see their own reviews (no one elses) & only when that user is logged in.
+            // Users can only see a list of all of their own reviews.
             AuthService.getLoggedInUser()
                 .then(function(user){
                     scope.user = user;
@@ -16,9 +16,7 @@ app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, Rev
                 })
 
             // used to get range for stars
-            scope.getNumber = function(num) {
-                return new Array(num);
-            }
+            scope.getNumber = ReviewFactory.getNumber;
 
             // edit a review
             scope.editing = false;
@@ -44,7 +42,6 @@ app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, Rev
             // submit edited data to update database
             scope.submitEdits = function(review) {
                 review.editing = false;
-                console.log("review in submitEdits", review);
                 ReviewFactory.updateReview(review._id, {
                     text: review.text,
                     rating: review.rating,
@@ -54,16 +51,12 @@ app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, Rev
 
             // cancel edits
             scope.cancelEdits = function(review){
-                console.log("review in cancel is", review);
-                console.log("oldData", oldData);
-
                 // reassign old data back to the view
                 review.text = oldData.text;
                 review.rating = oldData.rating;
                 review.date = oldData.date;
                 review.user_id = oldData.user_id;
                 review.product_id = oldData.product_id;
-                console.log("cancelled edits");
                 review.editing = false;
             }
 

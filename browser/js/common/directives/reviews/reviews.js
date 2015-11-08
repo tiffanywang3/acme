@@ -40,7 +40,7 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewF
                         rating: review.rating
                     }).then(function(newReview){
                     // update the view with new review
-                    scope.reviews.unshift(newReview);
+                    scope.reviews.push(newReview);
                     scope.alreadySubmitted = true;
                     scope.submittedMessage = "Thank you for submitting a review.";
                     scope.newReviewForm.$setPristine = true;
@@ -48,9 +48,7 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewF
                 }
 
             // used to get range for stars
-            scope.getNumber = function(num) {
-                return new Array(num);
-            }
+            scope.getNumber = ReviewFactory.getNumber;
 
             //check review rating
             scope.checkRating = function(num){
