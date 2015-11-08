@@ -14,27 +14,29 @@
     </div>
     <div class="form-group">
         <label for="showName">Show Name</label>
-        <input type="text" ng-model="product.show_name" class="form-control" id="showName">
+        <input type="text" ng-model="product.show_name" required class="form-control" id="showName">
     </div>
     <div class="form-group">
         <label for="productDescription">Description</label>
-        <input type="text" ng-model="product.description" class="form-control" id="description">
+        <input type="text" ng-model="product.description" required class="form-control" id="description">
     </div>
     <div class="form-group">
         <label for="productPrice">Unit Price (in cents)</label>
-        <input type="text" ng-model="product.unit_price" class="form-control" id="price">
+        <input type="text" ng-model="product.unit_price" required class="form-control" id="price">
     </div>
 
     <div class="form-group">
         <label for="productInventory">Inventory</label>
-        <input type="text" ng-model="product.inventory" class="form-control" id="inventory">
+        <input type="text" ng-model="product.inventory" required class="form-control" id="inventory">
     </div>
 
+    <!-- Figure out how to allow uploads directly vs a url -->
     <div class="form-group">
         <label for="productImageUrl">Image Url</label>
         <input type="text" ng-model="product.imageUrl" class="form-control" id="imageUrl">
     </div>
 
+<!--     Figure out how to deal with mulitple categories -->
     <div class="form-group">
         <label for="productCategories">Categories</label>
         <input type="text" ng-model="product.category" class="form-control" id="categories">
