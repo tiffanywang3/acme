@@ -105,16 +105,7 @@
                 });
         };
         
-        this.updateInfo = function (userInfo) {
-            //console.log(userInfo)
-            return $http.put('/api/users/' + userInfo._id, userInfo)
-                .then(function(user){
-                    //console.log("This is the user that has been updated", user);
-                })
-                .catch(function () {
-                    return $q.reject({ message: 'Please enter a unique and valid email.' });
-                });
-        };
+        
 
 
         this.logout = function () {

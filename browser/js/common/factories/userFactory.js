@@ -3,7 +3,7 @@ app.factory('UserFactory', function($rootScope, $http){
     UserFactory.createUser = function(userInfo){
         return $http.post('/api/users', userInfo)
         .then(function(user){
-            return user
+            return user.data
         }, function(err){
             return err;
         })
@@ -12,7 +12,7 @@ app.factory('UserFactory', function($rootScope, $http){
     UserFactory.fetchAll = function(userInfo){
         return $http.get('/api/users/')
         .then(function(user){
-            return user
+            return user.data
         }, function(err){
             return err;
         })
@@ -31,17 +31,18 @@ app.factory('UserFactory', function($rootScope, $http){
     UserFactory.updateUser = function(userInfo){
         return $http.put('/api/users/' + userInfo._id, userInfo)
         .then(function(user){
-            return user
+            return user.data
         }, function(err){
             return err;
         })
     }
 
+
     UserFactory.retrieveHistory = function(user){
         return $http.get('/api/users/' + user._id + "/carts")
         .then(function(carts){
             console.log("HERE ARE THE CARTS", carts)
-            return carts;
+            return carts.data;
         }, function(err){
             return err;
         })
@@ -55,7 +56,7 @@ app.factory('UserFactory', function($rootScope, $http){
     UserFactory.remove = function(){
         return $http.delete('/api/users/' + userInfo._id)
         .then(function(user){
-
+            return user.data;
         }, function(err){
             return err;
         })
