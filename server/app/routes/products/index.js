@@ -7,7 +7,7 @@ var Product = require ("../../../db/models/product.js");
 
 
 router.get("/search/", function (req, res, next){
-
+    console.log("IN SEARCH ROUTE!!!" , req.query.any)
     var query = {};
     if (req.query.name) {
         var name_reg = new RegExp(".*" + req.query.name + ".*", "i")

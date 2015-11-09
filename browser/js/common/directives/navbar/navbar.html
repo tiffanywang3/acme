@@ -31,9 +31,10 @@
                 <a ui-sref="profile">My Profile</a>
             </li>
 
-            <form class="navbar-form navbar-left" role="search">
+            <form class="navbar-form navbar-left" role="search" ng-submit="doSearch()">
                 <div class="form-group">
-                  <input ng-model="search" type="text" class="form-control" placeholder="Search">
+                  <input ng-model="search.searchterm" type="text" class="form-control" placeholder="Search">
+                  <button type="submit" class="btn btn-success">Search</button> 
                 </div>
             </form>
 
