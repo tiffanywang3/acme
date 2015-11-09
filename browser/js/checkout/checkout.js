@@ -7,33 +7,64 @@ app.config(function ($stateProvider) {
         resolve: {
             Cart: function(CartFactory){
                 return CartFactory.getCart();
+            },
+            currentUser: function(AuthService) {
+                return AuthService.getLoggedInUser();
+            },
+            Address: function(currentUser, AddressFactory) {
+                console.log("CURRENT USER", currentUser)
+                if(currentUser){
+                return AddressFactory.findAddress(currentUser.shipping_address)
+                .then(function(user_address) {
+                    console.log("USER ADDRESS", user_address)
+                    return AddressFactory.createAddress({
+                        number: user_address.number,
+                        street: user_address.street,
+                        city: user_address.city,
+                        state: user_address.state,
+                        country: user_address.country,
+                        zipcode: user_address.zipcode
+                    })
+                })
+                .then(function(new_address) {
+                    console.log("new address", new_address)
+                    return new_address;
+                })
+                }
+                else {
+                    return AddressFactory.createAddress()
+                }
+
             }
         }
     });
 
 });
 
-app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
+app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
     $scope.cart = Cart;
 
-    console.log("cart! ",$scope.cart);
-    $scope.error = null;
 
-    AuthService.getLoggedInUser()
-    .then(function(user){
-        $scope.user = user;
-        return AddressFactory.findAddress(user.shipping_address)
-    })
-    .then(function(address){
-        //$scope.address = address;
-        $scope.cart.shipping_address = address;
-    })
-    .then(null, function(err) {
-        AddressFactory.createAddress()
-        .then(function(address) {
-            $scope.cart.shipping_address = address;
-        })
-    })
+    console.log("user! ",currentUser);
+    console.log("shipping", Address);
+    $scope.error = null;
+    $scope.user = currentUser;
+    $scope.cart.shipping_address = Address;
+
+    // AuthService.getLoggedInUser()
+    // .then(function(user){
+    //     $scope.user = user;
+    //     return AddressFactory.findAddress(user.shipping_address)
+    // })
+    // .then(function(address){
+    //     $scope.cart.shipping_address = address;
+    // })
+    // .then(null, function(err) {
+    //     AddressFactory.createAddress()
+    //     .then(function(address) {
+    //         $scope.cart.shipping_address = address;
+    //     })
+    // })
 
 
 
@@ -61,6 +92,8 @@ app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFacto
     $scope.processOrder = function() {
         console.log("STARTED PROCESSING ORDER");
         console.log("PROCESSING FOLLOWING CART", $scope.cart)
+        AddressFactory.updateAddress($scope.cart.shipping_address._id,$scope.cart.shipping_address)
+        .then(function() {
         if($scope.user) {
             CartFactory.checkout($scope.cart)
             .then(function(res) {
@@ -85,6 +118,7 @@ app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFacto
                 console.log("failed checkout", err)
             })
         }
+        })
     }
 
 });

@@ -233,7 +233,10 @@ router.put('/:id/checkout/', function(req, res, next){
         })
         .then(function(cart){
            if(req.user) return Cart.create({ user_id: cart.user_id, status: "active" })
-            else res.send("Successfully checked out for guest");
+            else {
+                delete req.session.items;
+                res.send("Successfully checked out for guest");
+            } 
         })
         .then(function(newCart){
            new_cart = newCart;

@@ -24,7 +24,6 @@
                     <div class="col-xs-5">
                         <input type="number"  ng-model="item.quantity" class="form-control" min="0" max={{item.product.inventory}} required>
                         <span class = "error-msg" ng-show="form.$error.max || form.$error.min || form.$error.required ">Please enter between 0 and {{item.product.inventory}}</span>
-                        <span>{{form.$error}}</span>
                     </div>
                     <div class="col-xs-7">
                         <button type="submit" class="btn btn-primary" ng-click="updateQty(item.product,item.quantity)">Update Qty</button>
