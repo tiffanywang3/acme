@@ -12,9 +12,10 @@ router.get('/', function(req, res, next){
         }).then(null, next)
 })
 
-// possibly switch to /products/:id/reviews
 router.get('/product/:productId', function(req, res, next){
     Review.find({ product_id: req.params.productId })
+        .populate("user_id")
+        .exec()
         .then(function(reviews){
             res.send(reviews);
         }).then(null, next)
@@ -22,6 +23,7 @@ router.get('/product/:productId', function(req, res, next){
 
 router.get('/user/:userId', function(req, res, next){
     Review.find({ user_id: req.params.userId })
+        .populate("product_id")
         .then(function(reviews){
             res.send(reviews);
         }).then(null, next)
