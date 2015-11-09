@@ -9,6 +9,16 @@ var Address = mongoose.model('Address');
 
 module.exports = function (app) {
 
+function mergeByProperty(arr1, arr2, prop) {
+    _.each(arr2, function(arr2obj) {
+        var arr1obj = _.find(arr1, function(arr1obj) {
+            return arr1obj[prop] == arr2obj[prop];
+        });         
+        //If the object already exist extend it with the new values from arr2, otherwise just add the new object to arr1
+        arr1obj ? _.extend(arr1obj, arr2obj) : arr1.push(arr2obj);
+    });
+}
+
     // When passport.authenticate('local') is used, this function will receive
     // the email and password to run the actual authentication logic.
     var strategyFn = function (email, password, done) {
@@ -44,10 +54,30 @@ module.exports = function (app) {
             // req.logIn will establish our session.
             req.logIn(user, function (loginErr) {
                 if (loginErr) return next(loginErr);
-                // We respond with a response object that has user with _id and email.
-                res.status(200).send({
+
+                //If guest user has items already in guest cart, then merge with user cart
+                if("items" in req.session) {
+                    Cart.findById(req.user.active_cart)
+                    .then(function(cart) {
+                        mergeByProperty(cart.items, req.session.items, "product");
+                        delete req.session.items;
+                        return cart.save()
+                    })
+                    .then(function(cart) {
+                        res.status(200).send({
+                        user: _.omit(user.toJSON(), ['password', 'salt'])
+                        });
+                    })
+                }
+                else {
+                    res.status(200).send({
                     user: _.omit(user.toJSON(), ['password', 'salt'])
-                });
+                    });
+                }
+
+
+                // We respond with a response object that has user with _id and email.
+                
             });
 
         };
@@ -66,28 +96,31 @@ module.exports = function (app) {
                     req.logIn(user, function (loginErr) {
                         if (loginErr) return next(loginErr);
                         // We respond with a response object that has user with _id and email.
+                        Address.create({user_id: user._id})
+                        .then(function(address){
+                            return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
+                        });
+
+
                         Cart.create({user_id: user._id, status: "active"})
                         .then(function(cart){
-                            User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
-                            .then(function(user){
-                                console.log("HERES the user to add address to", user)
-                                Address.create({user_id: user._id})
-                                .then(function(address){
-                                    console.log("address", address)
-                                    User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
-                                    .then(function(user){
-                                        res.status(200).send({
-                                            user: _.omit(user.toJSON(), ['password', 'salt'])
-                                        });
-                                    })
-                                    
+                            if("items" in req.session) {
+                                mergeByProperty(cart.items, req.session.items, "product");
+                                delete req.session.items;
+                                return cart.save()
+                                .then(function(){
+                                    return User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
                                 })
-                                
+                            }
+                            return User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
                             })
-                            
-                        }, function(err){
+                        .then(function(user){
+                            res.status(200).send({
+                                user: _.omit(user.toJSON(), ['password', 'salt'])
+                            });
+                            }, function(err){
                             console.log("Cart not created")
-                        })
+                        });
 
                         
                     });

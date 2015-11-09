@@ -1,27 +1,28 @@
 app.factory('CartFactory', function($rootScope, $http){
 
 	var CartFactory = {};
-	CartFactory.getCart = function(cartId){
-		return $http.get('/api/carts/' + cartId)
+	CartFactory.getCart = function(){
+		return $http.get('/api/carts/')
 		.then(function(cart){
-			return cart
+			console.log("CART", cart)
+			return cart.data
 		}, function(err){
 			return err;
 		})
 	}
 
 
-	CartFactory.updateCartItem = function(cartId, productId){
-		return $http.put('/api/carts/' + cartId + '/item/' + productId)
-		.then(function(){
-			
+	CartFactory.updateCartItem = function(updatedLineItem){
+		return $http.put('/api/carts/item/' + updatedLineItem.product, updatedLineItem)
+		.then(function(response){
+			return response.data;
 		}, function(err){
 			return err;
 		})
 	}
 
-	CartFactory.deleteCartItem = function(cartId, productId){
-		return $http.delete('/api/carts/' + cartId + '/' + productId)
+	CartFactory.deleteCartItem = function(productId){
+		return $http.delete('/api/carts/item/' + productId)
 		.then(function(cartItem){
 			return cartItem;
 		}, function(err){
@@ -30,9 +31,9 @@ app.factory('CartFactory', function($rootScope, $http){
 	}
 
 
-	CartFactory.addItem = function(cartId, _product, _quantity){
+	CartFactory.addItem = function(_product, _quantity){
 
-		return $http.post('/api/carts/' + cartId, {product: _product._id, quantity: _quantity})
+		return $http.post('/api/carts/item/'+_product._id, {product: _product._id, quantity: _quantity})
 		.then (function(response){
 			return response.data;
 		}, function (err){
