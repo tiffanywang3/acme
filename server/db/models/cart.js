@@ -20,18 +20,19 @@ var schema = new mongoose.Schema({
 
 
 schema.statics.getHistory = function(userId) {
+    console.log("got into cart.getHistory", userId)
     return this.find({ user_id: userId, status:{$ne:'active'}});
 }
 
 schema.statics.makeCart = function(user){
     return this.create({user_id: user._id, status:'active'})
 }
-schema.pre('validate', function(next){
-    if (!this.user_id && !this.guest_id) {
-        next(new Error("Must associate a user or guest with cart."));
-    }
-    next();
-})
+// schema.pre('validate', function(next){
+//     if (!this.user_id && !this.guest_id) {
+//         next(new Error("Must associate a user or guest with cart."));
+//     }
+//     next();
+// })
 
 module.exports = mongoose.model('Cart', schema);
 

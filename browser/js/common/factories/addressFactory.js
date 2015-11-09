@@ -17,6 +17,15 @@ app.factory('AddressFactory', function($rootScope, $http){
         })
     }
 
+    AddressFactory.createAddress = function(addressInfo){
+        return $http.post('/api/address/')
+        .then(function(address){
+            return address.data
+        }, function(err){
+            return err;
+        })
+    }
+
     return AddressFactory;
 })
 
