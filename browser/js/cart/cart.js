@@ -17,13 +17,16 @@ app.controller('CartCtrl', function (Cart, CartFactory, $scope, AuthService, $st
     $scope.cart = Cart;
     $scope.updateQty = function(product, qty) {
         var updatedLineItem = {product: product, quantity: qty}
-        CartFactory.updateCartItem(updatedLineItem)
-        .then(function(cart) {
-            //$state.go($state.current, {}, {reload: true});
-            location.reload();
-        }, function(err) {
-            console.log(err)
-        })
+        console.log(form.$valid)
+        if($scope.form.$valid == true) {
+            CartFactory.updateCartItem(updatedLineItem)
+            .then(function(cart) {
+                //$state.go($state.current, {}, {reload: true});
+                location.reload();
+            }, function(err) {
+                console.log(err)
+            }) 
+        }
     }
     $scope.deleteItem = function(deletedItem) {
         console.log(deletedItem)
