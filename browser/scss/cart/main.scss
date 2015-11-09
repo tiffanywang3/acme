@@ -10,28 +10,36 @@
     text-align: center;
   }
   img {
-  	width: 100%;
-  	max-height: 100px;
+    width: 100%;
+    max-height: 100px;
   }
   .list-item {
-  	border-top: 1px solid black;
-  	padding: 10px;
-  	// border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    padding: 10px;
+    // border-bottom: 1px solid black;
   }
 
   .product-name {
-  	font-size: 20px;
+    font-size: 20px;
   }
 
   .price {
-  	font-style: bold;
+    font-style: bold;
   }
 
   .order-summary {
-  	border: 1px solid gray;
-  	padding: 10px;
-  	border-radius: 5px;
-  	background-color: #F0F8FF;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #F0F8FF;
+  }
+
+  .ng-invalid {
+    background-color: #FA787E;
+  }
+
+  .ng-invalid {
+    background-color: #FA787E;
   }
  
   .order-detail{

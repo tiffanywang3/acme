@@ -3,25 +3,33 @@ app.config(function ($stateProvider) {
     $stateProvider.state('profile', {
         url: '/profile',
         templateUrl: 'js/profile/profile.html',
-        controller: 'ProfileCtrl'
+        controller: 'ProfileCtrl',
+        resolve: {
+            currentUser: function(AuthService) {
+                return AuthService.getLoggedInUser();
+            },
+            Address: function(currentUser, AddressFactory) {
+                return AddressFactory.findAddress(currentUser.shipping_address)
+            }
+        }
     });
 
 });
 
-app.controller('ProfileCtrl', function ($scope, AuthService, UserFactory, AddressFactory, $state) {
+app.controller('ProfileCtrl', function (currentUser, Address, $scope, AuthService, UserFactory, AddressFactory, $state) {
     $scope.error = null;
-    AuthService.getLoggedInUser()
+    $scope.user = currentUser;
+    $scope.address = Address;
 
-    .then(function(user){
-        //console.log("THIS IS THE USER TO PUT ON SCOPE", user)
-        $scope.user = user;
-        console.log("USER",$scope.user);
-        return AddressFactory.findAddress(user.shipping_address)
-    })
-    .then(function(address){
-        //console.log("THIS IS THE ADDRESS TO PUT ON SCOPE", address)
-        $scope.address = address;
-    })
+    // AuthService.getLoggedInUser()
+    // .then(function(user){
+    //     $scope.user = user;
+    //     console.log("USER",$scope.user);
+    //     return AddressFactory.findAddress(user.shipping_address)
+    // })
+    // .then(function(address){
+    //     $scope.address = address;
+    // })
 
     
 

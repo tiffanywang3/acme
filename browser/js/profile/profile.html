@@ -57,7 +57,17 @@
     <button ng-click="orderHistory()" class="btn btn-default">See Order history</button>
 </div>
 
-<div>{{carts}}</div>
+<div>
+    <table class="table">
+          <tr><th>Order ID</th><th>Items</th><th>Status</th><th>Order Date</th></tr>
+          <tr ng-repeat="cart in carts">
+            <td><a ui-sref="order({orderId: cart._id})">{{ cart._id }}</a></td>
+            <td>{{ cart.items.length }}</td>
+            <td>{{ cart.status }}</td>
+            <td>{{ cart.checkout_date }}</td>
+          </tr>
+          </table>
+</div>
 
 <div class="container">
     <user-reviews></user-reviews>
