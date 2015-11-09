@@ -92,7 +92,7 @@ app.factory('CartFactory', function($rootScope, $http){
 					return err;
 				})
 		}
-
+	}
 	CartFactory.checkout = function(cart) {
 		return $http.put('/api/carts/' + cart._id +'/checkout/', cart)
 		.then(function(response) {
