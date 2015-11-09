@@ -1,0 +1,46 @@
+<section id="the-cart">
+	<div class="row">
+		<h1>Order</h1>
+		
+	</div>
+	<div class="row">
+		<div class="order-detail"><h4>Status: {{ order.status }}</h4>
+			<p><b>Order ID:</b> {{ order._id }}     |      <b>Checkout Date:</b> {{ order.checkout_date }}</p>
+		 </div>
+	</div>
+    <div class="row container">
+        <div class = "container-fluid col-xs-9">
+            <div class="row list-item" ng-repeat="item in order.items">
+                <div class="col-xs-2"><img ng-src="{{ item.product.imageUrl }}"></div>
+                <div class="col-xs-3">
+                    <h5>
+                        <a class="product-name" ui-sref="productDetails({productId: item.product._id})">{{ item.product.product_name }}</a>
+                    </h5>
+                    <div> Inventory: In Stock </div>
+                </div>
+                <div class="col-xs-2">
+                    <h5>Price:</h5>
+                    <h4 class= "text-danger">{{ item.product.unit_price/100 | currency}} </h4>
+                </div>
+                <div class="col-xs-5">
+                    <div class="col-xs-12">
+                        <h5>Quantity:</h5>
+                    </div>
+                    <div class="col-xs-5">{{ item.quantity }}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class = "container col-xs-2 col-xs-offset-1 order-summary">
+            <h4>Total: </h4>
+            <h4 class= "text-danger">{{ subTotal()| currency}} </h4>
+        </div>
+    </div>
+    <div class="row container"><h4>Shipping details</h4>
+    	<p><h5>Email address:</h5> {{ order.user_id.email }}</p>
+    	<p><h5>Shipping address: </h5> {{ order.shipping_address }}</p>
+
+    </div>
+     
+</section>
