@@ -96,12 +96,7 @@ function mergeByProperty(arr1, arr2, prop) {
                     req.logIn(user, function (loginErr) {
                         if (loginErr) return next(loginErr);
                         // We respond with a response object that has user with _id and email.
-                        Address.create({user_id: user._id})
-                        .then(function(address){
-                            return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
-                        });
-
-
+                        
                         Cart.create({user_id: user._id, status: "active"})
                         .then(function(cart){
                             if("items" in req.session) {
@@ -115,6 +110,10 @@ function mergeByProperty(arr1, arr2, prop) {
                             return User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
                             })
                         .then(function(user){
+                            Address.create({user_id: user._id})
+                            .then(function(address){
+                                return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
+                            });
                             res.status(200).send({
                                 user: _.omit(user.toJSON(), ['password', 'salt'])
                             });
