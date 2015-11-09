@@ -1,0 +1,48 @@
+<table>
+    <th> All Reviews by {{ user.first_name }} </th>
+    <tr ng-repeat="review in reviews | orderBy: 'review.date':true">
+        <td>
+            <div ng-show="!review.deleted">
+                <div class="row">
+                    <a ui-sref='productDetails({productId: review.product_id._id})'><h4 id="review-product-title">{{ review.product_id.product_name }}</h4></a>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <image src="{{review.product_id.imageUrl}}" width="150"></image>
+                    </div>
+                    <div class="col-lg-10">
+                         <!--View Mode //-->
+                        <p ng-hide="review.editing">{{ review.text }}</p>
+                        <span ng-hide="review.editing" ng-repeat="i in getNumber(review.rating) track by $index" class="glyphicon glyphicon-star" aria-hidden="true"></span>
+
+                        <!--Editing Mode //-->
+                        <form name="updateReviewForm" novalidate>
+                            <input name="reviewText" ng-show="review.editing" ng-model="review.text" type="text" ng-minlength="10" ng-maxlength="250">
+                            <uib-rating ng-show="review.editing" name="stars" ng-model="review.rating" min="1" max="5" readonly="isReadonly" on-hover="hoveringOver(value)"
+                                        on-leave="overStar = null" titles="['one','two','three', 'four', 'five']"
+                                        state-on="'glyphicon-star'" state-off="'glyphicon-star-empty'"
+                                        aria-labelledby="default-rating" ng-required="true" value="{{ review.rating }}" required>
+                            </uib-rating>
+                            <!--Buttons for submitting/cancelling edits-->
+                            <button type="submit" class="pull-right" ng-show="review.editing" ng-click="submitEdits(review)" ng-disabled="updateReviewForm.$invalid || checkRating(review.rating)"><span class="glyphicon glyphicon-ok" data-toggle="tooltip" title="Submit edits"></span></button>
+                            <button type="submit" class="pull-right" ng-show="review.editing" ng-click="cancelEdits(review)"><span class="glyphicon glyphicon-remove" data-toggle="tooltip" title="Cancel edits"></span></button>
+                        </form>
+
+                        <p>Reviewed on {{ review.date  | date: 'MMM-d-yyyy' }}</p>
+                    </div>
+                </div>
+            </div>
+            <!--Show when review is deleted-->
+            <div ng-show="review.deleted">{{ review.deletedMessage }}</div>
+
+            <!--Buttons for editing/deleting review-->
+            <button type="submit" class="pull-right" ng-hide="review.editing || review.deleted" ng-click="editReview(review)"><span class="glyphicon glyphicon-pencil" data-toggle="tooltip" title="Edit review"></span></button>
+            <button type="submit" class="pull-right" ng-hide="review.editing || review.deleted" ng-click="delete(review)"><span class="glyphicon glyphicon-trash" data-toggle="tooltip" title="Delete review"></span></button>
+
+            <!--Messages to user for submitting valid forms-->
+            <p ng-show="checkRating(review.rating) && updateReviewForm.reviewText.$dirty && review.editing" class="help-block">Include star rating.</p>
+            <p ng-show="updateReviewForm.reviewText.$error.minlength && review.editing" class="help-block">Text is too short.</p>
+            <p ng-show="updateReviewForm.reviewText.$error.maxlength && review.editing" class="help-block">Text is too long.</p>
+        </td>
+    </tr>
+</table>
