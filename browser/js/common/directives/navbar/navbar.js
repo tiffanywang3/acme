@@ -57,6 +57,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
                     if (user.type === "admin")
                         scope.admin = true;
                 });
+
             };
 
             var removeUser = function () {

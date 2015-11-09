@@ -57,6 +57,11 @@ app.factory('ReviewFactory', function ($rootScope, $http) {
 		});
 	}
 
+    // used to get range for stars
+    ReviewFactory.getNumber = function(num) {
+        return new Array(num);
+    }
+
 
 	return ReviewFactory;
 });

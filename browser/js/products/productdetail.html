@@ -8,7 +8,7 @@
             <div class="priceStock">Price: {{ product.unit_price/100 | currency}} | Stock: {{ product.inventory }}</div>
             <h3>About this product</h3>
             <div class="detailText">{{ product.description }}</div>
-            
+
             <p></p>
             <form class="form-inline" name="addProductFrm" ng-submit="addToCart()">
               <div class="form-group">
@@ -17,7 +17,7 @@
                 <!-- <select class="form-control" ng-options="{{$index+1}} for i in getInventoryNum(product.inventory) track by $index" name="quantity" ng-model="productToAdd.quantity" required></select> -->
 
                 <select class="form-control" name="quantity" ng-model="productToAdd.quantity" required>
-                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option>               
+                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option>
                 </select>
 
               </div>
@@ -27,18 +27,15 @@
               <button type="submit" class="btn btn-success"><i class="glyphicon glyphicon-shopping-cart"></i> Add to Cart</button>
             </form>
         </div>
-        
+
     </div>
 
     <div class="row container">
         <div class="col-xs-12">
-            
-            <h5>Reviews</h5>
-            <!-- Replace below with the directive -->
-            <!-- <div class="detailText">{{ reviews }}</div> -->
+                <reviews product="{{product}}" user="{{user}}" reviews="{{reviews}}"></reviews>
         </div>
     </div>
-    
-     
+
+
 </section>
 

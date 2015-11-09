@@ -1,31 +1,46 @@
-<section id="theCart">
+<section id="the-cart">
 	<div class="row">
-		<h1>acme inc.</h1>
+		<h1>Shopping Cart</h1>
 	</div>
-    <div ng-repeat="item in cartItems">
-        <div class="row container" >
-            <div class="col-xs-4"><img ng-src="{{ item.imageUrl }}"></div>
-            <div class="col-xs-4">
-                <h5>
-                    <span>{{ item.product_name }}</span>
-                </h5>
-                <div> {{ item.category }} | {{ item.show_name }} </div>
-                <small>${{ item.unit_price/100}} | {{ item.inventory }}</small>
+    <div class="row container">
+        <div class = "container-fluid col-xs-9">
+            <div class="row list-item" ng-repeat="item in cart.items">
+                <div class="col-xs-2"><img ng-src="{{ item.product.imageUrl }}"></div>
+                <div class="col-xs-3">
+                    <h5>
+                        <a class="product-name" ui-sref="productDetails({productId: item.product._id})">{{ item.product.product_name }}</a>
+                    </h5>
+                    <div> Inventory: In Stock </div>
+                </div>
+                <div class="col-xs-2">
+                    <h5>Price:</h5>
+                    <h4 class= "text-danger">{{ item.product.unit_price/100 | currency}} </h4>
+                </div>
+                <div class="col-xs-5">
+                    <div class="col-xs-12">
+                        <h5>Quantity:</h5>
+                    </div>
+                    <div class="col-xs-5">
+                        <input type="text" ng-model="item.quantity" class="form-control" >
+                    </div>
+                    <div class="col-xs-7">
+                        <button type="submit" class="btn btn-primary" ng-click="updateQty(item.product._id,item.quantity)">Update Qty</button>
+                        <button type="button" class="btn btn-danger" aria-label="Left Align" ng-click="deleteItem(item.product._id)">
+                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        </button>
+                    </div>
+
+                </div>
             </div>
-            <div class="col-xs-4"> <i class="fa fa-glyphicon glyphicon-shopping-cart"></i></div>
+        </div>
+        <div class = "container col-xs-2 col-xs-offset-1 order-summary">
+            <h4>Subtotal: </h4>
+            <h4 class= "text-danger">{{ subTotal()| currency}} </h4>
+            <button type="button" class="btn btn-success">Checkout</button>
         </div>
 
-        <div class="row container">
-            <div class="col-xs-12">
-                <h5>About this product</h5>
-                <div class="detailText">{{ item.description }}</div>
-                <h5>Reviews</h5>
-                <!-- Replace below with the directive -->
-                <div class="detailText">{{ reviews }}</div>
-            </div>
-        </div>
+
     </div>
-
     	<!-- We should use an ng repeat here across arrays of categories and show names -->
     
      

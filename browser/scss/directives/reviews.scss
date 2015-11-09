@@ -1,0 +1,35 @@
+reviews, user-reviews {
+
+  table {
+    width: 100%;
+  }
+
+  th {
+    padding: 5px;
+    background-color: goldenrod;
+    border: none;
+  }
+
+  table tr {
+    background-color: ghostwhite;
+    border: darkgray solid 1px;
+  }
+
+  td {
+    padding: 10px;
+  }
+
+  #star-slider input[type="number"] {
+    text-align: center;
+    padding-left: 10px;
+  }
+
+  #submit {
+      vertical-align: middle;
+  }
+
+  #review-product-title {
+    padding-left: 20px;
+  }
+
+}

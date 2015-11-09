@@ -1,0 +1,24 @@
+{
+  "name": "Acme Inc.",
+  "description": "A generated project at Fullstack Academy",
+  "main": "server/start.js",
+  "authors": [
+    "Sarah Edkins <edkins.sarah@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/tiffanywang3/acme",
+  "moduleType": [
+    "node"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.11.4"
+  }
+}
