@@ -17,7 +17,7 @@
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>
             <td>{{ user.type }}</td>
-            <td><a ng-click='switchUserType(user)'>Update Type</a> | <a ng-click="deleteUser(user)">Delete</a> | Password Reset</td>
+            <td><a ng-click='switchUserType(user)'>Update Type</a> | <a ng-click="deleteUser(user)">Delete</a> | <a ng-hide="user.dirtypassword" ng-click='reserUserPassword(user)'>Password Reset</a></td>
           </tr>
           </table>
         </div>

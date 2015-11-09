@@ -49,8 +49,11 @@ app.factory('UserFactory', function($rootScope, $http){
         })
     }
 
-    UserFactory.passwordReset = function(){
-
+    UserFactory.passwordReset = function(user){
+        return $http.put('/api/users/'+ user._id + '/password', user)
+        .then(function(carts) {
+            return carts.data;
+        })
     }
     //passwordReset?
 

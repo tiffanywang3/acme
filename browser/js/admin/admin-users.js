@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('admin.users', {
-        url: '/',
+        url: '/users',
         templateUrl: 'js/admin/admin-users.html',
         controller: 'AdminUsersCtrl',
         resolve: {
@@ -56,6 +56,18 @@ app.controller('AdminUsersCtrl', function ($scope, AuthService, $state, allUsers
             }
         })
 
+    }
+
+    $scope.reserUserPassword = function(userToReset) {
+        userToReset.dirtypassword = true;
+        console.log("hi")
+        UserFactory.updateUser(userToReset)
+        .then(function(updatedUser) {
+            alert("User will be prompted to reset password at next login");
+        })
+        .then(null,function(err){ 
+            alert("Error resetting password")
+        })
     }
 
 
