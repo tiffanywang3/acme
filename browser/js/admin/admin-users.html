@@ -4,6 +4,12 @@
 	</div>
     <div class="row container">
         <div class="col-xs-12">
+
+          <div class="alert alert-warning alert-dismissible" role="alert" ng-show="userDeleted">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            User successfully deleted. List will refresh in one moment.
+          </div>
+
           <table class="table">
           <tr><th>Email</th><th>First</th><th>Last</th><th>Type</th><th>Action</th></tr>
           <tr ng-repeat="user in allUsers">
@@ -11,7 +17,7 @@
             <td>{{ user.first_name }}</td>
             <td>{{ user.last_name }}</td>
             <td>{{ user.type }}</td>
-            <td>Edit | Delete | Password Reset</td>
+            <td><a ng-click='switchUserType(user)'>Update Type</a> | <a ng-click="deleteUser(user)">Delete</a> | Password Reset</td>
           </tr>
           </table>
         </div>

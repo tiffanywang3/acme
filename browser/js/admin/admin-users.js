@@ -12,15 +12,52 @@ app.config(function ($stateProvider) {
     
 });
 
-app.controller('AdminUsersCtrl', function ($scope, AuthService, $state, allUsers, UserFactory) {
+app.controller('AdminUsersCtrl', function ($scope, AuthService, $state, allUsers, UserFactory, $timeout) {
     
     $scope.login = {};
     $scope.error = null;
-    //console.log("all ", allUsers);
-    $scope.allUsers = allUsers;
-    //console.log($scope.allProducts)
 
-    // $scope.allProducts = [{product_name:"test produ",unitPrice:"333",imageUrl:"/images/adventuretime_finnsword.jpg"},{product_name:"test product2",unitPrice:"444",imageUrl:"/images/adventuretime_gumbball.jpg"} ,{product_name:"test product3",unitPrice:"666",imageUrl:"/images/adventuretime_finnhat.jpg"}, {product_name:"test product4",unitPrice:"666",imageUrl:"/images/adventuretime_finnhat.jpg"}, {product_name:"test product5",unitPrice:"666",imageUrl:"/images/adventuretime_finnhat.jpg"}, {product_name:"test product6",unitPrice:"666", imageUrl:"/images/placeholder.png"}]
-    
+    $scope.allUsers = allUsers;
+    $scope.userDeleted = false;
+
+    $scope.switchUserType = function (userToUpdate){
+        var newType;
+        if (userToUpdate.type === "customer")
+            newType = "admin";
+        else {
+            newType = "customer";
+        }
+
+        if (confirm("Are you sure you want to switch " + userToUpdate.email + " to " + newType + "?")){
+            userToUpdate.type = newType;
+            UserFactory.updateUser(userToUpdate)
+            .then(function(){
+                $state.go($state.current, {}, {reload: true});
+            })
+        }
+    }
+
+    $scope.deleteUser = function (userToDel){
+        AuthService.getLoggedInUser()
+        .then (function (loggedInUser){
+            if (loggedInUser._id === userToDel._id)
+                alert("Sorry, you can't delete yourself");
+            else{
+                if (confirm("Are you sure you want to delete " + userToDel.email + "?")){
+                    UserFactory.deleteUser(userToDel._id)
+                    .then(function(){
+                        $scope.userDeleted = true; // trigger confirmation message on the page
+
+                        $timeout(function() {
+                            $state.go($state.current, {}, {reload: true}); // reload after 3 seconds
+                        }, 3000);
+                    })
+                }
+            }
+        })
+
+    }
+
+
 
 });

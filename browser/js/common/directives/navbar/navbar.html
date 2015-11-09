@@ -53,7 +53,7 @@
 
 
             <div ng-show="user" class="welcome">
-                <span>Welcome, {{ user.first_name!==null ? user.first_name : user.email }}!</span>
+                <span>Welcome, {{ user.first_name!==undefined ? user.first_name : user.email }}!</span>
                 
                 <a ng-click="logout()">Logout</a>
             </div>
