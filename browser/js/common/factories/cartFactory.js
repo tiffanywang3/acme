@@ -1,6 +1,17 @@
 app.factory('CartFactory', function($rootScope, $http){
 
 	var CartFactory = {};
+
+	CartFactory.fetchAll = function (){
+		return $http.get('/api/carts/all')
+		.then(function(carts){
+			return carts.data;
+		}, function(err){
+			return err;
+		})
+	}
+
+
 	CartFactory.getCart = function(){
 		return $http.get('/api/carts/')
 		.then(function(cart){
@@ -60,6 +71,28 @@ app.factory('CartFactory', function($rootScope, $http){
 		
 	}
 
+	// called from admin view only
+	CartFactory.updateStatus = function (cart){
+
+		if (cart.status === "ordered"){
+			cart.status = "active";
+			// switch status back to active and post to our checkout to handle the process properly
+			// need to check this after merging other branches
+			return $http.put('/api/carts/' + cart._id + "/checkout/")
+			.then (function(response){
+				return response.data;
+			}, function (err){
+				return err;
+			})
+		} else { // for all other statuses, just change the status on the backend to simulate the order process
+			return $http.put('/api/carts/' + cart._id, cart)
+				.then (function(response){
+					return response.data;
+				}, function (err){
+					return err;
+				})
+		}
+	}
 	CartFactory.checkout = function(cart) {
 		return $http.put('/api/carts/' + cart._id +'/checkout/', cart)
 		.then(function(response) {
@@ -67,6 +100,7 @@ app.factory('CartFactory', function($rootScope, $http){
 		}, function(err) {
 			return err;
 		})
+
 	}
 
 	return CartFactory;

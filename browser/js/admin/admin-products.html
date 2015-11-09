@@ -1,0 +1,32 @@
+<section id="adminProducts">
+	<div class="row">
+		<h1>Manage Products  <button type="submit" class="btn btn-success" ui-sref="admin.addproduct">Add Product</button></h1>
+
+	</div>
+    <div class="row container">
+<!--         <div class="col-xs-12">
+            <input ng-model="search" type="text"placeholder="Search"></input>
+        </div> -->
+        <div class="col-xs-12">
+
+          <div class="alert alert-warning alert-dismissible" role="alert" ng-show="prodDeleted">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            Product successfully deleted. List will refresh in one moment.
+          </div>
+
+          <table class="table">
+          <tr><th>Product Name</th><th>Category</th><th>Show</th><th>Unit Price</th><th>Inventory</th><th>Action</th></tr>
+          <tr ng-repeat="product in allProducts | filter:search">
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.category.join(",") }}</td>
+            <td>{{ product.show_name}}</td>
+            <td>{{ product.unit_price/100 | currency}}</td>
+            <td>{{ product.inventory }}</td>
+            <td><a ui-sref="admin.editproduct({productId: product._id})">Edit</a> | <a ng-click="deleteProduct(product)">Delete</a></td>
+            <!-- <product-tile product="product"></product-tile> -->
+          </tr>
+          </table>
+        </div>
+       
+    </div>
+</section>
