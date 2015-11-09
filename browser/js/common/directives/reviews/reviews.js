@@ -10,9 +10,10 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewF
         templateUrl: 'js/common/directives/reviews/reviews.html',
         link: function (scope, elem, attrs) {
 
-            // check if there are any reviews
-            scope.noReviews = function() {
-                return scope.reviews.length === 0;
+            // check if there are no reviews
+            scope.noReviews =  function() {
+                if (!scope.reviews) return true;
+                else return scope.reviews.length === 0;
             }
 
             scope.alreadySubmitted = false;
