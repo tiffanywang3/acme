@@ -1,0 +1,15 @@
+<section id="products">
+
+    <div class="row container">
+        <div class="col-xs-2">
+            <h5>Welcome Admin!</h5>
+            <ul><li><a ui-sref="admin.products">Products</a></li><li><a ui-sref="admin.users">Users</a></li><li><a ui-sref="admin.orders">Orders</a></li></ul>
+        </div>
+        <div class="col-xs-10">
+            <ui-view></ui-view>
+        </div>
+        <!--             <div ng-repeat="product in allProducts | filter:search" class="col-xs-3">
+    		<product-tile product="product"></product-tile>
+    	</div> -->
+    </div>
+</section>

@@ -36,6 +36,19 @@ router.get('/', function(req, res, next){
     }
 })
 
+
+
+
+router.get('/:id', function(req,res,next) {
+    console.log("GOT IN HERE")
+    Cart.findById(req.params.id)
+    .populate('items.product').exec()
+    .then(function(cart){
+        res.send(cart);
+    })
+    .then(null, next);
+})
+
 // From product page
 // Add item to items list
 // req.body 
@@ -79,14 +92,19 @@ router.post('/item/:productId', function(req, res, next){
 
 })
 
-// Create cart
-// router.post('/', function(req, res, next){
-//     Cart.create(req.body)
-//         .then(function(cart){
-//             res.status(201).send(cart);
-//         })
-//         .then(null, next);
-// })
+//Create cart
+router.post('/', function(req, res, next){
+    //Cart.create(req.body)
+    var cart = new Cart(req.body);
+
+
+    console.log("GOT IN HERE", cart)
+    cart.save()
+    .then(function(cart){
+        res.status(201).send(cart);
+    })
+    .then(null, next);
+})
 
 // Modify cart
 //*** NOT REQUIRED ***
@@ -214,7 +232,8 @@ router.put('/:id/checkout/', function(req, res, next){
             return cart.save();
         })
         .then(function(cart){
-           return Cart.create({ user_id: cart.user_id, status: "active" })
+           if(req.user) return Cart.create({ user_id: cart.user_id, status: "active" })
+            else res.send("Successfully checked out for guest");
         })
         .then(function(newCart){
            new_cart = newCart;

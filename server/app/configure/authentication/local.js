@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = mongoose.model('User');
 var Cart = mongoose.model('Cart');
+var Address = mongoose.model('Address');
 
 module.exports = function (app) {
 
@@ -95,6 +96,7 @@ function mergeByProperty(arr1, arr2, prop) {
                     req.logIn(user, function (loginErr) {
                         if (loginErr) return next(loginErr);
                         // We respond with a response object that has user with _id and email.
+                        
                         Cart.create({user_id: user._id, status: "active"})
                         .then(function(cart){
                             if("items" in req.session) {
@@ -108,12 +110,18 @@ function mergeByProperty(arr1, arr2, prop) {
                             return User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
                             })
                         .then(function(user){
+                            return Address.create({user_id: user._id})
+                        })
+                        .then(function(address){
+                            return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
+                        })
+                        .then(function(user){
                             res.status(200).send({
                                 user: _.omit(user.toJSON(), ['password', 'salt'])
                             });
-                            }, function(err){
+                        }, function(err){
                             console.log("Cart not created")
-                        });
+                        })
 
                         
                     });

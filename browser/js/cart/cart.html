@@ -39,7 +39,7 @@
         <div class = "container col-xs-2 col-xs-offset-1 order-summary">
             <h4>Subtotal: </h4>
             <h4 class= "text-danger">{{ subTotal()| currency}} </h4>
-            <button type="button" class="btn btn-success">Checkout</button>
+            <button type="button" ui-sref="checkout({cart: 'SSA'})" class="btn btn-success">Checkout</button>
         </div>
 
 

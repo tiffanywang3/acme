@@ -9,6 +9,7 @@ app.factory('UserFactory', function($rootScope, $http){
         })
     }
 
+
     UserFactory.fetchAll = function(userInfo){
         return $http.get('/api/users/')
         .then(function(user){
@@ -53,8 +54,8 @@ app.factory('UserFactory', function($rootScope, $http){
     }
     //passwordReset?
 
-    UserFactory.remove = function(){
-        return $http.delete('/api/users/' + userInfo._id)
+    UserFactory.deleteUser = function(id){
+        return $http.delete('/api/users/' + id)
         .then(function(user){
             return user.data;
         }, function(err){
