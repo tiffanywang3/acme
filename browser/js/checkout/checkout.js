@@ -92,6 +92,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
     $scope.processOrder = function() {
         console.log("STARTED PROCESSING ORDER");
         console.log("PROCESSING FOLLOWING CART", $scope.cart)
+
         AddressFactory.updateAddress($scope.cart.shipping_address._id,$scope.cart.shipping_address)
         .then(function() {
         if($scope.user) {

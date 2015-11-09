@@ -18,6 +18,12 @@ app.directive('userReviews', function ($rootScope, AuthService, AUTH_EVENTS, Rev
             // used to get range for stars
             scope.getNumber = ReviewFactory.getNumber;
 
+            // check if there are no reviews
+            scope.noReviews =  function() {
+                if (!scope.reviews) return true;
+                else return scope.reviews.length === 0;
+            }
+
             // edit a review
             scope.editing = false;
             var oldData = {};
