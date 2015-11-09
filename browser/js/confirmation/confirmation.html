@@ -1,6 +1,6 @@
 <section id="the-cart">
 	<div class="row">
-		<h1>Shopping Cart</h1>
+		<h1>Your order has been placed!</h1>
 	</div>
     <div class="row container">
         <div class = "container-fluid col-xs-9">
@@ -10,7 +10,6 @@
                     <h5>
                         <a class="product-name" ui-sref="productDetails({productId: item.product._id})">{{ item.product.product_name }}</a>
                     </h5>
-                    <div> Inventory: In Stock </div>
                 </div>
                 <div class="col-xs-2">
                     <h5>Price:</h5>
@@ -21,28 +20,15 @@
                         <h5>Quantity:</h5>
                     </div>
                     <div class="col-xs-5">
-                        <input type="text" ng-model="item.quantity" class="form-control" >
+                        <h5>{{item.quantity}}</h5>
                     </div>
-                    <div class="col-xs-7">
-                        <button type="submit" class="btn btn-primary" ng-click="updateQty(item.product._id,item.quantity)">Update Qty</button>
-                        <button type="button" class="btn btn-danger" aria-label="Left Align" ng-click="deleteItem(item.product._id)">
-                          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                        </button>
-                    </div>
+
 
                 </div>
             </div>
         </div>
-        <div class = "container col-xs-2 col-xs-offset-1 order-summary">
-            <h4>Subtotal: </h4>
-            <h4 class= "text-danger">{{ subTotal()| currency}} </h4>
-            <button type="button" ui-sref="checkout" class="btn btn-success">Checkout</button>
-        </div>
-
 
     </div>
-    	<!-- We should use an ng repeat here across arrays of categories and show names -->
-    
-     
+
 </section>
 

@@ -1,0 +1,46 @@
+<form id="login-form" name="checkoutForm" ng-submit="updateUserAddress(user, address)">
+
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+    <h2>Shipping Address Verification</h2>
+    <div class="form-group">
+        <label for="signup-shipping_address">Shipping Address</label>
+        <br>
+        
+        <span>Street Number</span>
+        <input type="text" ng-model="address.number" class="form-control" placeholder="Street Number">
+        <br>
+        <span>Street Name</span>
+        <input type="text" ng-model="address.street" class="form-control" placeholder="Street Name">
+        <br>
+        <span>City</span>
+        <input type="text" ng-model="address.city" class="form-control" placeholder="City">
+        <br>
+        <span>State</span>
+        <input type="text" ng-model="address.state" class="form-control" placeholder="State">
+        <br>
+        <span>Country</span>
+        <input type="text" ng-model="address.country" class="form-control" placeholder="Country">
+        <br>
+        <span>Zipcode</span>
+        <input type="text" ng-model="address.zipcode" ng-maxlength="5" class="form-control" placeholder="Zipcode">
+    </div>
+
+    <button type="submit" class="btn btn-default">Update Shipping Address</button>
+</form>
+
+
+<div>
+    <button ui-sref="confirmation" class="btn btn-success" id="placeOrder" class="btn btn-default">Place Order</button>
+</div>
+<br>
+
+
+
+
+
+
+
+
+
