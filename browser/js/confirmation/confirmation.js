@@ -1,19 +1,20 @@
 app.config(function ($stateProvider) {
 
     $stateProvider.state('confirmation', {
-        url: '/confirmation',
+        url: '/confirmation/:cartid',
         templateUrl: 'js/confirmation/confirmation.html',
         controller: 'ConfirmationCtrl',
         resolve: {
             Cart: function(CartFactory, $stateParams){
-                return CartFactory.getCart();
+                return CartFactory.getOneCart($stateParams.cartid);
             }
 
         }
     });
 
 });
-app.controller('ConfirmationCtrl', function (Cart, CartFactory, $scope, AuthService, $state) {
+app.controller('ConfirmationCtrl', function (Cart, CartFactory, $scope, AuthService, $state, $stateParams) {
+
     $scope.cart = Cart;
     $scope.updateQty = function(product, qty) {
         var updatedLineItem = {product: product, quantity: qty}

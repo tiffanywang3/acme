@@ -4,6 +4,21 @@ module.exports = router;
 var _ = require('lodash');
 var Address = require('../../../db/models/address.js')
 
+//create a new address
+router.post('/', function(req, res, next){
+	//console.log("req.params.address_id",req.params.address_id)
+	Address.create(req.body)
+	.then(function(address){
+		console.log("THIS IS THE NEW ADDRESS", address)
+		res.send(address);
+	})
+	.then(null, function(err){
+		err.status = 404;
+		next(err);
+	});
+})
+
+
 //update an Address
 router.put('/:address_id', function(req, res, next){
 	console.log("req.params.address_id",req.params.address_id)
