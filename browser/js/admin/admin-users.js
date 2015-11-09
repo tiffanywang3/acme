@@ -58,9 +58,8 @@ app.controller('AdminUsersCtrl', function ($scope, AuthService, $state, allUsers
 
     }
 
-    $scope.reserUserPassword = function(userToReset) {
+    $scope.resetUserPassword = function(userToReset) {
         userToReset.dirtypassword = true;
-        console.log("hi")
         UserFactory.updateUser(userToReset)
         .then(function(updatedUser) {
             alert("User will be prompted to reset password at next login");
