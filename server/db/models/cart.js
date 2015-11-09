@@ -3,8 +3,8 @@ var mongoose = require("mongoose");
 var Address = require ("./address");
 
 var schema = new mongoose.Schema({
-    user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    guest_id: String,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
+    guest: String,
     items: [{
         product: {type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: true},
         quantity: { type: Number, required: true},

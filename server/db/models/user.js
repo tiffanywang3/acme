@@ -49,6 +49,7 @@ var schema = new mongoose.Schema({
     }
 
 });
+// @OB/NE two way references with addresses and cart
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
 // are all used for local authentication security.

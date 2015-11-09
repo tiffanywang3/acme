@@ -1,4 +1,4 @@
-app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewFactory) {
+app.directive('reviews', function (AuthService, ReviewFactory) {
 
     return {
         restrict: 'E',
@@ -25,7 +25,7 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewF
             (function () {
                 if (scope.isLoggedIn()){
                     scope.user = attrs.user;
-                    scope.user = JSON.parse(scope.user);
+                    scope.user = JSON.parse(scope.user); // @OB/NE use {scope: {user: '='}}
 
                 }
             })()

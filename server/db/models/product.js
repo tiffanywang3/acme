@@ -15,7 +15,7 @@ var schema = new mongoose.Schema({
 schema.statics.updateInventory = function(productId, newInventory) {
     this.findByIdAndUpdate(productId,{inventory: newInventory},{ new: true })
     .then(function(updatedProduct){
-    	return;
+    	return; // @OB/NE incomplete?
     })
 }
 module.exports = mongoose.model('Product', schema);

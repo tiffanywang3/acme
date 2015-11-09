@@ -4,7 +4,7 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/cart/cart.html',
         controller: 'CartCtrl',
         resolve: {
-            Cart: function(CartFactory, $stateParams){
+            Cart: function(CartFactory){
                 return CartFactory.getCart();
             }
 
@@ -13,14 +13,14 @@ app.config(function ($stateProvider) {
     
 });
 
-app.controller('CartCtrl', function (Cart, CartFactory, $scope, AuthService, $state) {
+app.controller('CartCtrl', function (Cart, CartFactory, $scope, $state) {
     $scope.cart = Cart;
     $scope.updateQty = function(product, qty) {
         var updatedLineItem = {product: product, quantity: qty}
         CartFactory.updateCartItem(updatedLineItem)
         .then(function(cart) {
             //$state.go($state.current, {}, {reload: true});
-            location.reload();
+            location.reload(); // @OB/NE maybe there's something else to do here
         }, function(err) {
             console.log(err)
         })

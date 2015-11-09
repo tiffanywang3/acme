@@ -13,12 +13,13 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
+app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFactory, $state, CartFactory) {
     $scope.cart = Cart;
 
     console.log("cart! ",$scope.cart);
     $scope.error = null;
 
+    // OB/NE resolve? maybe also place logic in factory?
     AuthService.getLoggedInUser()
     .then(function(user){
         $scope.user = user;
@@ -49,6 +50,7 @@ app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFacto
         });
     }
 
+    // @OB/NE duplicated code: put it in a factory!
     $scope.subTotal = function() {
         var total = 0;
         if(!("items" in $scope.cart)) return 0;
@@ -58,6 +60,7 @@ app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFacto
         return total/100;
     }
 
+    // @OB/NE put logic into factory?
     $scope.processOrder = function() {
         console.log("STARTED PROCESSING ORDER");
         console.log("PROCESSING FOLLOWING CART", $scope.cart)

@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
     });
 
 });
-app.controller('ConfirmationCtrl', function (Cart, CartFactory, $scope, AuthService, $state, $stateParams) {
+app.controller('ConfirmationCtrl', function (Cart, CartFactory, $scope, $state) {
 
     $scope.cart = Cart;
     $scope.updateQty = function(product, qty) {
