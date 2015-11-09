@@ -96,9 +96,9 @@
                 });
         };
 
-        this.signup = function (credentials) {
+        this.signup = function (credentials, addressInfo) {
             //console.log("Auth Service signup", credentials)
-            return $http.post('/signup', credentials)
+            return $http.post('/signup', credentials, addressInfo)
                 .then(onSuccessfulLogin)
                 .catch(function () {
                     return $q.reject({ message: 'Please enter a unique and valid email.' });
