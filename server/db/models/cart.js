@@ -11,7 +11,7 @@ var schema = new mongoose.Schema({
         unit_price_paid: { type: Number}
         }],
     status: { type: String, required: true, enum: {
-         values: ["active", "ordered", "shipped", "delivered"],
+         values: ["active", "ordered", "shipped", "delivered", "cancelled"],
          message: "Invalid value for status."
     } },
     shipping_address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address', required: false },

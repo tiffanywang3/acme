@@ -10,61 +10,45 @@
     text-align: center;
   }
   img {
-  	width: 100%;
-  	max-height: 100px;
+    width: 100%;
+    max-height: 100px;
   }
   .list-item {
-  	border-top: 1px solid black;
-  	padding: 10px;
-  	// border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    padding: 10px;
+    // border-bottom: 1px solid black;
   }
 
   .product-name {
-  	font-size: 20px;
+    font-size: 20px;
   }
 
   .price {
-  	font-style: bold;
+    font-style: bold;
   }
 
   .order-summary {
-  	border: 1px solid gray;
-  	padding: 10px;
-  	border-radius: 5px;
-  	background-color: #F0F8FF;
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #F0F8FF;
   }
-  // .container {
-  //   width: 91%;
-  //   max-width: 1340px;
-  //   padding-top: 5px;
-  //   background-color: #fdfdfd;
-  // }
 
-  // fullstack-logo {
-  //   margin-top: 5px;
-  //   margin-right: 20px;
-  //   width: 40px;
-  // }
+  .ng-invalid {
+    background-color: #FA787E;
+  }
 
-  // a {
-  //   color: black;
-  //   font-size: 16px;
-  // }
-
-  // .nav > li > a {
-  //   cursor: pointer;
-  //   transition: color 0.2s;
-  //   &.active {
-  //     color: darken(#f31214, 10%);
-  //   }
-  //   &:hover {
-  //     background: none;
-  //     color: #f31214;
-  //   }
-  //   &:focus {
-  //     background: none;
-  //   }
-  // }
+  .ng-invalid {
+    background-color: #FA787E;
+  }
+ 
+  .order-detail{
+    border: 1px solid gray;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #F0F8FF;
+  }
 
 
 

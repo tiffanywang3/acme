@@ -1,5 +1,5 @@
 <table>
-    <th> Reviews of {{ product.product_name }} - Average Rating: {{ averageRating() | number: 2 }} </th>
+    <th> Reviews of {{ product.product_name }} <span ng-hide="noReviews()">- Average Rating: {{ averageRating() | number: 2 }}</span></th>
     <tr>
         <td>
             <form name="newReviewForm" ng-submit="submit(review)" novalidate>
@@ -30,12 +30,19 @@
             </form>
         </td>
     </tr>
-    <tr ng-repeat="review in reviews | orderBy: 'review.date':true ">
+    <tr ng-hide="noReviews()" ng-repeat="review in reviews | orderBy: 'review.date':true ">
         <td>
             <div>
                 <p>{{ review.text }}</p>
                 <span ng-repeat="i in getNumber(review.rating) track by $index" class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 <p>Reviewed by {{ review.user_id.first_name }} on {{ review.date  | date: 'MMM-d-yyyy' }}</p>
+            </div>
+        </td>
+    </tr>
+    <tr ng-show="noReviews()">
+        <td>
+            <div >
+                {{ noReviewsMessage }}
             </div>
         </td>
     </tr>

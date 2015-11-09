@@ -8,9 +8,9 @@ var Cart = require('../../../db/models/cart');
 var User = require('../../../db/models/user');
 var Product = require('../../../db/models/product');
 
-// Get all carts
-router.get('/all', function(req, res, next){
-    Cart.find()
+// Get all carts that are not active - therefore considered orders
+router.get('/allActive', function(req, res, next){
+    Cart.find({status: { $ne: 'active'}}).populate("user_id").exec()
         .then(function(carts){
             res.send(carts);
         })
@@ -42,7 +42,9 @@ router.get('/', function(req, res, next){
 router.get('/:id', function(req,res,next) {
     console.log("GOT IN HERE")
     Cart.findById(req.params.id)
-    .populate('items.product').exec()
+    .populate('items.product')
+    .populate('user_id')
+    .populate('shipping_address').exec()
     .then(function(cart){
         res.send(cart);
     })
@@ -107,14 +109,14 @@ router.post('/', function(req, res, next){
 })
 
 // Modify cart
-//*** NOT REQUIRED ***
-// router.put('/:id', function(req, res, next){
-//     Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
-//         .then(function(cart){
-//             res.send(cart);
-//         })
-//         .then(null, next);
-// })
+// used by admin view
+router.put('/:id', function(req, res, next){
+    Cart.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        .then(function(cart){
+            res.send(cart);
+        })
+        .then(null, next);
+})
 
 // Delete cart 
 //*** NOT REQUIRED ***
@@ -233,7 +235,10 @@ router.put('/:id/checkout/', function(req, res, next){
         })
         .then(function(cart){
            if(req.user) return Cart.create({ user_id: cart.user_id, status: "active" })
-            else res.send("Successfully checked out for guest");
+            else {
+                delete req.session.items;
+                res.send("Successfully checked out for guest");
+            } 
         })
         .then(function(newCart){
            new_cart = newCart;
