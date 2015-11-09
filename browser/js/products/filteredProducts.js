@@ -8,6 +8,9 @@ app.config(function ($stateProvider) {
             	if ($stateParams.filterType === "category"){
                   return ProductFactory.fetchByCategory($stateParams.filter);  
                 }
+                else if ($stateParams.filterType === "search"){
+                    return ProductFactory.search($stateParams.filter);
+                }
                 else {
                 	return ProductFactory.fetchByShowName($stateParams.filter);  
                 }                 

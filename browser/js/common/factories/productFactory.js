@@ -67,6 +67,14 @@ app.factory('ProductFactory', function ($rootScope, $http) {
 		});
 	}
 
+	ProductFactory.search = function (term){
+		return $http.get('/api/products/search?any='+term)
+		.then(function (response) {
+			return response.data;
+		}, function (error){
+			return error;
+		});
+	}
 
 	return ProductFactory;
 });
