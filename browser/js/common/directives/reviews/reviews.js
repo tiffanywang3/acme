@@ -2,33 +2,27 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewF
 
     return {
         restrict: 'E',
-        scope: {},
+        scope: {
+            user: "=",
+            reviews: "=",
+            product: "="
+        },
         templateUrl: 'js/common/directives/reviews/reviews.html',
         link: function (scope, elem, attrs) {
 
+            // check if there are no reviews
+            scope.noReviews =  function() {
+                if (!scope.reviews) return true;
+                else return scope.reviews.length === 0;
+            }
+
             scope.alreadySubmitted = false;
-
-            // save variables passed into directive onto scope
-            scope.product = attrs.product;
-            scope.reviews = attrs.reviews;
-
-            // convert JSON to regular objects
-            scope.product = JSON.parse(scope.product);
-            scope.reviews = Array.prototype.slice.call(JSON.parse(scope.reviews));
+            scope.noReviewsMessage = "Be the first to leave a review!";
 
             // check if user is logged in
             scope.isLoggedIn = function(){
                return AuthService.isAuthenticated();
             };
-
-            // set up user
-            (function () {
-                if (scope.isLoggedIn()){
-                    scope.user = attrs.user;
-                    scope.user = JSON.parse(scope.user);
-
-                }
-            })()
 
             // submitting a new review.
             scope.submit = function(review){
@@ -40,6 +34,7 @@ app.directive('reviews', function ($rootScope, AuthService, AUTH_EVENTS, ReviewF
                         rating: review.rating
                     }).then(function(newReview){
                     // update the view with new review
+                    newReview.user_id = scope.user;
                     scope.reviews.push(newReview);
                     scope.alreadySubmitted = true;
                     scope.submittedMessage = "Thank you for submitting a review.";
