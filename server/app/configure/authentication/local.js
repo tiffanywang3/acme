@@ -110,16 +110,19 @@ function mergeByProperty(arr1, arr2, prop) {
                             return User.findByIdAndUpdate(cart.user_id, {active_cart: cart._id})
                             })
                         .then(function(user){
-                            Address.create({user_id: user._id})
-                            .then(function(address){
-                                return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
-                            });
+                            return Address.create({user_id: user._id})
+                        .then(function(address){
+                            return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
+                        })
+                        .then(function(user){
                             res.status(200).send({
                                 user: _.omit(user.toJSON(), ['password', 'salt'])
                             });
-                            }, function(err){
+                        })
+                            
+                        }, function(err){
                             console.log("Cart not created")
-                        });
+                        })
 
                         
                     });
