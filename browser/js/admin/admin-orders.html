@@ -2,8 +2,11 @@
 	<div class="row">
 		<h1>Manage Orders</h1>
 	</div>
+
     <div class="row container">
         <div class="col-xs-12">
+          <h5>Filter: <input ng-model="search" type="text"placeholder="status"></input> </h5> 
+          <p></p>
            <table class="table">
           <tr><th>Cart ID</th><th>User</th><th>Items</th><th>Status</th><th>Checkout Date</th><th>Action</th></tr>
           <tr ng-repeat="order in allOrders | filter:search">
@@ -20,8 +23,3 @@
     </div>
 </section>
 
-
-<!-- View a list of all orders
-Filter orders by status (Created, Processing, Cancelled, Completed)
-Change the status of the order (Created -> Processing, Processing -> Cancelled || Completed)
-View details of a specific order -->
