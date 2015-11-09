@@ -6,7 +6,6 @@ app.config(function ($stateProvider) {
         resolve: {
             allProducts: function(ProductFactory, $stateParams) {
             	if ($stateParams.filterType === "category"){
-            	 console.log("the params: ", $stateParams.category)
                   return ProductFactory.fetchByCategory($stateParams.filter);  
                 }
                 else {
