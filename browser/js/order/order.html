@@ -39,8 +39,15 @@
     </div>
     <div class="row container"><h4>Shipping details</h4>
     	<p><h5>Email address:</h5> {{ order.user_id.email }}</p>
-    	<p><h5>Shipping address: </h5> {{ order.shipping_address }}</p>
-
+    	<p><h5>Shipping address: </h5></p>
+        <p>
+        Number: <b>{{order.shipping_address.number}}</b><br>
+        Street: <b>{{order.shipping_address.street}}</b><br>
+        City: <b>{{order.shipping_address.city}}</b><br>
+        State: <b>{{order.shipping_address.state}}</b><br>
+        Zipcode: <b>{{order.shipping_address.zipcode}}</b><br>
+        Country: <b>{{order.shipping_address.country}}</b></p>
+        
     </div>
      
 </section>

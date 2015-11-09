@@ -5,8 +5,8 @@
     <div class="row container">
 
         <div class="col-xs-12">
-            <input ng-model="search" type="text"placeholder="Search"></input>
-        </div>
+<!--             <input ng-model="search" type="text"placeholder="Search"></input>
+ -->        </div>
         </div>
             <div ng-repeat="product in allProducts | filter:search | filter: hasInventory" class="col-xs-3">
     		<product-tile product="product"></product-tile>

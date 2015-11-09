@@ -61,6 +61,7 @@ router.post('/', function(req,res,next){
 
 
 router.put('/:user_id', function(req, res, next){
+
 	User.findByIdAndUpdate(req.params.user_id, req.body, {new:true})
 	.then(function(user){
 		res.send(user);
@@ -70,6 +71,23 @@ router.put('/:user_id', function(req, res, next){
 		next(err);
 	});
 })
+
+router.put('/:user_id/password', function(req,res,next) {
+	User.findById(req.params.user_id)
+	.then(function(user){
+		user.password = req.body.password;
+		user.dirtypassword = false;
+		return user.save();
+	})
+	.then(function(updatedUser) {
+		res.send(updatedUser)
+	})
+	.then(null, function(err){ 
+		next(err);
+	})
+})
+	
+
 
 router.delete('/:user_id', function(req, res, next){
 	User.findByIdAndRemove(req.params.user_id)

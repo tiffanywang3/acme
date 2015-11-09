@@ -46,6 +46,9 @@ var schema = new mongoose.Schema({
     },
     type: { type: String, required: true, enum: {
          values: ["customer", "admin"]}, default: "customer" 
+    },
+    dirtypassword: {
+        type: Boolean, default: false
     }
 
 });
@@ -66,6 +69,7 @@ var encryptPassword = function (plainText, salt) {
 schema.pre('save', function (next) {
 
     if (this.isModified('password')) {
+
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
@@ -79,7 +83,6 @@ schema.statics.encryptPassword = encryptPassword;
 
 //need to decide format that carts will come back in. Array?
 schema.statics.retrieveHistory = function(userId){
-    console.log("got into user retrieve", userId)
     return Cart.getHistory(userId);
 }
 
