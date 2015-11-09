@@ -22,6 +22,24 @@ app.factory('CartFactory', function($rootScope, $http){
 		})
 	}
 
+	CartFactory.getOneCart = function(cartId) {
+		return $http.get('/api/carts/'+cartId)
+		.then(function(cart){
+			return cart.data
+		}, function(err){
+			return err;
+		})
+	}
+
+	CartFactory.createCart = function(cart){
+		return $http.post('/api/carts/', cart)
+		.then (function(response){
+			return response.data;
+		}, function (err){
+			return err;
+		})
+	}
+
 
 	CartFactory.updateCartItem = function(updatedLineItem){
 		return $http.put('/api/carts/item/' + updatedLineItem.product, updatedLineItem)
@@ -53,7 +71,6 @@ app.factory('CartFactory', function($rootScope, $http){
 		
 	}
 
-
 	// called from admin view only
 	CartFactory.updateStatus = function (cart){
 
@@ -75,6 +92,14 @@ app.factory('CartFactory', function($rootScope, $http){
 					return err;
 				})
 		}
+
+	CartFactory.checkout = function(cart) {
+		return $http.put('/api/carts/' + cart._id +'/checkout/', cart)
+		.then(function(response) {
+			return response.data;
+		}, function(err) {
+			return err;
+		})
 
 	}
 

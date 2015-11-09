@@ -79,6 +79,7 @@ schema.statics.encryptPassword = encryptPassword;
 
 //need to decide format that carts will come back in. Array?
 schema.statics.retrieveHistory = function(userId){
+    console.log("got into user retrieve", userId)
     return Cart.getHistory(userId);
 }
 

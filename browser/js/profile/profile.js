@@ -15,6 +15,7 @@ app.controller('ProfileCtrl', function ($scope, AuthService, UserFactory, Addres
     .then(function(user){
         //console.log("THIS IS THE USER TO PUT ON SCOPE", user)
         $scope.user = user;
+        console.log("USER",$scope.user);
         return AddressFactory.findAddress(user.shipping_address)
     })
     .then(function(address){
