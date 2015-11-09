@@ -111,6 +111,7 @@ function mergeByProperty(arr1, arr2, prop) {
                             })
                         .then(function(user){
                             return Address.create({user_id: user._id})
+                        })
                         .then(function(address){
                             return User.findByIdAndUpdate(address.user_id, {shipping_address: address._id})
                         })
@@ -118,8 +119,6 @@ function mergeByProperty(arr1, arr2, prop) {
                             res.status(200).send({
                                 user: _.omit(user.toJSON(), ['password', 'salt'])
                             });
-                        })
-                            
                         }, function(err){
                             console.log("Cart not created")
                         })
