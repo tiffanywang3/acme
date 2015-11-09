@@ -15,9 +15,10 @@
             <td>{{ order.items.length }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.checkout_date }}</td>
-            <td><a ui-sref="order({orderId: order._id})">View</a> | <a ng-click="updateOrderStatus(order)">Update Status</a> | <a ng-click="cancelOrder(order)">Cancel</a></td>
+            <td><a ui-sref="order({orderId: order._id})">View</a> | <a ng-click="updateOrderStatus(order)">Update Status*</a> | <a ng-click="cancelOrder(order)">Cancel</a></td>
           </tr>
           </table>
+          <div class="col-xs-12">*note: order status will change from ordered -> shipped -> delivered </div>
         </div>
 
     </div>
