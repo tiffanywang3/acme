@@ -4,7 +4,7 @@
   "description": "A generated project at Fullstack Academy",
   "main": "server/start.js",
   "scripts": {
-    "start": "nodemon --watch server -e js,html server/start.js",
+    "start": "nodemon --watch server -e js,html server/start.js & nodemon --watch server -e js,html server/recommendation-engine",
     "postinstall": "gulp build"
   },
   "engines": {
