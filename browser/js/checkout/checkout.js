@@ -61,6 +61,8 @@ app.controller('CheckoutCtrl', function (Cart, $scope, AuthService, AddressFacto
     $scope.processOrder = function() {
         console.log("STARTED PROCESSING ORDER");
         console.log("PROCESSING FOLLOWING CART", $scope.cart)
+
+
         if($scope.user) {
             CartFactory.checkout($scope.cart)
             .then(function(res) {
