@@ -1,6 +1,6 @@
 'use strict';
 var mongoose = require("mongoose");
-var Address = require ("./address");
+var addressSchema = require ("./address");
 
 var schema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -14,7 +14,7 @@ var schema = new mongoose.Schema({
          values: ["active", "ordered", "shipped", "delivered"],
          message: "Invalid value for status."
     } },
-    shipping_address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address', required: false },
+    shipping_address: addressSchema,
     checkout_date: { type: Date }
 });
 

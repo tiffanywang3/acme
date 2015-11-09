@@ -16,7 +16,7 @@ var schema = new mongoose.Schema({
 // @OB/NE maybe this should be a schema only
 
 
-module.exports = mongoose.model('Address', schema);
+module.exports = schema;
 
 
 
