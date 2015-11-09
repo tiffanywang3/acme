@@ -12,7 +12,7 @@
             <td>{{ order.items.length }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.checkout_date }}</td>
-            <td><a ui-sref="cart({cartId: order._id})">View</a> | <!-- <a ng-click="updateOrderStatus(order)">Update Status</a> --></td>
+            <td>View | Update Status<!-- <a ui-sref="cart({cartId: order._id})">View</a> | <a ng-click="updateOrderStatus(order)">Update Status</a> --></td>
           </tr>
           </table>
         </div>
