@@ -16,17 +16,22 @@ app.config(function ($stateProvider) {
 app.controller('CartCtrl', function (Cart, CartFactory, $scope, AuthService, $state) {
     $scope.cart = Cart;
     $scope.updateQty = function(product, qty) {
-        var updatedLineItem = {product: product, quantity: qty}
-        console.log(form.$valid)
-        if($scope.form.$valid == true) {
+        console.log("got in here")
+        var updatedLineItem = {product: product._id, quantity: qty}
+
+        if (Number.isInteger(qty) === true && qty <= product.inventory && qty > 0) {
             CartFactory.updateCartItem(updatedLineItem)
             .then(function(cart) {
                 //$state.go($state.current, {}, {reload: true});
                 location.reload();
             }, function(err) {
                 console.log(err)
-            }) 
+            })
         }
+        else {
+            location.reload();
+        }
+            
     }
     $scope.deleteItem = function(deletedItem) {
         console.log(deletedItem)
