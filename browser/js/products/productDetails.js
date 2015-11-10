@@ -20,30 +20,36 @@ app.config(function ($stateProvider) {
 
 app.controller('ProductDetailsCtrl', function (theProduct, $scope, AuthService, $state, CartFactory, user, reviews) {
 
-    // $scope.login = {};
-    // $scope.error = null;
     $scope.product = theProduct;
     $scope.reviews = reviews;
-    //$scope.productCategories = theProduct.category;
-
-   // console.log("product details - the product", $scope.product)
-   //  console.log("product reviews - the reviews", $scope.reviews)
-
-     $scope.user = user;
+    $scope.user = user;
+    
 
   $scope.getInventoryNum = function(inventory) {
        if (inventory<20)
-        return new Array(inventory);
+        return arrayGen(inventory);
        else
-        return new Array(20);
+        return arrayGen(20);
    }
 
    $scope.addToCart = function (){
-        CartFactory.addItem($scope.product, $scope.productToAdd.quantity)
+        CartFactory.addItem($scope.product, $scope.productToAdd.quantity.id)
         .then (function (addedItem){
             $state.go('cart');
         })
    }
 
+   function arrayGen(el) {
+      var arr=[];
+      for(var i=1; i<=el; i++) {
+        arr.push({id: i})
+      }
+      console.log(arr)
+      return arr;
+
+   }
+  $scope.options = $scope.getInventoryNum($scope.product.inventory);
+  $scope.productToAdd = {};
+  $scope.productToAdd.quantity = $scope.options[0];
 
 });

@@ -16,8 +16,8 @@
 
                 <!-- <select class="form-control" ng-options="{{$index+1}} for i in getInventoryNum(product.inventory) track by $index" name="quantity" ng-model="productToAdd.quantity" required></select> -->
 
-                <select class="form-control" name="quantity" ng-model="productToAdd.quantity" required>
-                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option>
+                <select class="form-control" name="quantity" ng-model="productToAdd.quantity" ng-options="option.id for option in options track by option.id" required><!-- 
+                    <option ng-repeat="i in getInventoryNum(product.inventory) track by $index">{{$index+1}}</option> -->
                 </select>
 
               </div>
