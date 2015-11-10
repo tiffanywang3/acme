@@ -97,10 +97,11 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
         AddressFactory.updateAddress($scope.cart.shipping_address._id,$scope.cart.shipping_address)
         .then(function() {
         if($scope.user) {
+            console.log("before going to checkout", $scope.cart);
             CartFactory.checkout($scope.cart)
             .then(function(res) {
                 console.log("successful checkout", res);
-                MandrillFactory.sendEmail($scope.user, $scope.cart, "confirmation");
+               MandrillFactory.sendEmail($scope.cart, "confirmation");
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
@@ -115,7 +116,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
             })
             .then(function(res) {
                 console.log("successful checkout", res);
-                MandrillFactory.sendEmail(null, $scope.cart, "confirmation");
+               MandrillFactory.sendEmail($scope.cart, "confirmation");
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {

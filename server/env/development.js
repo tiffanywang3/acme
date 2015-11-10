@@ -4,6 +4,7 @@ module.exports = {
   "GOOGLE": {
     "clientID": "108733817637-mom8unaj1ohoq7ft4roqav77utrdqv9v.apps.googleusercontent.com",
     "clientSecret": "xy_Xg3X1WK_wTYK9PkoTGd7l",
-    "callbackURL": "http://127.0.0.1:1337/auth/google/callback"
+    "callbackURL": "http://127.0.0.1:1337/auth/google/callback",
+   "MANDRILL_KEY": "MKQ7pv_KpEFpT8UiyH4-Aw" 
   }
 };

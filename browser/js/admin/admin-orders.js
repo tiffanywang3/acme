@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
     
 });
 
-app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrders, CartFactory) {
+app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrders, CartFactory, MandrillFactory) {
     
     $scope.login = {};
     $scope.error = null;
@@ -22,7 +22,6 @@ app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrde
 
     //Change the status of the order (ordered -> shipped -> delivered)
     $scope.updateOrderStatus = function (order){
-
         // if the cart is active, the order hasn't been made yet. So don't do anything with that.
 
         if (order.status === "delivered" || order.status === "cancelled"){
@@ -33,10 +32,12 @@ app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrde
         if (order.status === "ordered")
             order.status = "shipped";
         else
-            order.status = "delivered"; // add cancel
+            order.status = "delivered";
 
         CartFactory.updateStatus(order)
         .then (function (updatedOrder){
+            console.log("udpated order", updatedOrder);
+            MandrillFactory.sendEmail(updatedOrder, updatedOrder.status);
             $state.go($state.current, {}, {reload: true});
          });
     }
@@ -51,6 +52,7 @@ app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrde
             orderToCancel.status = "cancelled";
             CartFactory.updateStatus(orderToCancel)
             .then (function (updatedOrder){
+                MandrillFactory.sendEmail(updatedOrder, updatedOrder.status);
                 $state.go($state.current, {}, {reload: true});
              });
         }

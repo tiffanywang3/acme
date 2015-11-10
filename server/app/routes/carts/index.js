@@ -229,6 +229,7 @@ router.put('/:id/checkout/', function(req, res, next){
             cart.status = "ordered";
             cart.shipping_address = req.body.shipping_address;
             cart.checkout_date = Date.now();
+            cart.email = req.body.email;
             // for product in cart.items, populate, and store product.unit_price in unit_price_paid
             
             return cart.save();
