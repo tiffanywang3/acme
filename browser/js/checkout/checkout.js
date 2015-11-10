@@ -49,6 +49,8 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
     $scope.error = null;
     $scope.user = currentUser;
     $scope.cart.shipping_address = Address;
+    if(currentUser)
+        $scope.cart.email = currentUser.email;
 
     // AuthService.getLoggedInUser()
     // .then(function(user){
@@ -173,7 +175,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
  //        // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
  //    });
  // }
-
+ 
 
 });
 

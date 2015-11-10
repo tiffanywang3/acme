@@ -1,6 +1,8 @@
 'use strict';
 var mongoose = require("mongoose");
 var Address = require ("./address");
+var validate = require('mongoose-validate')
+
 
 var schema = new mongoose.Schema({
     user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
@@ -15,7 +17,11 @@ var schema = new mongoose.Schema({
          message: "Invalid value for status."
     } },
     shipping_address: { type: mongoose.Schema.Types.ObjectId, ref: 'Address', required: false },
-    checkout_date: { type: Date }
+    checkout_date: { type: Date },
+    email: {
+        type: String,
+        validate: [validate.email, 'invalid email address']
+    }
 });
 
 
