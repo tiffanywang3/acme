@@ -6,11 +6,12 @@ app.factory('Mandrill', function ($http){
     // var mandrill_client = new mandrill.Mandrill('MKQ7pv_KpEFpT8UiyH4-Aw');
 
 	var messagePost = {
+		'key': 'MKQ7pv_KpEFpT8UiyH4-Aw',
 	    'message': {
 	      from_email: 'acme@acmestackstore.com',
 	      from_name: 'ACME inc.',
 	      headers: {
-	        Reply-To: 'acme@acmestackstore.com'
+	        'Reply-To': 'acme@acmestackstore.com'
 	      }
 	    }
   	};
@@ -18,39 +19,15 @@ app.factory('Mandrill', function ($http){
   	MandrillFactory.setMessageHtml = function (user, order, type){
   		if (type === "confirmation"){
   			messagePost.message.subject="ACME inc Order Confirmation";
-  			messagePost.message.html = "<html><head><meta charset='utf-8'></head>
-					<body>
-					    <div class='row'>
-					    <h1>" + order.email + ", your order has been placed!</h1>
-					        <h2>Confirmation #", + order._id + "</h2>
-					  </div>
-					  
-					  </body>
-					  </html>"
+  			messagePost.message.html = "<html><head><meta charset='utf-8'></head><body><div class='row'><h1>" + order.email + ", your order has been placed!</h1><h2>Confirmation #" + order._id + "</h2></div></body></html>"
   		}
   		else if (type === "shipping"){
   			messagePost.message.subject="Your ACME inc order has shipped";
-  			messagePost.message.html = "<html><head><meta charset='utf-8'></head>
-					<body>
-					    <div class='row'>
-					    <h1>" + order.email + ", your order has shipped!</h1>
-					        <h2>Confirmation #", + order._id + "</h2>
-					  </div>
-					  
-					  </body>
-					  </html>"
+  			messagePost.message.html = "<html><head><meta charset='utf-8'></head><body><div class='row'><h1>" + order.email + ", your order has shipped!</h1><h2>Confirmation #" + order._id + "</h2></div></body></html>"
   		}
   		else{
   			messagePost.message.subject="Your ACME inc order was delivered";
-  			messagePost.message.html = "<html><head><meta charset='utf-8'></head>
-					<body>
-					    <div class='row'>
-					    <h1>" + order.email + ", your order has been delivered!</h1>
-					        <h2>Confirmation #", + order._id + "</h2>
-					  </div>
-					  
-					  </body>
-					  </html>"
+  			messagePost.message.html = "<html><head><meta charset='utf-8'></head><body><div class='row'><h1>" + order.email + ", your order has was delivered!</h1><h2>Confirmation #" + order._id + "</h2></div></body></html>"
   		}
   	}
 
@@ -67,11 +44,11 @@ app.factory('Mandrill', function ($http){
 		          }
 		        ];
 
-		    Mandrill.messages.send(messagePost).success(function(response){
-		      console.log("sent")
-		    }).error(function(response){
-		      console.log("didnt send ", response)
-		    });
+	     return $http.post('https://mandrillapp.com/api/1.0//messages/send.json', { messagePost })
+		  .success(function(data, status, headers, config){
+		    // log success
+		    console.log("email sent");
+		  });
 	}
 
     return MandrillFactory;
