@@ -49,6 +49,7 @@
     "karma-mocha-reporter": "^1.0.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "lodash": "^3.9.3",
+    "mandrill-api": "^1.0.45",
     "mocha-mongoose": "^1.0.3",
     "mongodb": "^1.4.33",
     "mongoose": "^4.0.7",

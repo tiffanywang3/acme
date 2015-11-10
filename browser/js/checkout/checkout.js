@@ -41,9 +41,8 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
+app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory, MandrillFactory) {
     $scope.cart = Cart;
-
 
     console.log("user! ",currentUser);
     console.log("shipping", Address);
@@ -99,6 +98,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
             CartFactory.checkout($scope.cart)
             .then(function(res) {
                 console.log("successful checkout", res);
+                MandrillFactory.sendEmail($scope.user, $scope.cart, "confirmation");
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
@@ -113,6 +113,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
             })
             .then(function(res) {
                 console.log("successful checkout", res);
+                MandrillFactory.sendEmail(null, $scope.cart, "confirmation");
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
@@ -121,6 +122,58 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
         }
         })
     }
+
+    // // create and send customized email for each contact in the recipients array using the template.
+    // $scope.customizeEmail = function (template){
+
+     
+    //         // The render function takes a template and an object filled with properties that are used in the template. 
+    //         // After an EJS is processed, it will return pure HTML, a string, that is ready to be sent in an email.
+    //         var customizedTemplate = ejs.render(email, 
+    //                         { firstName: contact[firstName],  
+    //                           numMonthsSinceContact: contact[numMonthsSinceContact],
+    //                           latestPosts: latestPosts
+    //                         });
+
+    //         //console.log(customizedTemplate);
+    //         sendEmail(user.first_name, user.email, "ACME inc.", "umachandran6@gmail.com", "ACME order confirmation", customizedTemplate);
+        
+
+    // }
+
+
+
+ //   $scope.sendEmail = function (to_name, to_email, from_name, from_email, subject, message_html){
+ //    var message = {
+ //        "html": message_html,
+ //        "subject": subject,
+ //        "from_email": from_email,
+ //        "from_name": from_name,
+ //        "to": [{
+ //                "email": to_email,
+ //                "name": to_name
+ //            }],
+ //        "important": false,
+ //        "track_opens": true,    
+ //        "auto_html": false,
+ //        "preserve_recipients": true,
+ //        "merge": false,
+ //        "tags": [
+ //            "Fullstack_Tumblrmailer_Workshop"
+ //        ]    
+ //    };
+ //    var async = false;
+ //    var ip_pool = "Main Pool";
+ //    mandrill_client.messages.send({"message": message, "async": async, "ip_pool": ip_pool}, function(result) {
+ //        // console.log(message);
+ //        // console.log(result);   
+ //    }, function(e) {
+ //        // Mandrill returns the error as an object with name and message keys
+ //        console.log('A mandrill error occurred: ' + e.name + ' - ' + e.message);
+ //        // A mandrill error occurred: Unknown_Subaccount - No subaccount exists with the id 'customer-123'
+ //    });
+ // }
+
 
 });
 

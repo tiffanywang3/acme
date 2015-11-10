@@ -1,0 +1,28 @@
+<html>
+  <head><meta charset='utf-8'></head>
+  <body>
+    <img style="height:50px; width:100px" src="js/common/directives/acme-logo/acmeInc.png">
+    <div class="row">
+    <h1>{{ user.first_name!==undefined ? user.first_name : user.email }}, Your order has been delivered!</h1>
+        <h2>Confirmation # {{cart._id}}</h2>
+  </div>
+<div class="row">
+    <div class="order-detail"><h4>Status: {{ order.status }}</h4>
+      <p><b>Order ID:</b> {{ order._id }}     |      <b>Checkout Date:</b> {{ order.checkout_date }}     |      <b>Delivered:</b> {{ Date.now() }}</p>
+     </div>
+  </div>
+   
+    <div class="row container"><h4>Shipping details</h4>
+      <p><h5>Email address:</h5> {{ order.user_id.email }}</p>
+      <p><h5>Shipping address: </h5></p>
+        <p>
+        Number: <b>{{order.shipping_address.number}}</b><br>
+        Street: <b>{{order.shipping_address.street}}</b><br>
+        City: <b>{{order.shipping_address.city}}</b><br>
+        State: <b>{{order.shipping_address.state}}</b><br>
+        Zipcode: <b>{{order.shipping_address.zipcode}}</b><br>
+        Country: <b>{{order.shipping_address.country}}</b></p>
+        
+    </div>
+  </body>
+  </html>
