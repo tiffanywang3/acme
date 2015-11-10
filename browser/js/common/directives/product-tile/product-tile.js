@@ -9,7 +9,8 @@ app.directive('productTile', function(CartFactory, $state){
 			scope.addToCart = function (){
 		        CartFactory.addItem(scope.product, 1)
 		        .then (function (addedItem){
-		            $state.go('cart');
+		            //$state.go('cart');
+		            $state.go('cart', {}, {reload: true});
 		        })
 	   		}
 		}

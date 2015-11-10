@@ -44,8 +44,8 @@
 
     </div>
         <!-- We should use an ng repeat here across arrays of categories and show names -->
-    <div ng-repeat="item in cart.items | limitTo:3">
-        <recommendation productId="item.product._id"></recommendation>
+    <div>
+        <recommendation product="cart.items[0].product._id"></recommendation>
     </div>
 </section>
 

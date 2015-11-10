@@ -7,7 +7,7 @@ app.factory('RecommendationFactory', function($rootScope, $http){
             .then(function(response){
                 return response.data
             }, function(err){
-                return err;
+                console.error(err);
             })
     }
 

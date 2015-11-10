@@ -8,24 +8,34 @@ router.get('/:productId', function(req, res, next){
     Recommendation.findOne({ product_id: req.params.productId})
         .then(function(productRec){
 
-            var max = {
-                id: null,
-                num: null
-            }
-            for(var key in productRec.items){
-                console.log("got in the for loop", productRec)
-                if(!max.num){
-                    console.log("if there was no max to begin with should be null", max)
-                    max.id = key;
-                    max.num = productRec[key];
-                } else if(productRec[key] > max.num ){
-                    console.log("this should not be null", max)
-                    max.id = key;
-                    max.num = productRec[key]
-                }
+            // var max = {
+            //     id: null,
+            //     num: null
+            // }
+            // for(var key in productRec.items){
+            //     console.log("got in the for loop", productRec)
+            //     if(!max.num){
+            //         console.log("if there was no max to begin with should be null", max)
+            //         max.id = key;
+            //         max.num = productRec[key];
+            //     } else if(productRec[key] > max.num ){
+            //         console.log("this should not be null", max)
+            //         max.id = key;
+            //         max.num = productRec[key]
+            //     }
 
+            // }
+            var sortable = [];
+            for (var key in productRec.items)
+                  sortable.push([key, productRec.items[key]])
+            sortable.sort(function(a, b) {return b[1] - a[1]})
+            var three = sortable.slice(0, 3);
+            var recIds = [];
+            for(var i = 0; i < three.length; i++){
+                recIds.push(three[i][0]);
             }
-            res.send(max.id);
+            res.send(recIds);
+
 
         })
 })
@@ -39,19 +49,22 @@ router.put('/', function(req, res, next){
             if(rec) {
                 console.log("Here is req.body.items", req.body.items)
                 for(var i=0; i < req.body.items.length; i++){
+                    //check to see if it is itself
                     if(rec.items[req.body.items[i]]){
                         rec.items[req.body.items[i]]++;
 
                     } else {
-                        rec.items[req.body.items[i]] = 1;
+                        if(req.body.items[i] !== itemId){
+                            rec.items[req.body.items[i]] = 1;
+                        }
+                        
                     }
+                    
                 }
                 rec.markModified("items")
                 rec.save()
                 .then(function(rec2){
                     res.send("HERE IS THE RECOMMENDATION", rec2)
-                }, function(err){
-
                 })
             }
             else{
