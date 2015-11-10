@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
     $stateProvider.state('admin.orders', {
-        url: '/',
+        url: '/orders',
         templateUrl: 'js/admin/admin-orders.html',
         controller: 'AdminOrdersCtrl',
         resolve: {
