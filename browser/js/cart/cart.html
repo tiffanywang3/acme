@@ -17,7 +17,7 @@
                     <h4 class= "text-danger">{{ item.product.unit_price/100 | currency}} </h4>
                 </div>
                 <div class="col-xs-5">
-                    <form name="form" class="css-form" novalidate> 
+                    <form name="form" class="css-form" novalidate>
                     <div class="col-xs-12">
                         <h5>Quantity:</h5>
                     </div>
@@ -44,7 +44,8 @@
 
     </div>
         <!-- We should use an ng repeat here across arrays of categories and show names -->
-    
-     
+    <div ng-repeat="item in cart.items | limitTo:3">
+        <recommendation productId="item.product._id"></recommendation>
+    </div>
 </section>
 

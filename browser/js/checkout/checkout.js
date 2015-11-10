@@ -41,7 +41,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
+app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory, RecommendationFactory) {
     $scope.cart = Cart;
 
 
@@ -90,6 +90,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
     }
 
     $scope.processOrder = function() {
+
         console.log("STARTED PROCESSING ORDER");
         console.log("PROCESSING FOLLOWING CART", $scope.cart)
 
@@ -99,7 +100,8 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
             CartFactory.checkout($scope.cart)
             .then(function(res) {
                 console.log("successful checkout", res);
-                $state.go('confirmation',{cartid: $scope.cart._id})
+                RecommendationFactory.putRecs($scope.cart);
+                $state.go('confirmation',{cartid: $scope.cart._id});
             })
             .then(null, function(err) {
                 console.log("failed checkout", err)
@@ -113,6 +115,7 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
             })
             .then(function(res) {
                 console.log("successful checkout", res);
+                RecommendationFactory.putRecs($scope.cart);
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {

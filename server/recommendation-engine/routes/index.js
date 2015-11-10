@@ -12,25 +12,26 @@ router.get('/:productId', function(req, res, next){
                 id: null,
                 num: null
             }
-            for(var key in productRec){
+            for(var key in productRec.items){
                 console.log("got in the for loop", productRec)
                 if(!max.num){
                     console.log("if there was no max to begin with should be null", max)
                     max.id = key;
                     max.num = productRec[key];
-                } else if(max.num < productRec[key]){
+                } else if(productRec[key] > max.num ){
                     console.log("this should not be null", max)
                     max.id = key;
                     max.num = productRec[key]
                 }
 
             }
-            res.send(max)
+            res.send(max.id);
 
         })
 })
 
 router.put('/', function(req, res, next){
+    console.log("WE ARE IN THE ROUTER.PUT");
     //  req.body.items is an array of product id's from a cart. req.body = {items: ["A", "B", "C"]}
     console.log("req.body", req.body);
     req.body.items.forEach(function(itemId, idx){
@@ -52,7 +53,8 @@ router.put('/', function(req, res, next){
                 rec.save()
                 .then(function(rec2){
                     console.log("should've been updated", rec2==rec)
-                        res.send(rec2)
+                     //   res.setHeader("Access-Control-Allow-Origin", "*").send(rec2)
+                        //res.send(rec2)
                 }, function(err){
                     console.log("something went wrong")
                 })
@@ -73,5 +75,6 @@ router.put('/', function(req, res, next){
         }, console.log)
 
     })
-    res.send("ello");
+    // res.setHeader("Access-Control-Allow-Origin", "*").send("ello");
+    res.set("Access-Control-Allow-Origin", "*").send("ello");
 })

@@ -15,6 +15,11 @@ app.directive('recommendation', function(RecommendationFactory){
                     scope.recommendedProducts = recommendedProducts;
                 })
             }
+
+            //scope.noRecs = function(){
+            //    if (!scope.recommendedProducts)
+            //    return scope.recommendedProducts.length === 0;
+            //}
         }
     }
 })
