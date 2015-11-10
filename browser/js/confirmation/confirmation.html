@@ -1,8 +1,10 @@
 <section id="the-cart">
 	<div class="row">
 		<h1>Your order has been placed!</h1>
-        <h2>Confirmation # {{cart._id}}</h2>
-	</div>
+        <h4 class="alert alert-success">Confirmation # {{cart._id}}</h4>
+
+    <strong>Email:</strong> {{cart.email}}
+    <br></br>
     <div class="row container">
         <div class = "container-fluid col-xs-9">
             <div class="row list-item" ng-repeat="item in cart.items">
