@@ -41,7 +41,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory, MandrillFactory) {
+app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
     $scope.cart = Cart;
 
     console.log("user! ",currentUser);
@@ -91,17 +91,14 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
     }
 
     $scope.processOrder = function() {
-        console.log("STARTED PROCESSING ORDER");
-        console.log("PROCESSING FOLLOWING CART", $scope.cart)
 
         AddressFactory.updateAddress($scope.cart.shipping_address._id,$scope.cart.shipping_address)
         .then(function() {
         if($scope.user) {
-            console.log("before going to checkout", $scope.cart);
+            
             CartFactory.checkout($scope.cart)
             .then(function(res) {
-                console.log("successful checkout", res);
-               MandrillFactory.sendEmail($scope.cart, "confirmation");
+               
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
@@ -111,12 +108,11 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
         else {
             CartFactory.createCart($scope.cart)
             .then(function(cart) {
-                console.log("created cart for guest", cart)
+                
                 return CartFactory.checkout($scope.cart)
             })
             .then(function(res) {
-                console.log("successful checkout", res);
-               MandrillFactory.sendEmail($scope.cart, "confirmation");
+          
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {

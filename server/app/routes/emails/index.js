@@ -1,13 +1,17 @@
-app.factory('MandrillFactory', function ($http){
-	
-	var MandrillFactory = {}
+'use strict';
+var router = require('express').Router();
+module.exports = router;
+var axios = require ('axios');
 
-    // var mandrill = require('mandrill-api/mandrill');
+if (process.env.NODE_ENV === 'production'){
+	var mandrill = process.env.MANDRILL_KEY;
+} else {
+	var mandrill = require ('../../../env/mandrill.js');
+}
 
-    //var messagePost;
-   // var mandrillKey = app.getValue('env').MANDRILL_KEY;
+
 	var messagePost = {
-		'key': 'MKQ7pv_KpEFpT8UiyH4-Aw',
+		'key': mandrill.key,
 	    'message': {
 	      from_email: 'acme@acmestackstore.com',
 	      from_name: 'ACME inc.',
@@ -17,8 +21,40 @@ app.factory('MandrillFactory', function ($http){
 	    }
   	};
 
-  	MandrillFactory.setMessageHtml = function (order, type){
-  		if (type === "confirmation"){
+
+router.post('/:type', function(req, res, next){
+    
+    var order = req.body;
+    var type = req.params.type;
+
+	setMessageHtml(order, type);
+
+  	messagePost.message.to= [
+          {
+            name: order.email,
+            email: order.email,
+            'type': 'to'
+          }
+        ];
+
+	    
+	 axios.post('https://mandrillapp.com/api/1.0/messages/send.json', messagePost )
+	 .then (function (response){
+		res.send("email sent");
+	 })
+	 .catch (function (response){
+		res.status(404).send('email send failed');
+	 })
+
+
+})
+
+
+
+
+
+  	function setMessageHtml (order, type) {
+  		if (type === "ordered"){ 
   			messagePost.message.subject="ACME inc Order Confirmation";
   			messagePost.message.html = "<html><head><meta charset='utf-8'></head><body><div class='row'><h1>" + order.email + ", your order has been placed!</h1><h2>Confirmation #" + order._id + "</h2></div></body></html>"
   		}
@@ -35,30 +71,3 @@ app.factory('MandrillFactory', function ($http){
   			messagePost.message.html = "<html><head><meta charset='utf-8'></head><body><div class='row'><h1>" + order.email + ", your order has was delivered!</h1><h2>Confirmation #" + order._id + "</h2></div></body></html>"
   		}
   	}
-
-
-	MandrillFactory.sendEmail = function (order, type){
-			console.log("in mandrill factory send email", order)
-		  this.setMessageHtml(order, type);
-
-		  messagePost.message.to= [
-		          {
-		            name: order.email,
-		            email: order.email,
-		            'type': 'to'
-		          }
-		        ];
-
-		      console.log("message to post", messagePost)
-	     return $http.post('https://mandrillapp.com/api/1.0/messages/send.json', messagePost )
-		  .success(function(data, status, headers, config){
-		    // log success
-		    console.log("email sent");
-		  })
-		  .error (function(err){
-		  	console.log(err);
-		  });
-	}
-
-    return MandrillFactory;
-})

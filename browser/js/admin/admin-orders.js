@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
     
 });
 
-app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrders, CartFactory, MandrillFactory) {
+app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrders, CartFactory) {
     
     $scope.login = {};
     $scope.error = null;
@@ -37,7 +37,6 @@ app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrde
         CartFactory.updateStatus(order)
         .then (function (updatedOrder){
             console.log("udpated order", updatedOrder);
-            MandrillFactory.sendEmail(updatedOrder, updatedOrder.status);
             $state.go($state.current, {}, {reload: true});
          });
     }
@@ -52,7 +51,6 @@ app.controller('AdminOrdersCtrl', function ($scope, AuthService, $state, allOrde
             orderToCancel.status = "cancelled";
             CartFactory.updateStatus(orderToCancel)
             .then (function (updatedOrder){
-                MandrillFactory.sendEmail(updatedOrder, updatedOrder.status);
                 $state.go($state.current, {}, {reload: true});
              });
         }
