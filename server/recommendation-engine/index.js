@@ -2,6 +2,7 @@
 var chalk = require('chalk');
 var express = require('express');
 var app = express();
+var cors = require('cors');
 var bodyParser = require('body-parser');
 // var startDB = require('./db/index.js')
 
@@ -12,20 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', function (req, res, next) {
     res.send('Hello World!');
 });
-
-app.use(function (req, res, next) {
-    console.log('BEFORE WRITEHEAD')
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    res.setHeader("Access-Control-Allow-Methods", "PUT");
-    //res.setHeader("Content-Type", undefined);
-
-    //res.writeHead(200, {
-    //    "Access-Control-Allow-Origin": "*",
-    //    "Access-Control-Allow-Methods": "*"
-    //})
-    console.log('blah')
-    next();
-});
+app.use(cors());
 
 app.use('/api', require('./routes'));
 
