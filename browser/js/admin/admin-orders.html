@@ -11,7 +11,7 @@
           <tr><th>Cart ID</th><th>User</th><th>Items</th><th>Status</th><th>Checkout Date</th><th>Action</th></tr>
           <tr ng-repeat="order in allOrders | filter:search">
             <td>{{ order._id }}</td>
-            <td>{{ order.user_id.email }}</td>
+            <td>{{ order.email }}</td>
             <td>{{ order.items.length }}</td>
             <td>{{ order.status }}</td>
             <td>{{ order.checkout_date }}</td>

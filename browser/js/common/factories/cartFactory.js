@@ -76,18 +76,20 @@ app.factory('CartFactory', function($rootScope, $http){
 	CartFactory.updateStatus = function (cart){
 		return $http.put('/api/carts/' + cart._id, cart)
 				.then (function(response){
-					return response.data;
-				}, function (err){
-					return err;
+					$http.post('/api/emails/' + response.data.status, response.data)
+					.then (function (newResponse){
+						return response.data;
+					})
 				})
 	}
 
 	CartFactory.checkout = function(cart) {
 		return $http.put('/api/carts/' + cart._id +'/checkout/', cart)
 		.then(function(response) {
-			return response.data;
-		}, function(err) {
-			return err;
+			$http.post('/api/emails/ordered', cart)
+			.then (function (newResponse){
+				return response.data;
+			})
 		})
 
 	}
