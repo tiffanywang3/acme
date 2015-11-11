@@ -20,7 +20,7 @@ app.controller('AdminAddProductCtrl', function ($scope, AuthService, $state, Pro
          ProductFactory.createProduct($scope.product)
          .then (function (newProduct){
             $scope.product = newProduct;
-            console.log("Updated!");
+            $state.go('admin.products');
          });
       
     }
