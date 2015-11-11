@@ -3,7 +3,7 @@ app.factory('RecommendationFactory', function($rootScope, $http){
     var RecommendationFactory = {};
 
     RecommendationFactory.getRec = function(itemId) {
-        return $http.get('http://127.0.0.1:3000/api/' + itemId)
+        return $http.get('https://thawing-coast-4564.herokuapp.com:3000/api/' + itemId)
             .then(function(response){
                 return response.data
             }, function(err){
@@ -18,7 +18,7 @@ app.factory('RecommendationFactory', function($rootScope, $http){
         });
 
         var data = { items: productIDs};
-        return $http.put('http://127.0.0.1:3000/api', data)
+        return $http.put('https://thawing-coast-4564.herokuapp.com:3000/api', data)
             .then(function(response){
                 console.log("got into factory put putRecs");
                 console.log("resposne.data", response.data);
