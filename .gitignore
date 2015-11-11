@@ -5,4 +5,5 @@ public
 .DS_Store
 coverage
 bower_components
+server/env/mandrill.js
 

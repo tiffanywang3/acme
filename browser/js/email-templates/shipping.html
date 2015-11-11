@@ -1,0 +1,16 @@
+<html>
+  <head><meta charset='utf-8'></head>
+  <body>
+    <img style="height:50px; width:100px" src="js/common/directives/acme-logo/acmeInc.png">
+    <div class="row">
+    <h1>{{ user.first_name!==undefined ? user.first_name : user.email }}, your order has been shipped!</h1>
+        <h2>Confirmation # {{cart._id}}</h2>
+  </div>
+<div class="row">
+    <div class="order-detail"><h4>Status: {{ order.status }}</h4>
+      <p><b>Order ID:</b> {{ order._id }}     |      <b>Number of items:</b> {{ order.items.length }}     |      <b>Checkout Date:</b> {{ order.checkout_date }}     |      <b>Expected Delivery Date:</b> {{ order.checkout_date+5 }}</p>
+     </div>
+  </div>
+
+  </body>
+  </html>

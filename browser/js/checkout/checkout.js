@@ -44,7 +44,6 @@ app.config(function ($stateProvider) {
 app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
     $scope.cart = Cart;
 
-
     console.log("user! ",currentUser);
     console.log("shipping", Address);
     $scope.error = null;
@@ -92,15 +91,14 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
     }
 
     $scope.processOrder = function() {
-        console.log("STARTED PROCESSING ORDER");
-        console.log("PROCESSING FOLLOWING CART", $scope.cart)
 
         AddressFactory.updateAddress($scope.cart.shipping_address._id,$scope.cart.shipping_address)
         .then(function() {
         if($scope.user) {
+            
             CartFactory.checkout($scope.cart)
             .then(function(res) {
-                console.log("successful checkout", res);
+               
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
@@ -110,11 +108,11 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
         else {
             CartFactory.createCart($scope.cart)
             .then(function(cart) {
-                console.log("created cart for guest", cart)
+                
                 return CartFactory.checkout($scope.cart)
             })
             .then(function(res) {
-                console.log("successful checkout", res);
+          
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
@@ -123,6 +121,8 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
         }
         })
     }
+
+
 
 });
 
