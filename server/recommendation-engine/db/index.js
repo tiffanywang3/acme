@@ -4,7 +4,7 @@ var path = require('path');
 var chalk = require('chalk');
 
 
-var DATABASE_URI = require(path.join(__dirname, "mongodb://localhost:27017/fsg-app")).DATABASE_URI;
+//var DATABASE_URI = require(path.join(__dirname, "mongodb://localhost:27017/fsg-app")).DATABASE_URI;
 
 var mongoose = require('mongoose');
 var db = mongoose.connect("mongodb://localhost:27017/fsg-app").connection;
