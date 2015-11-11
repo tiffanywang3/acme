@@ -22,15 +22,18 @@ app.controller('AdminEditProductsCtrl', function ($scope, AuthService, $state, t
 
        // convert category field back into an array before updating
        if ($scope.product.category.indexOf(",")!==-1){
-         $scope.product.category = $scope.product.category.split(",");
-       } else {
-         $scope.product.category = $scope.product.category.split();
+         $scope.product.category = $scope.product.category.split(", ");
+       } else if ($scope.product.category === '[' + $scope.product.category + "]"){
+          $scope.product.category = [$scope.product.category.slice(1,$scope.product.category.length)];
+        }else{
+          $scope.product.category = [$scope.product.category]
        }
        
          ProductFactory.updateProduct($scope.product._id, $scope.product)
          .then (function (updatedProduct){
             $scope.product = updatedProduct;
-            console.log("Updated!");
+            
+             $state.go('admin.products');
          });
       
     }
