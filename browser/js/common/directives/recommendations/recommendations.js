@@ -9,11 +9,12 @@ app.directive('recommendation', function(RecommendationFactory, ProductFactory){
             var prodIds;
             scope.recommendedProducts= [];
             //  scope.cart.items
+            console.log("THIS IS BEFORE THE RecommendationFactory.gETREC")
             RecommendationFactory.getRec(scope.product)
             .then(function(prods){
                 //scope.recommendedProducts = prods;
                 prodIds = prods;
-                
+                console.log("all recommended Products", prods)
                 return ProductFactory.fetchById(prodIds[0])
             })
             .then(function(prod1){
@@ -25,11 +26,11 @@ app.directive('recommendation', function(RecommendationFactory, ProductFactory){
                 return ProductFactory.fetchById(prodIds[2])
             })
             .then(function(prod3){
+                console.log("third Product", prod3)
                     scope.recommendedProducts.push(prod3)
             })
 
             scope.noRecs = function(){
-               if (!scope.recommendedProducts) return true;
                return scope.recommendedProducts.length === 0;
             }
         }

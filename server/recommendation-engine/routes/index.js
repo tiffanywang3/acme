@@ -5,6 +5,7 @@ var _ = require('lodash');
 var Recommendation = require('../db/models/recommendation.js');
 
 router.get('/:productId', function(req, res, next){
+    console.log("GOT INTO THE GET ROUTE")
     Recommendation.findOne({ product_id: req.params.productId})
         .then(function(productRec){
 
@@ -34,6 +35,7 @@ router.get('/:productId', function(req, res, next){
             for(var i = 0; i < three.length; i++){
                 recIds.push(three[i][0]);
             }
+            console.log("DID THIS TAKE 17 SECONDS?")
             res.send(recIds);
 
 
