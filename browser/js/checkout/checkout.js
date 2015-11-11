@@ -41,7 +41,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory) {
+app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, AuthService, AddressFactory, $state, $stateParams, CartFactory, RecommendationFactory) {
     $scope.cart = Cart;
 
     console.log("user! ",currentUser);
@@ -91,15 +91,15 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
     }
 
     $scope.processOrder = function() {
-
         AddressFactory.updateAddress($scope.cart.shipping_address._id,$scope.cart.shipping_address)
         .then(function() {
         if($scope.user) {
             
             CartFactory.checkout($scope.cart)
             .then(function(res) {
-               
-                $state.go('confirmation',{cartid: $scope.cart._id})
+                RecommendationFactory.putRecs($scope.cart);
+                $state.go('confirmation',{cartid: $scope.cart._id});
+
             })
             .then(null, function(err) {
                 console.log("failed checkout", err)
@@ -112,7 +112,8 @@ app.controller('CheckoutCtrl', function (Cart, currentUser, Address, $scope, Aut
                 return CartFactory.checkout($scope.cart)
             })
             .then(function(res) {
-          
+                RecommendationFactory.putRecs($scope.cart);
+
                 $state.go('confirmation',{cartid: $scope.cart._id})
             })
             .then(null, function(err) {
