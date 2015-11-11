@@ -2,7 +2,7 @@
 var Promise = require('bluebird');
 var path = require('path');
 var chalk = require('chalk');
-var DATABASE_URI = require(path.join(__dirname, '../../env')).DATABASE_URI;
+var DATABASE_URI = process.env.DATABASE_URI;
 
 var mongoose = require('mongoose');
 var db = mongoose.connect(DATABASE_URI).connection;
